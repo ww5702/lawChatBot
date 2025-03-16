@@ -55,9 +55,11 @@ class Agent:
         )
         return completion.choices[0].message.content
 
-def interactive_law_consultation(abot):
+def interactive_law_consultation(abot, category):
     """사용자가 질문하면 AI가 단계별 질문을 진행하며 정보를 수집"""
-    print("\n[나만의 사고 AI 서비스 '🚀 사고닷 🚀' 법률 상담 챗봇] 상담을 시작합니다. (종료하려면 'exit' 입력)\n")
+
+    ai_response=abot(f"{category} 관련해서 문의 드리고 싶습니다.")
+    print("\n🚀 사고닷 🚀 : ", ai_response)
 
     # 초기 사용자 질문 입력
     while True:
