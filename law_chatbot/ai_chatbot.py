@@ -48,7 +48,7 @@ os.environ['USER_AGENT']='MyCustomAgent'
 @st.cache_resource
 def load_chroma_db():
     return Chroma(
-        persist_directory="./chroma_Web",
+        persist_directory=os.path.join(os.path.dirname(__file__), "chroma_Web"),
         embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key)
     )
 
@@ -63,7 +63,9 @@ llm = ChatOpenAI(
 
 # 프롬프트 로드 함수 추가
 def load_prompt(filename):
-    with open(f"prompts/{filename}", "r", encoding="utf-8") as file:
+    base_path = os.path.dirname(__file__)  # 현재 파일 기준 디렉토리
+    prompt_path = os.path.join(base_path, "prompts", filename)  # 절대 경로로 설정
+    with open(prompt_path, "r", encoding="utf-8") as file:
         return file.read()
 
 
