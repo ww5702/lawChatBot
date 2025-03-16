@@ -12,3 +12,6 @@ faiss-cpu
 
 # .env 설정
 python-dotenv
+
+# streamlit
+streamlit
