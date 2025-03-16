@@ -49,6 +49,42 @@ def local_css():
         * {
             font-family: 'Noto Sans KR', sans-serif;
         }
+                
+        /* 라이트 모드 */
+        @media (prefers-color-scheme: light) {
+            .stApp {
+                background-color: #F8FAFC !important;
+                color: #1F2937 !important; /* 글자 색을 어두운 색으로 */
+            }
+            .service-card, .stForm {
+                background-color: white !important;
+                color: #1F2937 !important;
+            }
+            .profile-card {
+                background-color: white !important;
+                color: #374151 !important;
+            }
+        }
+        
+        /* 다크 모드 */
+        @media (prefers-color-scheme: dark) {
+            .stApp {
+                background-color: #1E1E1E !important;
+                color: #EAEAEA !important; /* 글자 색을 밝게 */
+            }
+            .service-card, .stForm {
+                background-color: #2A2A2A !important;
+                color: #EAEAEA !important;
+            }
+            .profile-card {
+                background-color: #2A2A2A !important;
+                color: #EAEAEA !important;
+            }
+            .stButton>button {
+                background-color: #3d6aff !important;
+                color: white !important;
+            }
+        }
         
         /* 헤더 스타일 */
         .main-header {
