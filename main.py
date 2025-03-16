@@ -64,6 +64,7 @@ def local_css():
                 
         .body-head {
             margin-top: 1rem;
+            margin-bottom: 0.5rem;
                 
         }
         
@@ -144,63 +145,102 @@ def local_css():
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
                 
-        /* 프로필 카드 스타일 */
-        .profile-card {
-            background-color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            height: 34rem; /* 고정된 높이 설정 */
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #F1F5F9;
-            overflow: hidden;
-        }
-
-        .profile-name {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .profile-desc {
-            color: ##4e5968;
-            font-size: 0.9rem;
-            text-align: center;
-            height: 350px; /* 설명 영역 높이 고정 */
-            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
-            padding: 0 5px;
-        }
+            /* 프로필 카드 스타일 */
+    /* 프로필 카드 스타일 - Flex 레이아웃 적용 */
+    .profile-card {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        height: 34rem; /* 고정된 높이 설정 */
+        padding-top: 2rem;
+        padding-bottom: 2rem;
         
-        /* 폼 스타일 */
+        /* Flex 레이아웃 적용 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .profile-image {
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        margin: 0 auto 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #F1F5F9;
+        overflow: hidden;
+    }
+
+    .profile-name {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .profile-desc {
+        color: #4e5968;
+        font-size: 0.9rem;
+        text-align: center;
+        flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+        padding: 0 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* 내용을 위에서부터 배치 */
+    }
+
+    /* 내용이 긴 경우를 위한 스크롤바 스타일 개선 */
+    .profile-desc::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .profile-desc::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .profile-desc::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+
+    .profile-desc::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+        
         .stForm {
             background-color: white;
             border-radius: 10px;
+            padding: 2rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            height: 15rem;
             transition: transform 0.3s;
             cursor: pointer;
-            padding: 0.5rem !important;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-                
-                
-        
+
         .stForm:hover {
-            transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 폼 내부 콘텐츠 컨테이너 */
+        .form-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 버튼 컨테이너 */
+        .button-container {
+            margin-top: 1rem;
         }
 
         /* 폼 제출 버튼 숨기기 (또는 작게 만들기) */
@@ -213,6 +253,7 @@ def local_css():
                 margin-bottom: 1rem;
             }
         }
+                
     </style>
     """, unsafe_allow_html=True)
 
@@ -263,6 +304,7 @@ if st.session_state.current_page == "홈":
     </div>
     """, unsafe_allow_html=True)
     
+
     # 카드 스타일을 폼으로 대체
     col1, col2, col3 = st.columns(3)
 
@@ -270,7 +312,7 @@ if st.session_state.current_page == "홈":
         # AI 법률 상담 폼
         with st.form(key="ai_consultation_form"):
             st.markdown("""
-            <div style="text-align: left; padding: 0.5rem;">
+            <div class="form-content">
                 <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">💬</div>
                 <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">실시간 AI 법률 상담</div>
                 <div style="color: #4e5968; font-size: 0.9rem;">
@@ -280,11 +322,11 @@ if st.session_state.current_page == "홈":
             </div>
             """, unsafe_allow_html=True)
             
-            # 폼 제출 버튼 (스타일 숨김)
-            submit_button = st.form_submit_button("이동", use_container_width=True)
+            # 버튼 컨테이너를 추가하여 폼 하단에 배치
+            st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
+            submit_button = st.form_submit_button("바로가기", use_container_width=True)
             
             if submit_button:
-                # 다른 페이지로 이동
                 st.session_state.redirect_page = "ai_consultation"
                 st.rerun()
 
@@ -292,20 +334,20 @@ if st.session_state.current_page == "홈":
         # 법률 자문 보고서 폼
         with st.form(key="law_report_form"):
             st.markdown("""
-            <div style="text-align: left; padding: 0.5rem;">
+            <div class="form-content">
                 <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📝</div>
                 <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">AI 법률 자문 보고서 생성</div>
                 <div style="color: #4e5968; font-size: 0.9rem;">
-                    케이스에 맞는 맞춤형 법률 자문 보고서를 생성합니다.<br>이를 바탕으로 국내 최고의 변호사들과 바로 연결됩니다.
+                    케이스에 맞는 맞춤형 법률 자문 보고서를 생성합니다.<br>
+                    이를 바탕으로 국내 최고의 변호사들과 바로 연결됩니다.
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
-            # 폼 제출 버튼 (스타일 숨김)
-            submit_button = st.form_submit_button("이동", use_container_width=True)
+            st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
+            submit_button = st.form_submit_button("바로가기", use_container_width=True)
             
             if submit_button:
-                # 다른 페이지로 이동
                 st.session_state.redirect_page = "law_report"
                 st.rerun()
 
@@ -313,22 +355,23 @@ if st.session_state.current_page == "홈":
         # 방명록 폼
         with st.form(key="guestbook_form"):
             st.markdown("""
-            <div style="text-align: left; padding: 0.5rem;">
+            <div class="form-content">
                 <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📋</div>
                 <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">방명록</div>
                 <div style="color: #4e5968; font-size: 0.9rem;">
-                    서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>방명록을 작성하거나 좋아요를 눌러보세요!
+                    서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>
+                    방명록을 작성하거나 좋아요를 눌러보세요!
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
-            # 폼 제출 버튼 (스타일 숨김)
-            submit_button = st.form_submit_button("이동", use_container_width=True)
+            st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
+            submit_button = st.form_submit_button("바로가기", use_container_width=True)
             
             if submit_button:
-                # 다른 페이지로 이동
                 st.session_state.redirect_page = "guestbook"
                 st.rerun()
+
     
     st.markdown("""
         <style>
@@ -352,10 +395,10 @@ if st.session_state.current_page == "홈":
     # 변호사 정보와 이미지 정의
     lawyers = [
         {"name": "손지영", "specialty": '"백전 백승, 무패의 전설<br>상대가 누구든 다 뿌셔드립니다."<br><br>• 성격: ENTJ (의뢰인에게도 화낼 수 있음 주의)<br><br>• 대원한국어고등학교 졸업 (2005)<br>• 한국대학교 물리학과 학사 (2010)<br>• 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>• 김앤손 법률 사무소 (2008 ~ 2015)<br>• 사고닷 법률 사무소 (2015 ~ 현재)<br>', "image": "images/손지영.png"},
-        {"name": "김민주", "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>• 비빔대학교 (법학/문학, 수석 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>', "image": "images/김민주.png"},
-        {"name": "김다은", "specialty": '"시켜줘 그럼, SKALA 명예 변호사"<br><br>• 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br><br>• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>(법학스칼라전문박사, 박사 졸업, 2016)<br>• 하버드 법학대학원 (법학 박사, 2005)<br>• 국제 법률 자문관 (2015 - 2025)<br>• 사고닷 법률 사무소 변호사 (2016 - 현재)<br>• SKALA 명예 변호사로 활동 (2018 - 현재)<br>', "image": "images/김다은.png"},
         {"name": "이재웅", "specialty": '"자신이 없습니다. 질 자신이.<br>가장 확실한 해결책, 포기 없는 변호."<br><br>• 성격 : INFJ (근데 사실 T임)<br><br>• 한국대학교 법학전문대학학원<br>(법학스칼라전문박사, 박사 졸업, 2018)<br>• 너뭐대학교<br>(한국사, 문학과, 수석 졸업, 2015)<br>• 사고닷 법률 사무소 (2016 - 현재)', "image": "images/이재웅.png"},
+        {"name": "김다은", "specialty": '"시켜줘 그럼, SKALA 명예 변호사"<br><br>• 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br><br>• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>(법학스칼라전문박사, 박사 졸업, 2016)<br>• 하버드 법학대학원 (법학 박사, 2005)<br>• 국제 법률 자문관 (2015 - 2025)<br>• 사고닷 법률 사무소 변호사 (2016 - 현재)<br>• SKALA 명예 변호사로 활동 (2018 - 현재)<br>', "image": "images/김다은.png"},
         {"name": "진실", "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>이혼 전문 맡겨만 주세요."<br><br>• 성격: ISFP (공감 잘함. 의뢰인과 울음 대결 가능)<br><br>• 제9회 변호사시험 합격 (2020)<br>• 한국대학교 법학전문대학원<br>(법학스칼라전문석사, 수석졸업, 2020)<br>• 두번 다시 사랑모대학교<br>(문학사, 서양사학, 수석졸업, 2017)<br>• 사고닷 법률사무소 (2020-현재)', "image": "images/진실.png"},
+        {"name": "김민주", "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>• 비빔대학교 (법학/문학, 수석 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>', "image": "images/김민주.png"},
         {"name": "이효정", "specialty": '"오직 노동자만을 위한<br>노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"<br><br>• 성격: INTJ (노동자에게만 F)<br><br>• 한국대학교(법학, 2020)<br>• 한국대학교 법학전문대학원(법학전문석사, 2023)<br>• 한국노동교육원 법률 자문(2023 - 현재)<br>• 사고닷 법률 사무소(2024 - 현재)', "image": "images/이효정.png"}
     ]
     
