@@ -23,7 +23,7 @@ if 'redirect_page' in st.session_state:
     # 페이지 이동
     if redirect_page == "ai_consultation":
         import streamlit as st
-        st.switch_page("pages/ai_consultation.py")
+        st.switch_page("pages/ai_chatbot.py")
     elif redirect_page == "law_report":
         import streamlit as st
         st.switch_page("pages/ai_report.py")  # 변경된 파일명으로 연결
