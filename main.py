@@ -44,6 +44,11 @@ def local_css():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: none; 
         }
+                
+        .body-head {
+            margin-top: 1rem;
+                
+        }
         
         /* 카드 스타일 */
         .service-card {
@@ -55,6 +60,7 @@ def local_css():
             height: 100%;
             transition: transform 0.3s;
             cursor: pointer;
+            height: 15rem;
         }
         
         .service-card:hover {
@@ -76,7 +82,7 @@ def local_css():
         }
         
         .card-description {
-            color: #4B5563;
+            color: ##4e5968;
             font-size: 0.9rem;
         }
         
@@ -121,7 +127,7 @@ def local_css():
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
                 
-        
+
         /* 프로필 카드 스타일 */
         .profile-card {
             background-color: white;
@@ -129,11 +135,12 @@ def local_css():
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
-            height: 100%;
+            height: 34rem; /* 고정된 높이 설정 */
             padding-top: 2rem;
             padding-bottom: 2rem;
+
         }
-        
+
         .profile-image {
             width: 150px;
             height: 150px;
@@ -145,7 +152,7 @@ def local_css():
             background-color: #F1F5F9;
             overflow: hidden;
         }
-        
+
         .profile-name {
             font-size: 1.4rem;
             font-weight: 500;
@@ -153,11 +160,14 @@ def local_css():
             margin-bottom: 8px;
             text-align: center;
         }
-        
+
         .profile-desc {
-            color: #4B5563;
+            color: ##4e5968;
             font-size: 0.9rem;
             text-align: center;
+            height: 350px; /* 설명 영역 높이 고정 */
+            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+            padding: 0 5px;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -203,7 +213,11 @@ if st.session_state.current_page == "홈":
     st.markdown("<div class='main-header'><h1>🚀 사고닷 🚀</h1><p>실시간 AI 상담부터 맞춤형 법률 보고서<br>변호사 연결까지, 사고닷에서 법률 고민 끝!</p></div>", unsafe_allow_html=True)
 
     # 서비스 소개
-    st.markdown("### 주요 서비스")
+    st.markdown("""
+    <div class='body-head'>
+        <h2>주요 서비스 바로가기</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
@@ -221,7 +235,7 @@ if st.session_state.current_page == "홈":
     
     with col2:
         st.markdown("""
-        <div class='service-card' onclick="window.location.href='#'">
+        <div class='service-card' onclikc="location.href = "law-report.py">
             <div class='card-icon'>📝</div>
             <div class='card-title'>AI 법률 자문 보고서 생성</div>
             <div class='card-description'>
@@ -241,17 +255,31 @@ if st.session_state.current_page == "홈":
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("---")
-    
+    st.markdown("""
+        <style>
+        .horizon-line {
+            border-top: 2px solid #e7e8e8;
+            margin: 20px 0;
+            margin-top: 3rem;
+        }
+        </style>
+        <div class='horizon-line'></div>
+        """, unsafe_allow_html=True)
+        
     # 변호사 소개
-    st.markdown("### 국내 Top 변호사 소개")
+    st.markdown("""
+    <div class='body-head'>
+        <h2>국내 Top 변호사 소개</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
     
     # 변호사 정보와 이미지 정의
     lawyers = [
-        {"name": "손지영", "specialty": "• 서울대학교 법학과 졸업 ㅋ<br>안녕", "image": "images/손지영.png"},
-        {"name": "김민주", "specialty": "상법 전문", "image": "images/김민주.png"},
-        {"name": "김다은", "specialty": "특허법 전문", "image": "images/김다은.png"},
-        {"name": "이재웅", "specialty": '“자신이 없습니다. 질 자신이.<br>가장 확실한 해결책, 포기 없는 변호.”<br><br>• 성격 : INFJ (근데 사실 T임)<br><br>• 한국대학교 법합전문대학학원<br>(법학스칼라전문박사, 박사 졸업, 2018)<br>• 너뭐대학교<br>(한국사, 문학과, 수석 졸업, 2015)<br>• 사고닷 법률 사무소 (2016 - 현재)', "image": "images/이재웅.png"},
+        {"name": "손지영", "specialty": "“백전 백승, 무패의 전설<br>상대가 누구든 다 뿌셔드립니다.”<br><br>• 성격: ENTJ (의뢰인에게도 화낼 수 있음 주의)<br><br>• 대원한국어고등학교 졸업 (2005)<br>• 한국대학교 물리학과 학사 (2010)<br>• 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>• 김앤손 법률 사무소 (2008 ~ 2015)<br>• 사고닷 법률 사무소 (2015 ~ 현재)<br>", "image": "images/손지영.png"},
+        {"name": "김민주", "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다.”<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>• 비빔대학교 (법학/문학, 수석 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>', "image": "images/김민주.png"},
+        {"name": "김다은", "specialty": "“시켜줘 그럼, SKALA 명예 변호사”<br><br>• 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br><br>• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>(법학스칼라전문박사, 박사 졸업, 2016)<br>• 하버드 법학대학원 (법학 박사, 2005)<br>• 국제 법률 자문관 (2015 - 2025)<br>• 사고닷 법률 사무소 변호사 (2016 - 현재)<br>• SKALA 명예 변호사로 활동 (2018 - 현재)<br>", "image": "images/김다은.png"},
+        {"name": "이재웅", "specialty": '“자신이 없습니다. 질 자신이.<br>가장 확실한 해결책, 포기 없는 변호.”<br><br>• 성격 : INFJ (근데 사실 T임)<br><br>• 한국대학교 법학전문대학학원<br>(법학스칼라전문박사, 박사 졸업, 2018)<br>• 너뭐대학교<br>(한국사, 문학과, 수석 졸업, 2015)<br>• 사고닷 법률 사무소 (2016 - 현재)', "image": "images/이재웅.png"},
         {"name": "진실", "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>이혼 전문 맡겨만 주세요.”<br><br>• 성격: ISFP (공감 잘함. 의뢰인과 울음 대결 가능)<br><br>• 제9회 변호사시험 합격 (2020)<br>• 한국대학교 법학전문대학원<br>(법학스칼라전문석사, 수석졸업, 2020)<br>• 두번 다시 사랑모대학교<br>(문학사, 서양사학, 수석졸업, 2017)<br>• 사고닷 법률사무소 (2020-현재)', "image": "images/진실.png"},
         {"name": "이효정", "specialty": '"오직 노동자만을 위한<br>노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"<br><br>• 성격: INTJ (노동자에게만 F)<br><br>• 한국대학교(법학, 2020)<br>• 한국대학교 법학전문대학원(법학전문석사, 2023)<br>• 한국노동교육원 법률 자문(2023 - 현재)<br>• 사고닷 법률 사무소(2024 - 현재)', "image": "images/이효정.png"}
     ]
@@ -316,10 +344,25 @@ if st.session_state.current_page == "홈":
         with row2_cols[i-3]:
             st.markdown(profile_html, unsafe_allow_html=True)
     
-    st.markdown("---")
+    
+    st.markdown("""
+        <style>
+        .horizon-line {
+            border-top: 2px solid #e7e8e8;
+            margin: 20px 0;
+            margin-top: 3rem;
+        }
+        </style>
+        <div class='horizon-line'></div>
+        """, unsafe_allow_html=True)
+    
     
     # 통계 섹션
-    st.markdown("### 서비스 통계")
+    st.markdown("""
+    <div class='body-head'>
+        <h2>서비스 통계</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
@@ -331,16 +374,12 @@ if st.session_state.current_page == "홈":
     
     with col3:
         st.metric(label="사용자 만족도", value="4.8/5.0", delta="0.2 상승")
-    
-    # 푸터
-    st.markdown("<div class='footer'>© 2025 AI 법률 서비스 '사고닷' by Happy6Team🙂</div>", unsafe_allow_html=True)
 
 
 
 # 우리 팀 소개 페이지
 elif st.session_state.current_page == "우리 팀 소개":
     st.title("행복한 6조를 소개합니다😆")
-
 
 
 # 우리 서비스 소개 페이지
