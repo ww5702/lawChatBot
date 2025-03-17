@@ -28,6 +28,52 @@ def local_css():
             font-family: 'Noto Sans KR', sans-serif;
         }
         
+        /* 다크 모드 */
+        @media (prefers-color-scheme: dark) {
+            body, .stApp {
+                background-color: #1E1E1E !important;
+                color: #EAEAEA !important; /* 기본 글자색 */
+            }
+            .stTextInput input, .stTextArea textarea {
+                background-color: #333 !important; /* 어두운 배경 */
+                color: #FFF !important; /* 밝은 글자 */
+                border: 1px solid #555 !important;
+            }
+            .stTextInput input::placeholder, .stTextArea textarea::placeholder {
+                color: #FFF !important; /* 밝은 글자 */
+            }
+            .stTextInput input:focus, .stTextArea textarea:focus {
+                border: 1px solid #3d6aff !important; /* 포커스 시 테두리 강조 */
+                box-shadow: 0 0 5px rgba(61, 106, 255, 0.6);
+            }
+            .stButton > button {
+                background-color: #3d6aff;
+                color: white;
+                border: none;
+                transition: all 0.3s;
+            }
+            .stButton > button:hover {
+                background-color: #1a4eff;
+            }
+            .review-box {
+                background-color: #333 !important; /* 어두운 배경 */
+                color: #FFF !important; /* 밝은 글자 */
+                border: 1px solid #555 !important;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .delete-box {
+                background-color: #e63946 !important; /* 강렬한 빨간색 */
+                color: white !important;
+                border-radius: 8px;
+                padding: 15px;
+                margin: 10px 0;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+                
         /* 헤더 스타일 */
         .main-header {
             background-color: #3d6aff;
@@ -246,6 +292,7 @@ def render_review_form():
     
     # 폼 컨테이너 종료
     st.markdown('</div>', unsafe_allow_html=True)
+    
     
     return user_name, user_password, user_review, submit_button
 
@@ -591,7 +638,6 @@ def main():
 
     # 후기 작성 폼 실행
     user_name, user_password, user_review, submit_button = render_review_form()
-    
     # 제출 버튼 클릭 시 처리
     if submit_button:
         handle_review_submission(user_name, user_password, user_review)
