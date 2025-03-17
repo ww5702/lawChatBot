@@ -27,7 +27,7 @@ from agent import Agent
 # key 값
 from config import load_keys
 
-# 🔹 현재 페이지 식별
+# 현재 페이지 식별
 current_page = "ai_chatbot"
 
 # ####################################################
