@@ -27,7 +27,7 @@ from agent import Agent
 # key 값
 from config import load_keys
 
-# 🔹 현재 페이지 식별
+# 현재 페이지 식별
 current_page = "ai_chatbot"
 
 # ####################################################
@@ -81,7 +81,7 @@ def load_prompt(filename):
     with open(prompt_path, "r", encoding="utf-8") as file:
         return file.read()
 
-# 🔹 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
+# 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
 if "last_page" not in st.session_state or st.session_state.last_page != current_page:
     st.session_state.clear()  # 기존 상태 초기화
     st.session_state.last_page = current_page  # 현재 페이지를 저장하여 비교
