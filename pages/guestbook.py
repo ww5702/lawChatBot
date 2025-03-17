@@ -5,6 +5,13 @@ import json
 import os
 import sys
 
+st.set_page_config(
+    page_title="방명록",
+    page_icon="📋",
+    layout="centered",  # "wide"에서 "centered"로 변경
+    initial_sidebar_state="expanded"
+)
+
 # utils 폴더를 sys.path에 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
 sys.path.append(BASE_DIR)  # Python import 경로에 추가

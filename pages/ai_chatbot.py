@@ -18,6 +18,14 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
 
+
+st.set_page_config(
+    page_title="실시간 AI 법률 상담",
+    page_icon="💬",
+    layout="centered",  # "wide"에서 "centered"로 변경
+    initial_sidebar_state="expanded"
+)
+
 # 현재 파일(ai_chatbot.py)의 위치를 기반으로 lawChatBot 경로 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
 sys.path.append(BASE_DIR)  # Python import 경로에 추가

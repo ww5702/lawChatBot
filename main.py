@@ -9,7 +9,7 @@ import team_intro
 
 # 페이지 설정
 st.set_page_config(
-    page_title="AI 법률 서비스 '사고닷'",
+    page_title="AI 법률 서비스 사고닷",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -445,7 +445,7 @@ if st.session_state.current_page == "홈":
                 st.markdown("""
                 <div class="form-content">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📝</div>
-                    <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">AI 법률 자문 보고서 생성</div>
+                    <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">AI 법률 보고서 + 변호사 매칭</div>
                     <div style="color: #4e5968; font-size: 0.9rem;">
                         케이스에 맞는 맞춤형 법률 자문 보고서를 생성합니다.<br>
                         이를 바탕으로 국내 최고의 변호사들과 바로 연결됩니다.
