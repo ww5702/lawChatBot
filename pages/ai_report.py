@@ -305,7 +305,6 @@ def handle_extra_information_step(prompt):
         st.session_state.current_step = "completed"
         
 
-        
     except Exception as e:
         error_message = f"보고서 생성 중 오류가 발생했습니다: {str(e)}"
         st.error(error_message)
@@ -452,6 +451,7 @@ def display_lawyer_modal():
   
     # 변호사 선택 결과 표시
     if st.session_state.confirmed_lawyer:
+        toggle_modal()
         lawyer = st.session_state.confirmed_lawyer
   
         st.markdown("<div class='selected-lawyer-info'>", unsafe_allow_html=True)

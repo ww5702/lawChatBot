@@ -100,43 +100,43 @@ def get_lawyers():
             {
                 "id":1,
                 "name": "손지영", 
-                "specialty": '"백전 백승, 무패의 전설<br>상대가 누구든 다 뿌셔드립니다."<br><br>• 성격: ENTJ (의뢰인에게도 화낼 수 있음 주의)<br><br>',
-                "description": '• 대원한국어고등학교 졸업 (2005)<br>• 한국대학교 물리학과 학사 (2010)<br>• 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>• 김앤손 법률 사무소 (2008 ~ 2015)<br>• 사고닷 법률 사무소 (2015 ~ 현재)<br>',
+                "specialty": '"백전 백승, 무패의 전설 !!! 상대가 누구든 다 뿌셔드립니다."<br> • 성격: ENTJ (의뢰인에게도 화낼 수 있음 주의) <br> ',
+                "description": '• 대원한국어고등학교 졸업 (2005)<br>  • 한국대학교 물리학과 학사 (2010)<br>  • 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>  • 김앤손 법률 사무소 (2008 ~ 2015)<br>  • 사고닷 법률 사무소 (2015 ~ 현재)<br>',
                 "image": "images/손지영.png"
             },
             {
                 "id":2,
                 "name": "김민주", 
-                "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>', 
-                "description": '• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>• 비빔대학교 (법학/문학, 무사 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>',
+                "specialty": '"법과 정의, 그리고 사람. <br>  혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br>  • 성격: ENFP (긍정적 사고 전문)<br>', 
+                "description": '• 제 7회 변호사시험 합격 (2007)<br>  • 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>  • 비빔대학교 (법학/문학, 무사 졸업, 2005)<br>  • 사고닷 법률사무소 (2020 - 현재)<br>',
                 "image": "images/김민주.png"
             },
             {
                 "id":3,
                 "name": "김다은", 
-                "specialty": '"시켜줘 그럼, SKALA 명예 변호사"<br><br>• 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br><br>', 
-                "description": '• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>(법학스칼라전문박사, 박사 졸업, 2016)<br>• 하버드 법학대학원 (법학 박사, 2005)<br>• 국제 법률 자문관 (2015 - 2025)<br>• 사고닷 법률 사무소 변호사 (2016 - 현재)<br>• SKALA 명예 변호사로 활동 (2018 - 현재)<br>',
+                "specialty": '"시켜줘 그럼, SKALA 명예 변호사"<br>  • 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br>', 
+                "description": '• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>  (법학스칼라전문박사, 박사 졸업, 2016)<br>  • 하버드 법학대학원 (법학 박사, 2005)<br>  • 국제 법률 자문관 (2015 - 2025)<br>  • 사고닷 법률 사무소 변호사 (2016 - 현재)<br>  • SKALA 명예 변호사로 활동 (2018 - 현재)<br>',
                 "image": "images/김다은.png"
             },
             {
                 "id":4,
                 "name": "이재웅", 
-                "specialty": '"자신이 없습니다. 질 자신이.<br>가장 확실한 해결책, 포기 없는 변호."<br><br>• 성격 : INFJ (근데 사실 T임)<br><br>', 
-                "description": '• 한국대학교 법학전문대학학원<br>(법학스칼라전문박사, 박사 졸업, 2018)<br>• 너뭐대학교<br>(한국사, 문학과, 수석 졸업, 2015)<br>• 사고닷 법률 사무소 (2016 - 현재)<br><br>',
+                "specialty": '"자신이 없습니다. 질 자신이.<br>  가장 확실한 해결책, 포기 없는 변호."<br>  • 성격 : INFJ (근데 사실 T임)<br>', 
+                "description": '• 한국대학교 법학전문대학학원<br>  (법학스칼라전문박사, 박사 졸업, 2018)<br>  • 너뭐대학교<br>  (한국사, 문학과, 수석 졸업, 2015)<br>  • 사고닷 법률 사무소 (2016 - 현재)<br><br>',
                 "image": "images/이재웅.png"
             },
             {
                 "id":5,
                 "name": "진실", 
-                "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>이혼 전문 맡겨만 주세요."<br><br>• 성격: ISFP (공감 잘함. 의뢰인과 울음 대결 가능)<br><br>', 
-                "description": '• 제9회 변호사시험 합격 (2020)<br>• 한국대학교 법학전문대학원<br>(법학스칼라전문석사, 수석졸업, 2020)<br>• 두번 다시 사랑모대학교<br>(문학사, 서양사학, 수석졸업, 2017)<br>• 사고닷 법률사무소 (2020-현재)<br>',
+                "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>  이혼 전문 맡겨만 주세요."<br>  • 성격: ISFP (공감 잘함. 의뢰인과 울음 대결 가능)<br>', 
+                "description": '• 제9회 변호사시험 합격 (2020)<br>  • 한국대학교 법학전문대학원<br>(법학스칼라전문석사, 수석졸업, 2020)<br>  • 두번 다시 사랑모대학교<br>  (문학사, 서양사학, 수석졸업, 2017)<br>  • 사고닷 법률사무소 (2020-현재)<br>',
                 "image": "images/진실.png"
             },
             {
                 "id":6,
                 "name": "이효정", 
-                "specialty": '"오직 노동자만을 위한<br>노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"<br><br>• 성격: INTJ (노동자에게만 F)<br><br>',
-                "description": '• 한국대학교(법학, 2020)<br>• 한국대학교 법학전문대학원(법학전문석사, 2023)<br>• 한국노동교육원 법률 자문(2023 - 현재)<br>• 사고닷 법률 사무소(2024 - 현재)<br><br><br>', 
+                "specialty": '"오직 노동자만을 위한<br>  노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"<br>  • 성격: INTJ (노동자에게만 F)<br>',
+                "description": '• 한국대학교(법학, 2020)<br>  • 한국대학교 법학전문대학원(법학전문석사, 2023)<br>  • 한국노동교육원 법률 자문(2023 - 현재)<br>  • 사고닷 법률 사무소(2024 - 현재)<br><br><br>', 
                 "image": "images/이효정.png"
             }
     ]
@@ -145,17 +145,11 @@ def get_lawyers():
 def init_session_state():
     if 'selected_lawyer' not in st.session_state:
         st.session_state.selected_lawyer = None
-
-# 변호사 선택 함수
-def select_lawyer(lawyer_id):
-    st.session_state.selected_lawyer = lawyer_id
     
-# 변호사 선택 확정 함수
-def confirm_selection():
-    if st.session_state.selected_lawyer:
-        st.session_state.confirmed_lawyer = next((l for l in get_lawyers() if l["id"] == st.session_state.selected_lawyer), None)
-        st.session_state.show_modal = False
-        st.session_state.selected_lawyer = None
+# 변호사 매칭 완료 함수
+def confirm_selection(lawyer_id):
+    st.session_state.selected_lawyer = lawyer_id
+    st.session_state.confirmed_lawyer = next((l for l in get_lawyers() if l["id"] == st.session_state.selected_lawyer), None)
 
 # 모달 닫기 함수
 def close_modal():
@@ -192,34 +186,27 @@ def show_lawyer_selection_modal():
             local_image_path = lawyer["image"]  # 같은 디렉토리에 있는 경우
             image_base64 = get_base64_image(local_image_path)
 
-            # 법률 자문 보고서 폼
-            with st.form(key=f"select_{lawyer['id']}"):
-                st.markdown(f"""
-                    <div class='{card_class}'>
-                        <img src="data:image/png;base64,{image_base64}" width=150 alt="변호사 사진">
-                        <div class='lawyer-name'>{lawyer['name']} 변호사</div>
-                        <div class='lawyer-specialty'>{lawyer['specialty']}</div>
-                        <div class='lawyer-description'>{lawyer['description']}</div>
-                        </div>
-                    </div>
-                """, unsafe_allow_html=True)
-            
-                # 폼 제출 버튼 (스타일 숨김)
-                submit_button = st.form_submit_button("선택", use_container_width=True)
-            
-                if submit_button: # 선택
-                    select_lawyer(lawyer["id"])
-                    print(lawyer["id"])
+            # 변호사 정보 출력
+            st.markdown(f"""
+                <div class='{card_class}' style="
+                    border: 1px solid #ddd;
+                    padding: 15px;
+                    border-radius: 10px;
+                    text-align: center;
+                    max-width: 300px;
+                    margin: auto;
+                ">
+                    <img src="data:image/png;base64,{image_base64}" width=150 alt="변호사 사진">
+                    <div style="font-size: 20px; font-weight: bold;">{lawyer['name']} 변호사</div>
+                    <div style="font-size: 16px; color: gray;">{lawyer['specialty']}</div>
+                    <div style="margin-top: 10px;">{lawyer['description']}</div>
+                </div>
+            """, unsafe_allow_html=True)
 
-    
-    # 확인/취소 버튼
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("선택 완료", key="confirm_btn", type="primary", use_container_width=True):
-            confirm_selection()
-    with col2:
-        if st.button("취소", key="cancel_btn", use_container_width=True):
-            close_modal()
+            # 버튼 추가 (개별 변호사 ID를 처리)
+            if st.button(f"{lawyer['name']} 변호사 매칭하기!", key=f"match_{lawyer['id']}", use_container_width=True):
+                confirm_selection(lawyer["id"])
+                print(f"Selected Lawyer ID: {lawyer['id']}")  # 콘솔 출력
     
     st.markdown("</div>", unsafe_allow_html=True)
 
