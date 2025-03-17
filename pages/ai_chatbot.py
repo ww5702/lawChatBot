@@ -27,7 +27,7 @@ from agent import Agent
 # key 값
 from config import load_keys
 
-# 현재 페이지 식별
+# 🔹 현재 페이지 식별
 current_page = "ai_chatbot"
 
 # ####################################################
@@ -248,18 +248,22 @@ with st.sidebar:
     st.markdown("---")
     st.caption("© 2025 사고닷 - 법률 상담 AI 챗봇")
 
-
 if st.session_state["loading"]:
     with st.spinner("🔄 검색 중입니다... 잠시만 기다려 주세요.🙏"):
         summary = st.session_state["chatbot"].summarize_conversation()
-        
-        if st.session_state["loading"] == "case":
-            st.session_state["case_result"] = web_rag_chain(f"{summary} 관련된 형량이나 벌금 정보")  # ✅ .invoke() 제거
-        
-        if st.session_state["loading"] == "law":
-            st.session_state["law_result"] = pdf_rag_chain.invoke(f"{summary} 관련된 법률 정보")  # ✅ LLM 체인은 여전히 .invoke() 사용 가능
 
-        st.session_state["loading"] = False  # 로딩 완료 후 상태 초기화
+        if summary.strip() == "질문 내용이 없습니다." or summary.strip() == "사용자가 질문을 입력하지 않았습니다.":   # Summary가 비어있는 경우 예외 처리
+            st.warning("⚠️ 아무런 정보가 없습니다. 먼저 AI와 대화를 진행해 주세요.")
+            st.session_state["loading"] = False  # 로딩 상태 초기화
+        else:
+            print(summary)
+            if st.session_state["loading"] == "case":
+                st.session_state["case_result"] = web_rag_chain(f"{summary} 관련된 형량이나 벌금 정보")
+
+            if st.session_state["loading"] == "law":
+                st.session_state["law_result"] = pdf_rag_chain.invoke(f"{summary} 관련된 법률 정보")
+
+            st.session_state["loading"] = False  # 로딩 완료 후 상태 초기화
 
 # ✅ 검색 결과 출력
 if st.session_state["case_result"]:
