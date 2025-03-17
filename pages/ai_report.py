@@ -3,17 +3,26 @@ from openai import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
 
+from dotenv import load_dotenv # 환경변수 불러오기
+import os
+ 
+
 # 프롬프트 템플릿 가져오기
 from prompts import question_generation_prompt, re_write_prompt, report_prompt
 
 # 법률 카테고리 데이터 가져오기
 from legal_categories import categories
 
+# 변호사 선택
+from select_lawyer import show_lawyer_selection_modal
+ 
+load_dotenv()
+
 # 상수 정의
 INITIAL_MESSAGE = "법률 사건의 정확한 이해를 돕기 위해 상담을 진행합니다."
 MODEL = "gpt-4o-mini"  
 TEMPERATURE = 0.2
-API_KEY = ""
+API_KEY = os.environ.get('OPENAI_KEY')
 
 
 # 초기 세션 상태 설정 함수
@@ -41,6 +50,13 @@ def initialize_session_state():
     for key, value in initial_states.items():
         if key not in st.session_state:
             st.session_state[key] = value
+
+    # 변호사 매칭 세션 상태 초기화 : show_modal, comfirmed_lawyer
+    if 'show_modal' not in st.session_state:
+        st.session_state.show_modal = False
+         
+    if 'confirmed_lawyer' not in st.session_state:
+        st.session_state.confirmed_lawyer = None
 
 
 # 메시지 추가 함수
@@ -281,21 +297,11 @@ def handle_extra_information_step(prompt):
         add_message("assistant", response_text)
         
         # 마무리 메시지
-        completion_text = "보고서 생성이 완료되었습니다. 곧 변호사 매칭이 이루어질 예정입니다. 추가 질문이 있으시면 말씀해주세요."
+        completion_text = "보고서 생성이 완료되었습니다. 추가 질문이 있으시면 말씀해주세요."
         add_message("assistant", completion_text)
         
         # 다음 단계로 이동
         st.session_state.current_step = "completed"
-
-
-        st.download_button(
-            label="📄 보고서 다운로드 (TXT)",
-            data=st.session_state["final_report"],
-            file_name="AI법률_자문_보고서.txt",
-            mime="text/plain"
-        )
-        
-
         
     except Exception as e:
         error_message = f"보고서 생성 중 오류가 발생했습니다: {str(e)}"
@@ -417,6 +423,47 @@ def get_progress_value(current_step):
     
     return progress_values.get(current_status, 0.0)
 
+# 모달 표시 함수
+def toggle_modal():
+    st.session_state.show_modal = not st.session_state.show_modal
+ 
+def display_lawyer_modal():
+    if st.session_state.current_step == "completed":
+        col1, col2 , col3= st.columns([1, 1,1])  # 버튼을 1:1 비율로 정렬 
+        with col1:
+            st.download_button(
+                label="📄 보고서 다운로드 (TXT)",
+                data=st.session_state["final_report"],
+                file_name="AI법률_자문_보고서.txt",
+                mime="text/plain"
+            )
+         
+        with col2:
+            if st.button("변호사 매칭"):
+                toggle_modal()
+ 
+     # 변호사 선택 모달 창 표시
+    if st.session_state.show_modal:
+        # select_lawyer 모듈의 함수 호출하여 모달 표시
+        show_lawyer_selection_modal()
+ 
+    # 변호사 선택 결과 표시
+    if st.session_state.confirmed_lawyer:
+        lawyer = st.session_state.confirmed_lawyer
+ 
+        st.markdown("<div class='selected-lawyer-info'>", unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.image(lawyer["image"], width=200)
+        with col2:
+            st.markdown(f"### {lawyer['name']} 변호사")
+            st.markdown(f"**전문 분야**: {lawyer['specialty']}")
+            st.markdown(f"**담당 사건**: {lawyer['cases']}건")
+            st.markdown(f"**평점**: {lawyer['rating']}/5.0")
+            st.markdown(f"**소개**: {lawyer['description']}")
+        st.markdown("</div>", unsafe_allow_html=True)
+ 
+        st.success(f"{lawyer['name']} 변호사와 매칭되었습니다!")
 
 # 사이드바 상태 표시 함수
 def display_sidebar_status():
@@ -500,6 +547,8 @@ def main():
     
     # 사이드바에 현재 상태 표시
     display_sidebar_status()
+    # 변호사 선택 모달 
+    display_lawyer_modal()
 
 
 # 애플리케이션 시작
