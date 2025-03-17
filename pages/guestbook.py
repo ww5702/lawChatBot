@@ -63,12 +63,22 @@ def local_css():
                 padding: 15px;
                 margin-bottom: 15px;
             }
-            .delete-box {
-                background-color: #e63946 !important; /* 강렬한 빨간색 */
+            /* ✅ 수정 폼 (초록색) */
+            [id^="edit-box-"] {
+                background-color: #2a9d8f !important;
                 color: white !important;
                 border-radius: 8px;
                 padding: 15px;
-                margin: 10px 0;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            /* ✅ 삭제 폼 (빨간색) */
+            [id^="delete-box-"] {
+                background-color: #e63946 !important;
+                color: white !important;
+                border-radius: 8px;
+                padding: 15px;
                 text-align: center;
                 font-weight: bold;
             }
@@ -431,7 +441,7 @@ def display_reviews():
             with st.container():
                 # 수정 폼 헤더
                 st.markdown("""
-                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                <div id = "edit-box-{review_id}" style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
                     <h5>리뷰 수정</h5>
                 </div>
                 """, unsafe_allow_html=True)
@@ -519,7 +529,7 @@ def display_reviews():
             with st.container():
                 # 삭제 폼 헤더
                 st.markdown("""
-                <div style="background-color: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                <div id = "delete-box-{review_id}" style="background-color: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
                     <h5>리뷰 삭제</h5>
                 </div>
                 """, unsafe_allow_html=True)
