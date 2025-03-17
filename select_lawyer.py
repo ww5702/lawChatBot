@@ -143,18 +143,16 @@ def get_lawyers():
 
 # 세션 상태 초기화 함수
 def init_session_state():
-    if 'selected_lawyer' not in st.session_state:
-        st.session_state.selected_lawyer = None
+    if 'confirmed_lawyer' not in st.session_state:
+        st.session_state.confirmed_lawyer = None
     
 # 변호사 매칭 완료 함수
 def confirm_selection(lawyer_id):
-    st.session_state.selected_lawyer = lawyer_id
-    st.session_state.confirmed_lawyer = next((l for l in get_lawyers() if l["id"] == st.session_state.selected_lawyer), None)
+    st.session_state.confirmed_lawyer = lawyer_id
 
 # 모달 닫기 함수
 def close_modal():
     st.session_state.show_modal = False
-    st.session_state.selected_lawyer = None
 
 def get_base64_image(image_path):
     """이미지를 Base64로 변환"""
@@ -180,7 +178,7 @@ def show_lawyer_selection_modal():
         with cols[i % 3]:
             # 선택된 변호사 스타일 적용
             card_class = "lawyer-card"
-            if st.session_state.selected_lawyer == lawyer["id"]:
+            if st.session_state.confirmed_lawyer == lawyer["id"]:
                 card_class += " selected"
 
             local_image_path = lawyer["image"]  # 같은 디렉토리에 있는 경우
@@ -198,7 +196,7 @@ def show_lawyer_selection_modal():
                 ">
                     <img src="data:image/png;base64,{image_base64}" width=150 alt="변호사 사진">
                     <div style="font-size: 20px; font-weight: bold;">{lawyer['name']} 변호사</div>
-                    <div style="font-size: 16px; color: gray;">{lawyer['specialty']}</div>
+                    <div style="font-size: 16px; font-weight: bold;">{lawyer['specialty']}</div>
                     <div style="margin-top: 10px;">{lawyer['description']}</div>
                 </div>
             """, unsafe_allow_html=True)

@@ -13,7 +13,7 @@ from prompts import question_generation_prompt, re_write_prompt, report_prompt
 from legal_categories import categories
 
 # 변호사 선택
-from select_lawyer import show_lawyer_selection_modal
+from select_lawyer import show_lawyer_selection_modal, close_modal
   
 load_dotenv()
 
@@ -451,7 +451,7 @@ def display_lawyer_modal():
   
     # 변호사 선택 결과 표시
     if st.session_state.confirmed_lawyer:
-        toggle_modal()
+        close_modal()
         lawyer = st.session_state.confirmed_lawyer
   
         st.markdown("<div class='selected-lawyer-info'>", unsafe_allow_html=True)
@@ -460,7 +460,6 @@ def display_lawyer_modal():
             st.image(lawyer["image"], width=200)
         with col2:
             st.markdown(f"### {lawyer['name']} 변호사", unsafe_allow_html=True)
-            
             st.markdown(f"{lawyer['specialty']}", unsafe_allow_html=True)
             st.markdown(f"{lawyer['description']}", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
