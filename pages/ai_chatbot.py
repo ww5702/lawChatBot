@@ -87,7 +87,7 @@ if "last_page" not in st.session_state or st.session_state.last_page != current_
     st.session_state.last_page = current_page  # 현재 페이지를 저장하여 비교
 
 
-st.title("🚀 사고닷 - 법률 상담 AI 챗봇")
+st.title("💬 실시간 AI 법률 상담")
 st.caption("💬 법률 관련 질문을 입력하고 AI 변호사와 상담해보세요.")
 ####################################################
 
