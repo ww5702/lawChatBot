@@ -14,21 +14,31 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# DB 구성
+from databases import baseSource
+conn = baseSource.init()
+conn = baseSource.connect()
+cursor = conn.cursor()
+
 # 리디렉션 처리 (최상단에 배치)
 if 'redirect_page' in st.session_state:
     redirect_page = st.session_state.redirect_page
+    
+    # 먼저 조회수 업데이트
+    if redirect_page == "ai_consultation":
+        baseSource.updateView("user_view")
+    elif redirect_page == "law_report":
+        baseSource.updateView("report_view")
+    
     # 세션에서 제거
     del st.session_state.redirect_page
     
-    # 페이지 이동
+    # 페이지 이동 (마지막에 실행)
     if redirect_page == "ai_consultation":
-        import streamlit as st
         st.switch_page("pages/ai_chatbot.py")
     elif redirect_page == "law_report":
-        import streamlit as st
-        st.switch_page("pages/ai_report.py")  # 변경된 파일명으로 연결
+        st.switch_page("pages/ai_report.py")
     elif redirect_page == "guestbook":
-        import streamlit as st
         st.switch_page("pages/guestbook.py")
 
 # 이미지를 base64로 인코딩하는 함수
@@ -625,15 +635,22 @@ if st.session_state.current_page == "홈":
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric(label="누적 상담 건수", value="12,450건", delta="증가 추세")
-    
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'user_view'")
+        user_view = cursor.fetchall()[0][0]
+        st.metric(label="누적 상담 건수", value=user_view)
+        conn.commit()
+        
     with col2:
-        st.metric(label="월간 활성 사용자", value="3,200명", delta="15% 증가")
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'report_view'")
+        report_view = cursor.fetchall()[0][0]
+        st.metric(label="누적 보고서 생성 수", value=report_view)
+        conn.commit()
     
     with col3:
-        st.metric(label="사용자 만족도", value="4.8/5.0", delta="0.2 상승")
-
-
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'total_view'")
+        total_view = cursor.fetchall()[0][0]
+        st.metric(label="총 누적 사용 수", value=total_view)
+        conn.commit()
 
 # 우리 팀 소개 페이지
 elif st.session_state.current_page == "우리 팀 소개":
