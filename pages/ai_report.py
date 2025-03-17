@@ -222,6 +222,12 @@ def load_css():
     """, unsafe_allow_html=True)
 
 
+# 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
+if "last_page" not in st.session_state or st.session_state.last_page != current_page:
+    st.session_state.clear()  # 기존 상태 초기화
+    st.session_state.last_page = current_page  # 현재 페이지를 저장하여 비교
+
+    
 def get_image_as_base64(file_path):
     try:
         with open(file_path, "rb") as img_file:
