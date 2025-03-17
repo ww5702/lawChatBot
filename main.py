@@ -14,21 +14,31 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# DB 구성
+from databases import baseSource
+conn = baseSource.init()
+conn = baseSource.connect()
+cursor = conn.cursor()
+
 # 리디렉션 처리 (최상단에 배치)
 if 'redirect_page' in st.session_state:
     redirect_page = st.session_state.redirect_page
+    
+    # 먼저 조회수 업데이트
+    if redirect_page == "ai_consultation":
+        baseSource.updateView("user_view")
+    elif redirect_page == "law_report":
+        baseSource.updateView("report_view")
+    
     # 세션에서 제거
     del st.session_state.redirect_page
     
-    # 페이지 이동
+    # 페이지 이동 (마지막에 실행)
     if redirect_page == "ai_consultation":
-        import streamlit as st
         st.switch_page("pages/ai_chatbot.py")
     elif redirect_page == "law_report":
-        import streamlit as st
-        st.switch_page("pages/ai_report.py")  # 변경된 파일명으로 연결
+        st.switch_page("pages/ai_report.py")
     elif redirect_page == "guestbook":
-        import streamlit as st
         st.switch_page("pages/guestbook.py")
 
 # 이미지를 base64로 인코딩하는 함수
@@ -63,40 +73,6 @@ def local_css():
             .profile-card {
                 background-color: white !important;
                 color: #374151 !important;
-            }
-        }
-        
-        /* 다크 모드 */
-        @media (prefers-color-scheme: dark) {
-            .stApp {
-                background-color: #1E1E1E !important;
-                color: #EAEAEA !important; /* 글자 색을 밝게 */
-            }
-            .service-card, .stForm, .profile-card {
-                background-color: #2A2A2A !important;
-                color: #EAEAEA !important;
-            }
-            .profile-name, .profile-desc {
-                color: #FFFFFF !important; /* 프로필 카드 글씨 흰색 */
-            }
-            .stButton>button {
-                background-color: #3d6aff !important;
-                color: white !important;
-            }
-            /* 폼 내부 텍스트 색상 변경 */
-            .stForm {
-                background-color: #2A2A2A !important;
-                color: #FFFFFF !important;
-            }
-            .stForm div {
-                color: #FFFFFF !important;
-            }
-            .stForm .form-content {
-                color: #FFFFFF !important;
-            }
-
-            .stForm .card-title, .stForm .card-description {
-                color: #FFFFFF !important;
             }
         }
         
@@ -200,112 +176,232 @@ def local_css():
         }
                 
             /* 프로필 카드 스타일 */
-    /* 프로필 카드 스타일 - Flex 레이아웃 적용 */
-    .profile-card {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        height: 34rem; /* 고정된 높이 설정 */
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        
-        /* Flex 레이아웃 적용 */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .profile-image {
-        width: 170px;
-        height: 170px;
-        border-radius: 50%;
-        margin: 0 auto 10px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #F1F5F9;
-        overflow: hidden;
-    }
-
-    .profile-name {
-        font-size: 1.4rem;
-        font-weight: 500;
-        color: #374151;
-        margin-bottom: 8px;
-        text-align: center;
-    }
-
-    .profile-desc {
-        color: #4e5968;
-        font-size: 0.9rem;
-        text-align: center;
-        flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
-        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
-        padding: 0 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* 내용을 위에서부터 배치 */
-    }
-
-    /* 내용이 긴 경우를 위한 스크롤바 스타일 개선 */
-    .profile-desc::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .profile-desc::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-
-    .profile-desc::-webkit-scrollbar-thumb {
-        background: #c1c1c1;
-        border-radius: 3px;
-    }
-
-    .profile-desc::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8;
-    }
-        
-        .stForm {
+        /* 프로필 카드 스타일 - Flex 레이아웃 적용 */
+        .profile-card {
             background-color: white;
+            padding: 1rem;
             border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
-            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            height: 34rem; /* 고정된 높이 설정 */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            
+            /* Flex 레이아웃 적용 */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .stForm:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .profile-image {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F1F5F9;
+            overflow: hidden;
         }
 
-        /* 폼 내부 콘텐츠 컨테이너 */
-        .form-content {
-            flex-grow: 1;
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .profile-desc {
+            color: #4e5968;
+            font-size: 0.9rem;
+            text-align: center;
+            flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+            padding: 0 5px;
             display: flex;
             flex-direction: column;
+            justify-content: flex-start; /* 내용을 위에서부터 배치 */
         }
 
-        /* 버튼 컨테이너 */
-        .button-container {
-            margin-top: 1rem;
+        /* 내용이 긴 경우를 위한 스크롤바 스타일 개선 */
+        .profile-desc::-webkit-scrollbar {
+            width: 6px;
         }
 
-        /* 폼 제출 버튼 숨기기 (또는 작게 만들기) */
+        .profile-desc::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
 
-        
-        /* 모바일에서도 높이 유지 */
-        @media (max-width: 768px) {
+        .profile-desc::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .profile-desc::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+            
             .stForm {
-                height: 15rem;
-                margin-bottom: 1rem;
+                background-color: white;
+                border-radius: 10px;
+                padding: 2rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+                cursor: pointer;
+                border: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }
+
+            .stForm:hover {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            /* 폼 내부 콘텐츠 컨테이너 */
+            .form-content {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* 버튼 컨테이너 */
+            .button-container {
+                margin-top: 1rem;
+            }
+
+            /* 폼 제출 버튼 숨기기 (또는 작게 만들기) */
+
+            
+            /* 모바일에서도 높이 유지 */
+            @media (max-width: 768px) {
+                .stForm {
+                    height: 15rem;
+                    margin-bottom: 1rem;
+                }
+            }
+                
+        /* 다크 모드 */
+        @media (prefers-color-scheme: dark) {
+            .stApp {
+                background-color: #1E1E1E !important;
+                color: #EAEAEA !important; /* 글자 색을 밝게 */
+            }
+                
+            .service-card {
+                background-color: #2A2A2A !important;
+                color: #EAEAEA !important;
+                border: none;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(100, 100, 100, 0.12) !important;
+            }
+                
+            /* 폼 내부 텍스트 색상 변경 */
+            .stForm {
+                background-color: #2A2A2A !important;
+                color: #FFFFFF !important;
+                border: none !important;
+            }
+            
+            .stForm div, .stForm .form-content {
+                color: #FFFFFF !important;
+            }
+            
+                
+            .stForm:hover:hover {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(130, 130, 130, 0.15) !important;
+            }
+                
+            
+            
+            /* 프로필 카드 스타일 */
+            .profile-card {
+                background-color: #2A2A2A !important;
+                color: #EAEAEA !important;
+                border: none;
+            }
+            
+            /* 텍스트 색상 조정 */
+            .profile-name, .profile-desc, .card-title, .card-description {
+                color: #FFFFFF !important;
+            }
+            
+            /* 버튼 스타일 */
+            .stButton>button {
+                background-color: #3d6aff !important;
+                color: white !important;
+                border: none !important;
+            }
+            
+            .stButton>button:hover {
+                background-color: #2a4cb8 !important;
+                color: white !important;
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            }
+            
+                
+
+            /* 구분선 색상 */
+            .horizon-line {
+                border-top: 2px solid #3d3d3d !important;
+            }
+            
+
+            
+            /* 확장기(expander) 스타일 */
+            .streamlit-expanderHeader {
+                background-color: #2A2A2A !important;
+                color: #FFFFFF !important;
+            }
+            
+            .streamlit-expanderContent {
+                background-color: #1E1E1E !important;
+                color: #EAEAEA !important;
+            }
+            
+            /* 사이드바 스타일 */
+            [data-testid="stSidebar"] {
+                background-color: #262626 !important;
+                border-right: 1px solid #3d3d3d !important;
+            }
+            
+            /* 헤더 스타일 유지 */
+            .main-header {
+                background-color: #3d6aff !important;
+            }
+            
+        
+            .st-emotion-cache-f03grt {
+                display: inline-flex;
+                -webkit-box-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                justify-content: center;
+                font-weight: 400;
+                padding: 0.25rem 0.75rem;
+                border-radius: 0.5rem;
+                border: none;
+                min-height: 2.5rem;
+                margin: 0px;
+                line-height: 1.6;
+                text-transform: none;
+                font-size: inherit;
+                font-family: inherit;
+                color: inherit;
+                width: 100%;
+                cursor: pointer;
+                user-select: none;
+                background-color: rgb(19, 23, 32);
+            }
+            .st-emotion-cache-f03grt:hover {
+                border-color: rgb(255, 75, 75);
+                color: rgb(255, 75, 75);
+            }
+                
+        
         }
                 
     </style>
@@ -539,15 +635,22 @@ if st.session_state.current_page == "홈":
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric(label="누적 상담 건수", value="12,450건", delta="증가 추세")
-    
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'user_view'")
+        user_view = cursor.fetchall()[0][0]
+        st.metric(label="누적 상담 건수", value=user_view)
+        conn.commit()
+        
     with col2:
-        st.metric(label="월간 활성 사용자", value="3,200명", delta="15% 증가")
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'report_view'")
+        report_view = cursor.fetchall()[0][0]
+        st.metric(label="누적 보고서 생성 수", value=report_view)
+        conn.commit()
     
     with col3:
-        st.metric(label="사용자 만족도", value="4.8/5.0", delta="0.2 상승")
-
-
+        cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'total_view'")
+        total_view = cursor.fetchall()[0][0]
+        st.metric(label="총 누적 사용 수", value=total_view)
+        conn.commit()
 
 # 우리 팀 소개 페이지
 elif st.session_state.current_page == "우리 팀 소개":
