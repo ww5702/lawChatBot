@@ -43,6 +43,7 @@ if 'redirect_page' in st.session_state:
 
 # 이미지를 base64로 인코딩하는 함수
 def get_image_as_base64(file_path):
+    """이미지 파일을 base64로 인코딩하여 반환"""
     try:
         with open(file_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
@@ -50,7 +51,8 @@ def get_image_as_base64(file_path):
         return None
 
 # CSS 스타일 적용
-def local_css():
+def apply_css():
+    """웹 앱의 스타일을 정의하는 CSS 적용"""
     st.markdown("""
     <style>
         /* 전체 폰트 및 색상 스타일 */
@@ -58,22 +60,6 @@ def local_css():
         
         * {
             font-family: 'Noto Sans KR', sans-serif;
-        }
-                
-        /* 라이트 모드 */
-        @media (prefers-color-scheme: light) {
-            .stApp {
-                background-color: #F8FAFC !important;
-                color: #1F2937 !important; /* 글자 색을 어두운 색으로 */
-            }
-            .service-card, .stForm {
-                background-color: white !important;
-                color: #1F2937 !important;
-            }
-            .profile-card {
-                background-color: white !important;
-                color: #374151 !important;
-            }
         }
         
         /* 헤더 스타일 */
@@ -87,6 +73,7 @@ def local_css():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: none; 
         }
+        
         /* .main-header 내부 글씨 색상 흰색으로 설정 */
         .main-header h1, .main-header p {
             color: white !important;
@@ -95,7 +82,6 @@ def local_css():
         .body-head {
             margin-top: 1rem;
             margin-bottom: 0.5rem;
-                
         }
         
         /* 카드 스타일 */
@@ -130,7 +116,7 @@ def local_css():
         }
         
         .card-description {
-            color: ##4e5968;
+            color: #4e5968;
             font-size: 0.9rem;
         }
         
@@ -175,7 +161,6 @@ def local_css():
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
                 
-            /* 프로필 카드 스타일 */
         /* 프로필 카드 스타일 - Flex 레이아웃 적용 */
         .profile-card {
             background-color: white;
@@ -244,46 +229,50 @@ def local_css():
             background: #a8a8a8;
         }
             
+        .stForm {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stForm:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 폼 내부 콘텐츠 컨테이너 */
+        .form-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 버튼 컨테이너 */
+        .button-container {
+            margin-top: 1rem;
+        }
+        
+        /* 모바일에서도 높이 유지 */
+        @media (max-width: 768px) {
             .stForm {
-                background-color: white;
-                border-radius: 10px;
-                padding: 2rem;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s;
-                cursor: pointer;
-                border: none;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+                height: 15rem;
+                margin-bottom: 1rem;
             }
+        }
 
-            .stForm:hover {
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            }
+        /* 구분선 스타일 */
+        .horizon-line {
+            border-top: 2px solid #e7e8e8;
+            margin: 20px 0;
+            margin-top: 3rem;
+        }
 
-            /* 폼 내부 콘텐츠 컨테이너 */
-            .form-content {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* 버튼 컨테이너 */
-            .button-container {
-                margin-top: 1rem;
-            }
-
-            /* 폼 제출 버튼 숨기기 (또는 작게 만들기) */
-
-            
-            /* 모바일에서도 높이 유지 */
-            @media (max-width: 768px) {
-                .stForm {
-                    height: 15rem;
-                    margin-bottom: 1rem;
-                }
-            }
-                
         /* 다크 모드 */
         @media (prefers-color-scheme: dark) {
             .stApp {
@@ -309,12 +298,9 @@ def local_css():
                 color: #FFFFFF !important;
             }
             
-                
-            .stForm:hover:hover {
+            .stForm:hover {
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(130, 130, 130, 0.15) !important;
             }
-                
-            
             
             /* 프로필 카드 스타일 */
             .profile-card {
@@ -341,15 +327,11 @@ def local_css():
                 transform: translateY(-5px);
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             }
-            
-                
 
             /* 구분선 색상 */
             .horizon-line {
                 border-top: 2px solid #3d3d3d !important;
             }
-            
-
             
             /* 확장기(expander) 스타일 */
             .streamlit-expanderHeader {
@@ -373,93 +355,84 @@ def local_css():
                 background-color: #3d6aff !important;
             }
             
-        
             .st-emotion-cache-f03grt {
-                display: inline-flex;
-                -webkit-box-align: center;
-                align-items: center;
-                -webkit-box-pack: center;
-                justify-content: center;
-                font-weight: 400;
-                padding: 0.25rem 0.75rem;
-                border-radius: 0.5rem;
-                border: none;
-                min-height: 2.5rem;
-                margin: 0px;
-                line-height: 1.6;
-                text-transform: none;
-                font-size: inherit;
-                font-family: inherit;
-                color: inherit;
-                width: 100%;
-                cursor: pointer;
-                user-select: none;
-                background-color: rgb(19, 23, 32);
+                border: 1px solid transparent;
+                background-color: #3d6aff;
             }
-            .st-emotion-cache-f03grt:hover {
-                border-color: rgb(255, 75, 75);
-                color: rgb(255, 75, 75);
-            }
-                
-        
+
+            .st-emotion-cache-f03grt:hover * {
+                color: rgb(255, 75, 75) !important;
+            }     
         }
-                
     </style>
     """, unsafe_allow_html=True)
 
-local_css()
+# 사이드바 구성 함수
+def create_sidebar():
+    """사이드바 메뉴 및 정보를 구성"""
+    with st.sidebar:
+        st.image("images/저울.webp", width=100)
+        st.title("AI 법률 서비스 사고닷")
+        st.markdown('<p>AI와 법률 전문가가 함께하는 스마트 법률 서비스.<br>승리를 만드는 길, 사고닷과 함께 준비하세요.</p>', unsafe_allow_html=True)
+        
+        st.divider()
+        
+        # 메뉴 버튼
+        st.subheader("소개합니다")
+        show_services = st.button("👩🏻‍⚖️ 우리 서비스 소개")
+        show_team = st.button("☀️ 우리 팀 소개")
+        show_home = st.button("🏠 홈 돌아가기")
+        
+        st.divider()
+        
+        # 연락처 정보
+        st.caption("고객센터: 02-1004-1004")
+        st.caption("이메일: happy6team@skala.com")
+        st.caption("운영시간: 연중무휴 24시간!")
+        
+        return show_services, show_team, show_home
 
-# 사이드바
-with st.sidebar:
-    st.image("images/저울.webp", width=100)
-    st.title("AI 법률 서비스 사고닷")
-    st.markdown('<p>AI와 법률 전문가가 함께하는 스마트 법률 서비스.<br>승리를 만드는 길, 사고닷과 함께 준비하세요.</p>', unsafe_allow_html=True)
-    
-    
-    st.divider()
-    
-    # 메뉴란 대신 버튼으로 대체
-    st.subheader("소개합니다")
-    show_services = st.button("👩🏻‍⚖️ 우리 서비스 소개")
-    show_team = st.button("☀️ 우리 팀 소개")
-    show_home = st.button("🏠 홈 돌아가기")
-    
-    st.divider()
-    
-    # 연락처 정보
-    st.caption("고객센터: 02-1004-1004")
-    st.caption("이메일: happy6team@skala.com")
-    st.caption("운영시간: 연중무휴 24시간!")
-
-# 세션 상태로 현재 페이지 관리
-if 'current_page' not in st.session_state:
-    st.session_state.current_page = "홈"
-
-# 버튼 클릭에 따라 페이지 상태 변경
-if show_home:
-    st.session_state.current_page = "홈"
-if show_team:
-    st.session_state.current_page = "우리 팀 소개"
-if show_services:
-    st.session_state.current_page = "우리 서비스 소개"
-
-# 홈 화면
-if st.session_state.current_page == "홈":
+# 홈 페이지 렌더링 함수
+def render_home_page():
+    """홈 페이지 컨텐츠 렌더링"""
     st.markdown("<div class='main-header'><h1>🚀 사고닷 🚀</h1><p>실시간 AI 상담부터 맞춤형 법률 보고서<br>변호사 연결까지, 사고닷에서 법률 고민 끝!</p></div>", unsafe_allow_html=True)
 
-    # 서비스 소개
+    # 주요 서비스 바로가기
     st.markdown("""
     <div class='body-head'>
         <h2>주요 서비스 바로가기</h2>
     </div>
     """, unsafe_allow_html=True)
     
+    # 서비스 카드 렌더링
+    render_service_cards()
+    
+    # 구분선
+    render_divider()
+    
+    # 변호사 소개
+    render_lawyers_section()
+    
+    # 구분선
+    render_divider()
+    
+    # 통계 섹션
+    render_statistics_section()
 
-    # 카드 스타일을 폼으로 대체
+# 구분선 렌더링 함수
+def render_divider():
+    """구분선 렌더링"""
+    st.markdown("""
+        <div class='horizon-line'></div>
+        """, unsafe_allow_html=True)
+
+# 서비스 카드 렌더링 함수
+def render_service_cards():
+    """서비스 카드(AI 상담, 보고서 생성, 방명록) 렌더링"""
     col1, col2, col3 = st.columns(3)
 
+    # AI 법률 상담 카드
     with col1:
-        # AI 법률 상담 폼
         with st.form(key="ai_consultation_form"):
             st.markdown("""
             <div class="form-content">
@@ -472,16 +445,13 @@ if st.session_state.current_page == "홈":
             </div>
             """, unsafe_allow_html=True)
             
-            # 버튼 컨테이너를 추가하여 폼 하단에 배치
             st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
-            submit_button = st.form_submit_button("바로가기", use_container_width=True)
-            
-            if submit_button:
+            if st.form_submit_button("바로가기", use_container_width=True):
                 st.session_state.redirect_page = "ai_consultation"
                 st.rerun()
 
+    # 법률 자문 보고서 카드
     with col2:
-        # 법률 자문 보고서 폼
         with st.form(key="law_report_form"):
             st.markdown("""
             <div class="form-content">
@@ -495,14 +465,12 @@ if st.session_state.current_page == "홈":
             """, unsafe_allow_html=True)
             
             st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
-            submit_button = st.form_submit_button("바로가기", use_container_width=True)
-            
-            if submit_button:
+            if st.form_submit_button("바로가기", use_container_width=True):
                 st.session_state.redirect_page = "law_report"
                 st.rerun()
 
+    # 방명록 카드
     with col3:
-        # 방명록 폼
         with st.form(key="guestbook_form"):
             st.markdown("""
             <div class="form-content">
@@ -516,79 +484,44 @@ if st.session_state.current_page == "홈":
             """, unsafe_allow_html=True)
             
             st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
-            submit_button = st.form_submit_button("바로가기", use_container_width=True)
-            
-            if submit_button:
+            if st.form_submit_button("바로가기", use_container_width=True):
                 st.session_state.redirect_page = "guestbook"
                 st.rerun()
 
-    
-    st.markdown("""
-        <style>
-        .horizon-line {
-            border-top: 2px solid #e7e8e8;
-            margin: 20px 0;
-            margin-top: 3rem;
-        }
-        </style>
-        <div class='horizon-line'></div>
-        """, unsafe_allow_html=True)
-        
-    # 변호사 소개
+# 변호사 프로필 렌더링 함수
+def render_lawyers_section():
+    """변호사 소개 섹션 렌더링"""
     st.markdown("""
     <div class='body-head'>
         <h2>국내 Top 변호사 소개</h2>
     </div>
     """, unsafe_allow_html=True)
 
-    
-    # 변호사 정보와 이미지 정의
+    # 변호사 정보 정의
     lawyers = [
         {"name": "손지영", "specialty": '"백전 백승, 무패의 전설<br>상대가 누구든 다 뿌셔드립니다."<br><br>• 성격: ENTJ (의뢰인에게도 화낼 수 있음 주의)<br><br>• 대원한국어고등학교 졸업 (2005)<br>• 한국대학교 물리학과 학사 (2010)<br>• 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>• 김앤손 법률 사무소 (2008 ~ 2015)<br>• 사고닷 법률 사무소 (2015 ~ 현재)<br>', "image": "images/손지영.png"},
         {"name": "이재웅", "specialty": '"자신이 없습니다. 질 자신이.<br>가장 확실한 해결책, 포기 없는 변호."<br><br>• 성격 : INFJ (근데 사실 T임)<br><br>• 한국대학교 법학전문대학학원<br>(법학스칼라전문박사, 박사 졸업, 2018)<br>• 너뭐대학교<br>(한국사, 문학과, 수석 졸업, 2015)<br>• 사고닷 법률 사무소 (2016 - 현재)', "image": "images/이재웅.png"},
         {"name": "김다은", "specialty": '"시켜줘 그럼, SKALA 명예 변호사"<br><br>• 성격: ESTJ (인성은 글쎄? 근데 이기면 되잖아)<br><br>• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교<br>(법학스칼라전문박사, 박사 졸업, 2016)<br>• 하버드 법학대학원 (법학 박사, 2005)<br>• 국제 법률 자문관 (2015 - 2025)<br>• 사고닷 법률 사무소 변호사 (2016 - 현재)<br>• SKALA 명예 변호사로 활동 (2018 - 현재)<br>', "image": "images/김다은.png"},
         {"name": "진실", "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>이혼 전문 맡겨만 주세요."<br><br>• 성격: ISFP (공감 잘함. 의뢰인과 울음 대결 가능)<br><br>• 제9회 변호사시험 합격 (2020)<br>• 한국대학교 법학전문대학원<br>(법학스칼라전문석사, 수석졸업, 2020)<br>• 두번 다시 사랑모대학교<br>(문학사, 서양사학, 수석졸업, 2017)<br>• 사고닷 법률사무소 (2020-현재)', "image": "images/진실.png"},
-        {"name": "김민주", "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>• 비빔대학교 (법학/문학, 수석 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>', "image": "images/김민주.png"},
+        {"name": "김민주", "specialty": '"법과 정의, 그리고 사람. <br>혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."<br><br>• 성격: ENFP (긍정적 사고 전문)<br><br>• 제 7회 변호사시험 합격 (2007)<br>• 비빔대학교 법학전문대학원 (법학전문석사, 무사 졸업, 2007)<br>• 비빔대학교 (법학/문학, 수석 졸업, 2005)<br>• 사고닷 법률사무소 (2020 - 현재)<br>', "image": "images/김민주.png"},
         {"name": "이효정", "specialty": '"오직 노동자만을 위한<br>노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"<br><br>• 성격: INTJ (노동자에게만 F)<br><br>• 한국대학교(법학, 2020)<br>• 한국대학교 법학전문대학원(법학전문석사, 2023)<br>• 한국노동교육원 법률 자문(2023 - 현재)<br>• 사고닷 법률 사무소(2024 - 현재)', "image": "images/이효정.png"}
     ]
     
-    # 2행 3열로 변경
     # 첫 번째 행 (변호사 0, 1, 2)
-    row1_cols = st.columns(3)
+    render_lawyer_row(lawyers[:3])
     
-    for i in range(3):
-        lawyer = lawyers[i]
-        img_path = lawyer["image"]
-        img_base64 = get_image_as_base64(img_path)
-        
-        if img_base64:
-            img_html = f'<img src="data:image/jpeg;base64,{img_base64}" style="width:100%; height:100%; object-fit:cover;">'
-        else:
-            # 이미지가 없을 경우 기본 아이콘 사용
-            gender_icon = "👩‍⚖️" if lawyer["name"] not in ["이재웅"] else "👨‍⚖️"
-            img_html = f'<span style="font-size: 30px;">{gender_icon}</span>'
-        
-        profile_html = f"""
-        <div class="profile-card">
-            <div class="profile-image">
-                {img_html}
-            </div>
-            <div class="profile-name">{lawyer["name"]}</div>
-            <div class="profile-desc">{lawyer["specialty"]}</div>
-        </div>
-        """
-        
-        with row1_cols[i]:
-            st.markdown(profile_html, unsafe_allow_html=True)
-    
-    # 첫 번째 행과 두 번째 행 사이의 간격 추가
+    # 행 간격 추가
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     
     # 두 번째 행 (변호사 3, 4, 5)
-    row2_cols = st.columns(3)
+    render_lawyer_row(lawyers[3:])
+
+# 변호사 행 렌더링 함수
+def render_lawyer_row(lawyers_row):
+    """변호사 프로필 행 렌더링"""
+    cols = st.columns(3)
     
-    for i in range(3, 6):
-        lawyer = lawyers[i]
+    for i, lawyer in enumerate(lawyers_row):
         img_path = lawyer["image"]
         img_base64 = get_image_as_base64(img_path)
         
@@ -609,23 +542,12 @@ if st.session_state.current_page == "홈":
         </div>
         """
         
-        with row2_cols[i-3]:
+        with cols[i]:
             st.markdown(profile_html, unsafe_allow_html=True)
-    
-    
-    st.markdown("""
-        <style>
-        .horizon-line {
-            border-top: 2px solid #e7e8e8;
-            margin: 20px 0;
-            margin-top: 3rem;
-        }
-        </style>
-        <div class='horizon-line'></div>
-        """, unsafe_allow_html=True)
-    
-    
-    # 통계 섹션
+
+# 통계 섹션 렌더링 함수
+def render_statistics_section():
+    """통계 섹션 렌더링"""
     st.markdown("""
     <div class='body-head'>
         <h2>서비스 통계</h2>
@@ -647,6 +569,7 @@ if st.session_state.current_page == "홈":
         conn.commit()
     
     with col3:
+
         cursor.execute("SELECT view_count FROM view_records WHERE view_type = 'total_view'")
         total_view = cursor.fetchall()[0][0]
         st.metric(label="총 누적 사용 수", value=total_view)
@@ -654,11 +577,13 @@ if st.session_state.current_page == "홈":
 
 # 우리 팀 소개 페이지
 elif st.session_state.current_page == "우리 팀 소개":
+
     st.title("행복한 6조를 소개합니다😆")
+    # 여기에 팀 소개 내용 추가
 
-
-# 우리 서비스 소개 페이지
-elif st.session_state.current_page == "우리 서비스 소개":
+# 서비스 소개 페이지 렌더링 함수
+def render_services_page():
+    """서비스 소개 페이지 렌더링"""
     st.title("서비스 이용 안내")
     
     st.markdown("### 서비스 이용 방법")
@@ -679,5 +604,46 @@ elif st.session_state.current_page == "우리 서비스 소개":
     expander3 = st.expander("Q: 개인정보는 안전하게 보호되나요?")
     expander3.write("A: 네, 모든 데이터는 암호화되어 저장되며, 개인정보보호법을 준수합니다. 자세한 내용은 개인정보처리방침을 참고해 주세요.")
 
-# 모든 페이지에 공통으로 표시되는 푸터
-st.markdown("<div class='footer'>© 2025 AI 법률 서비스 '사고닷' by Happy6Team🙂</div>", unsafe_allow_html=True)
+# 푸터 렌더링 함수
+def render_footer():
+    """공통 푸터 렌더링"""
+    st.markdown("<div class='footer'>© 2025 AI 법률 서비스 '사고닷' by Happy6Team🙂</div>", unsafe_allow_html=True)
+
+# 메인 함수
+def main():
+    """앱의 메인 실행 함수"""
+    # CSS 적용
+    apply_css()
+    
+    # 리디렉션 처리
+    handle_redirects()
+    
+    # 사이드바 생성
+    show_services, show_team, show_home = create_sidebar()
+    
+    # 세션 상태로 현재 페이지 관리
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = "홈"
+    
+    # 버튼 클릭에 따라 페이지 상태 변경
+    if show_home:
+        st.session_state.current_page = "홈"
+    if show_team:
+        st.session_state.current_page = "우리 팀 소개"
+    if show_services:
+        st.session_state.current_page = "우리 서비스 소개"
+    
+    # 현재 페이지에 따라 콘텐츠 렌더링
+    if st.session_state.current_page == "홈":
+        render_home_page()
+    elif st.session_state.current_page == "우리 팀 소개":
+        render_team_page()
+    elif st.session_state.current_page == "우리 서비스 소개":
+        render_services_page()
+    
+    # 푸터 렌더링
+    render_footer()
+
+# 앱 실행
+if __name__ == "__main__":
+    main()
