@@ -10,7 +10,7 @@ from prompts import question_generation_prompt, re_write_prompt, report_prompt
 from legal_categories import categories
 
 
-# 🔹 현재 페이지 식별
+# 현재 페이지 식별
 current_page = "ai_report"
 
 # 상수 정의
@@ -481,7 +481,7 @@ def display_sidebar_status():
 
 # 메인 애플리케이션 실행 함수
 def main():
-    # 🔹 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
+    # 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
     if "last_page" not in st.session_state or st.session_state.last_page != current_page:
         st.session_state.clear()  # 기존 상태 초기화
         st.session_state.last_page = current_page  # 현재 페이지 저장
