@@ -193,7 +193,19 @@ if "loading" not in st.session_state:
 
 # 사이드바 - 기능 소개 및 버튼 추가
 with st.sidebar:
-    st.title("🚀 사고닷 기능")
+
+    # 검색 기능 섹션
+    st.subheader("🔍 검색 도구")
+    st.caption("💬 버튼을 누르면 법률 검색이 진행됩니다. ")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("📊 관련사례", use_container_width=True):
+            st.session_state["loading"] = "case"
+    
+    with col2:
+        if st.button("📜 법률정보", use_container_width=True):
+            st.session_state["loading"] = "law"
     
     # 로고 또는 이미지 추가 (선택사항)
     st.markdown("---")
@@ -205,20 +217,6 @@ with st.sidebar:
     - 🔎 **관련사례 검색**: 유사 사례 및 예상 결과 확인
     - 📚 **법률정보 검색**: 관련 법률 조항 및 정보 제공
     """)
-    
-    st.markdown("---")
-    
-    # 검색 기능 섹션
-    st.subheader("🔍 검색 도구")
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("📊 관련사례", use_container_width=True):
-            st.session_state["loading"] = "case"
-    
-    with col2:
-        if st.button("📜 법률정보", use_container_width=True):
-            st.session_state["loading"] = "law"
     
     st.markdown("---")
     
@@ -236,6 +234,8 @@ with st.sidebar:
         
         # 페이지 새로고침
         st.rerun()
+
+    
     
     # 하단 정보
     st.markdown("---")
