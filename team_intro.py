@@ -49,18 +49,24 @@ def show_team_page():
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         .member-card {
-            background-color: white;
-            border-radius: 10px;
+            background-color: black;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 100%;
             transition: transform 0.3s;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .member-card:hover {
             transform: translateY(-5px);
         }
         .member-image {
-            height: 120px;
+            width: 350px;
+            height: 350px;
             background-color: #B8D0FF;
             display: flex;
             align-items: center;
@@ -68,6 +74,8 @@ def show_team_page():
             color: white;
             font-size: 4rem;
             font-weight: bold;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .member-info {
             padding: 1.5rem;
@@ -109,16 +117,16 @@ def show_team_page():
             font-size: 0.9rem;
         }
         /* 다크 모드 감지 및 스타일 적용 */
-    [data-testid="stAppViewContainer"] [data-testid="stHeader"] {
-        background-color: #0E1117;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-        .member-details {
-            background-color: #333333;
-            color: white;
+        [data-testid="stAppViewContainer"] [data-testid="stHeader"] {
+            background-color: #0E1117;
         }
-    }
+        
+        @media (prefers-color-scheme: dark) {
+            .member-details {
+                background-color: #333333;
+                color: white;
+            }
+        }
     
     /* 다크 모드 추가 감지 방법 */
     [data-testid="stAppViewContainer"][style*="background-color: rgb(14, 17, 23)"] .member-details,
@@ -146,7 +154,7 @@ def show_team_page():
             "feature": "허풍이 심함",
             "mbti": "ENFJ",
             "role": "방명록 기능 구현 및 DB 구축",
-            "image": "images/da.jpg"
+            "image": "images/da.png"
         },
         {
             "name": "김민주",
@@ -164,7 +172,7 @@ def show_team_page():
             "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
             "mbti": "ENTJ",
             "role": "프로젝트 리더",
-            "image": "images/ji.jpg"
+            "image": "images/ji.png"
         },
         {
             "name": "이재웅",
@@ -203,11 +211,18 @@ def show_team_page():
             try:
                 img_base64 = get_image_base64(member['image'])
                 if img_base64:
-                    st.markdown(f'<img src="data:image/jpeg;base64,{img_base64}" width="300" height="300" style="border-radius: 10px;">', unsafe_allow_html=True)
+                    st.markdown(f"""
+                        <div class="member-card">
+                            <img src="data:image/jpeg;base64,{img_base64}">
+                        </div>
+                    """, unsafe_allow_html=True)
                 else:
                     st.markdown('<p style="color:red;">⚠️ 이미지 로드 실패</p>', unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"이미지 로드 중 오류 발생: {e}")
+
+
+
             # 정보 부분
             st.markdown(f"""
                 <div class="member-info">
