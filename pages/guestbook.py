@@ -48,7 +48,7 @@ def local_css():
             }
             .stButton > button {
                 background-color: #3d6aff;
-                color: white;
+                color: white !important;
                 border: none;
                 transition: all 0.3s;
             }
