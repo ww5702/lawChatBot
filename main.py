@@ -72,17 +72,31 @@ def local_css():
                 background-color: #1E1E1E !important;
                 color: #EAEAEA !important; /* 글자 색을 밝게 */
             }
-            .service-card, .stForm {
+            .service-card, .stForm, .profile-card {
                 background-color: #2A2A2A !important;
                 color: #EAEAEA !important;
             }
-            .profile-card {
-                background-color: #2A2A2A !important;
-                color: #EAEAEA !important;
+            .profile-name, .profile-desc {
+                color: #FFFFFF !important; /* 프로필 카드 글씨 흰색 */
             }
             .stButton>button {
                 background-color: #3d6aff !important;
                 color: white !important;
+            }
+            /* 폼 내부 텍스트 색상 변경 */
+            .stForm {
+                background-color: #2A2A2A !important;
+                color: #FFFFFF !important;
+            }
+            .stForm div {
+                color: #FFFFFF !important;
+            }
+            .stForm .form-content {
+                color: #FFFFFF !important;
+            }
+
+            .stForm .card-title, .stForm .card-description {
+                color: #FFFFFF !important;
             }
         }
         
