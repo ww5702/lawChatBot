@@ -5,6 +5,7 @@ import os
 import time
 from datetime import datetime
 from pathlib import Path
+import team_intro 
 
 # 페이지 설정
 st.set_page_config(
@@ -415,7 +416,7 @@ if st.session_state.current_page == "홈":
 
     # 카드 스타일을 폼으로 대체
     col1, col2, col3 = st.columns(3)
-
+    
     with col1:
         # AI 법률 상담 폼
         with st.form(key="ai_consultation_form"):
@@ -437,48 +438,48 @@ if st.session_state.current_page == "홈":
             if submit_button:
                 st.session_state.redirect_page = "ai_consultation"
                 st.rerun()
-
-    with col2:
-        # 법률 자문 보고서 폼
-        with st.form(key="law_report_form"):
-            st.markdown("""
-            <div class="form-content">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📝</div>
-                <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">AI 법률 자문 보고서 생성</div>
-                <div style="color: #4e5968; font-size: 0.9rem;">
-                    케이스에 맞는 맞춤형 법률 자문 보고서를 생성합니다.<br>
-                    이를 바탕으로 국내 최고의 변호사들과 바로 연결됩니다.
+        
+        with col2:
+            # 법률 자문 보고서 폼
+            with st.form(key="law_report_form"):
+                st.markdown("""
+                <div class="form-content">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📝</div>
+                    <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">AI 법률 자문 보고서 생성</div>
+                    <div style="color: #4e5968; font-size: 0.9rem;">
+                        케이스에 맞는 맞춤형 법률 자문 보고서를 생성합니다.<br>
+                        이를 바탕으로 국내 최고의 변호사들과 바로 연결됩니다.
+                    </div>
                 </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
-            submit_button = st.form_submit_button("바로가기", use_container_width=True)
-            
-            if submit_button:
-                st.session_state.redirect_page = "law_report"
-                st.rerun()
+                """, unsafe_allow_html=True)
+                
+                st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
+                submit_button = st.form_submit_button("바로가기", use_container_width=True)
+                
+                if submit_button:
+                    st.session_state.redirect_page = "law_report"
+                    st.rerun()
 
-    with col3:
-        # 방명록 폼
-        with st.form(key="guestbook_form"):
-            st.markdown("""
-            <div class="form-content">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📋</div>
-                <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">방명록</div>
-                <div style="color: #4e5968; font-size: 0.9rem;">
-                    서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>
-                    방명록을 작성하거나 좋아요를 눌러보세요!
+        with col3:
+            # 방명록 폼
+            with st.form(key="guestbook_form"):
+                st.markdown("""
+                <div class="form-content">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #3d6aff;">📋</div>
+                    <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">방명록</div>
+                    <div style="color: #4e5968; font-size: 0.9rem;">
+                        서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>
+                        방명록을 작성하거나 좋아요를 눌러보세요!
+                    </div>
                 </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
-            submit_button = st.form_submit_button("바로가기", use_container_width=True)
-            
-            if submit_button:
-                st.session_state.redirect_page = "guestbook"
-                st.rerun()
+                """, unsafe_allow_html=True)
+                
+                st.markdown('<div class="button-container"></div>', unsafe_allow_html=True)
+                submit_button = st.form_submit_button("바로가기", use_container_width=True)
+                
+                if submit_button:
+                    st.session_state.redirect_page = "guestbook"
+                    st.rerun()
 
     
     st.markdown("""
@@ -612,8 +613,9 @@ if st.session_state.current_page == "홈":
 
 # 우리 팀 소개 페이지
 elif st.session_state.current_page == "우리 팀 소개":
-    st.title("행복한 6조를 소개합니다😆")
-
+    # ✅ `team_intro.py`의 내용을 실행하여 현재 페이지를 "우리 팀 소개"로 변경
+    team_intro.show_team_page()
+    
 
 # 우리 서비스 소개 페이지
 elif st.session_state.current_page == "우리 서비스 소개":
