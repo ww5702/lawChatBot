@@ -111,6 +111,10 @@ def local_css():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: none; 
         }
+        /* .main-header 내부 글씨 색상 흰색으로 설정 */
+        .main-header h1, .main-header p {
+            color: white !important;
+        }
                 
         .body-head {
             margin-top: 1rem;
