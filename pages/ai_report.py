@@ -2,9 +2,7 @@ import streamlit as st
 from openai import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
-
-from dotenv import load_dotenv # 환경변수 불러오기
-import os
+import base64
 
 # 프롬프트 템플릿 가져오기
 from prompts import question_generation_prompt, re_write_prompt, report_prompt
@@ -12,10 +10,19 @@ from prompts import question_generation_prompt, re_write_prompt, report_prompt
 # 법률 카테고리 데이터 가져오기
 from legal_categories import categories
 
-# 변호사 선택
-from select_lawyer import show_lawyer_selection_modal, close_modal
-  
+# 환경변수
+import os
+from dotenv import load_dotenv
 load_dotenv()
+API_KEY = os.getenv("OPENAI_KEY")
+
+
+st.set_page_config(
+    page_title="AI 법률 자문 보고서 생성",
+    page_icon="📝",
+    layout="centered",  # "wide"에서 "centered"로 변경
+    initial_sidebar_state="expanded"
+)
 
 # 현재 페이지 식별
 current_page = "ai_report"
@@ -24,23 +31,326 @@ current_page = "ai_report"
 INITIAL_MESSAGE = "법률 사건의 정확한 이해를 돕기 위해 상담을 진행합니다."
 MODEL = "gpt-4o-mini"  
 TEMPERATURE = 0.2
-API_KEY = os.environ.get('OPENAI_KEY')
+
+
+def get_lawyers():
+    return [
+        {
+            "id": 1,
+            "name": "손지영", 
+            "specialty": '"백전 백승, 무패의 전설 !!! 상대가 누구든 다 뿌셔드립니다."', 
+            "personality": "ENTJ<br>의뢰인에게도<br>화낼 수 있음 주의",  # 추가
+            "personality2": "ENTJ (의뢰인에게도 화낼 수 있음 주의)",  # 추가
+            "description": '• 대원한국어고등학교 졸업 (2005)<br>  • 한국대학교 물리학과 학사 (2010)<br>  • 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>  • 김앤손 법률 사무소 (2008 ~ 2015)<br>  • 사고닷 법률 사무소 (2015 ~ 현재)',
+            "image_url" : "images/손지영.png"
+        },
+        {
+            "id": 2,
+            "name": "이재웅", 
+            "specialty": '"자신이 없습니다. 질 자신이.<br>  가장 확실한 해결책, 포기 없는 변호."', 
+            "personality": "INFJ<br>근데 사실 T임<br><br>",  # 추가
+            "personality2" : "INFJ (근데 사실 T임)", 
+            "description": '• 한국대학교 법학전문대학학원 (법학스칼라전문박사, 박사 졸업, 2018)<br>  • 너뭐대학교 (한국사, 문학과, 수석 졸업, 2015)<br>  • 사고닷 법률 사무소 (2016 - 현재)',
+            "image_url" : "images/이재웅.png"
+        },
+        {
+            "id": 3,
+            "name": "김다은", 
+            "specialty": '"시켜줘 그럼, SKALA 명예 변호사"', 
+            "personality": "ESTJ<br>인성은 글쎄?<br>근데 이기면 되잖아",
+            "personality2" : "ESTJ (인성은 글쎄? 근데 이기면 되잖아)",
+            "description": '• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교 (법학스칼라전문박사, 박사 졸업, 2016)<br>  • 하버드 법학대학원 (법학 박사, 2005)<br>  • 국제 법률 자문관 (2015 - 2025)<br>  • 사고닷 법률 사무소 변호사 (2016 - 현재)<br>  • SKALA 명예 변호사로 활동 (2018 - 현재)',
+            "image_url" : "images/김다은.png"
+        },
+
+        {
+            "id": 4,
+            "name": "진실", 
+            "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>  이혼 전문 맡겨만 주세요."', 
+            "personality": "ISFP<br>공감 잘함<br>의뢰인과 울음 대결 가능",  # 추가
+            "personality2" : "ISFP (공감 잘함. 의뢰인과 울음 대결 가능)", 
+            "description": '• 제9회 변호사시험 합격 (2020)<br>  • 한국대학교 법학전문대학원 (법학스칼라전문석사, 수석졸업, 2020)<br>  • 두번 다시 사랑모대학교 (문학사, 서양사학, 수석졸업, 2017)<br>  • 사고닷 법률사무소 (2020-현재)',
+            "image_url" : "images/진실.png"
+        },
+        {
+            "id": 5,
+            "name": "김민주", 
+            "specialty": '"법과 정의, 그리고 사람. <br>  혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."', 
+            "personality": "ENFP<br>긍정적 사고 전문<br><br>",  # 추가
+            "personality2" : "ENFP (긍정적 사고 전문)", 
+            "description": '• 제 7회 변호사시험 합격 (2007)<br>  • 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>  • 비빔대학교 (법학/문학, 무사 졸업, 2005)<br>  • 사고닷 법률사무소 (2020 - 현재)',
+            "image_url" : "images/김민주.png"
+        },
+        {
+            "id": 6,
+            "name": "이효정", 
+            "specialty": '"오직 노동자만을 위한<br>  노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"', 
+            "personality": "INTJ<br>노동자에게만 F<br><br>",  # 추
+            "personality2" : "INTJ (노동자에게만 F)", 
+            "description": '• 한국대학교(법학, 2020)<br>  • 한국대학교 법학전문대학원(법학전문석사, 2023)<br>  • 한국노동교육원 법률 자문(2023 - 현재)<br>  • 사고닷 법률 사무소(2024 - 현재)', 
+            "image_url" : "images/이효정.png"
+        }
+    ]
+
+
+def load_css():
+    st.markdown("""
+    <style>
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #3d6aff;
+        }
+        
+        .main-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #4B5563;
+        }
+        
+        .center-button {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        
+        .lawyer-info {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .st-emotion-cache-iyz50i {
+            transition: transform 0.3s all ease;
+        }       
+                
+        .st-emotion-cache-iyz50i:hover {
+            border-color: rgb(255, 75, 75);
+            color: rgb(255, 75, 75);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+                
+                
+        .emoji-large {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .lawyer-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .lawyer-specialty {
+            font-size: 18px;
+            color: #3d6aff;
+            margin-bottom: 8px;
+        }
+        
+        .lawyer-personality {
+            font-size: 16px;
+            color: #4B5563;
+            margin-bottom: 15px;
+        }
+        
+        .lawyer-description {
+            white-space: pre-line;
+            font-size: 14px;
+        }
+        
+        .selected-lawyer {
+            background-color: #F1F5F9;
+            padding: 3rem;
+            padding-bottom: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+
+        }
+        
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .home-image {
+            font-size: 100px;
+            margin-bottom: 2rem;
+        }
+        
+        .home-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #3d6aff;
+        }
+        
+        .home-subtitle {
+            font-size: 1.5rem;
+            color: #4B5563;
+            margin-bottom: 3rem;
+        }
+        
+        .big-button {
+            padding: 0.75rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: #E53935;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .big-button:hover {
+            background-color: #C62828;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+def get_image_as_base64(file_path):
+    try:
+        with open(file_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        return None
+
+
+def set_page_to_lawyer_list():
+    # 명시적으로 페이지 상태를 변경
+    st.session_state.page = "lawyer_list"
+    st.rerun()  # 즉시 rerun 실행
+
+# 변호사 목록 페이지 표시 함수
+def show_lawyer_list_page():
+    # st.set_page_config(layout="wide")
+
+    st.markdown("<div class='main-title'>변호사 매칭 서비스</div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-subtitle'>원하시는 변호사를 선택해 주세요!</div>", unsafe_allow_html=True)
+    
+    # 홈으로 돌아가기 버튼
+    if st.button("← 처음으로 돌아가기", key="back_to_home"):
+        st.session_state.page = "home"
+        st.rerun()
+
+    if st.session_state.selected_lawyer is None:
+        lawyers = get_lawyers()
+        cols = st.columns(3)
+        
+        for i, lawyer in enumerate(lawyers):
+            with cols[i % 3]:
+                # 변호사 카드 (원형 이미지 스타일 적용)
+                st.markdown(f"""
+                <div class="lawyer-info">
+                    <div style="text-align: center;">
+                        <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto;">
+                            <img src="data:image/jpeg;base64,{get_image_as_base64(lawyer["image_url"])}" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div style="font-size: 20px; font-weight: bold; margin-top: 10px;">{lawyer['name']} 변호사</div>
+                        <div style="font-style: italic; margin: 10px 0;">{lawyer['personality']}</div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # 변호사 선택 버튼
+                if st.button(f"{lawyer['name']} 변호사 선택하기", key=f"select_{lawyer['id']}", use_container_width=True):
+                    lawyer_selection_dialog(lawyer)
+
+    else:
+        lawyer = st.session_state.selected_lawyer
+        
+        st.markdown(f"""
+        <div class="selected-lawyer">
+            <div style="display: flex; align-items: center;">
+                <div style="margin-right: 20px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;">
+                        <img src="data:image/jpeg;base64,{get_image_as_base64(lawyer['image_url'])}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 24px; font-weight: bold;">{lawyer['name']} 변호사가 매칭되었습니다!</div>
+                    <div style="font-size: 18px; color: #3d6aff; margin-top: 5px;">{lawyer['specialty']}</div>
+                    <div style="font-size: 16px; color: #4B5563; margin-top: 5px;">{lawyer['personality2']}</div>
+                </div>
+            </div>
+            <hr>
+            <p style="white-space: pre-line;">{lawyer['description']}</p>
+            <div style="margin-top: 20px;">
+                <p>변호사가 곧 연락드릴 예정입니다. 감사합니다!<br><br>* 사실 연결은 안됩니다. 죄송합니다😘</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("다른 변호사 선택하기"):
+            st.session_state.selected_lawyer = None
+            st.rerun()
+
+
+@st.dialog("국내 Top 변호사를 소개합니다")
+def lawyer_selection_dialog(lawyer):
+    # 원형 이미지 컨테이너 스타일 적용
+    st.markdown(f'''
+    <div style="text-align: center; margin-bottom: 20px;">
+        <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto;">
+            <img src="data:image/jpeg;base64,{get_image_as_base64(lawyer["image_url"])}" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    st.markdown(f'<div class="lawyer-name">{lawyer["name"]} 변호사</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="lawyer-specialty">{lawyer["specialty"]}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="lawyer-personality">{lawyer["personality2"]}</div>', unsafe_allow_html=True)
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(f'<div class="lawyer-description">{lawyer["description"]}</div>', unsafe_allow_html=True)
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.write("이 변호사를 선택하시겠습니까?")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("취소", use_container_width=True):
+            st.rerun()
+    with col2:
+        if st.button("선택하기", type="primary", use_container_width=True):
+            st.session_state.selected_lawyer = lawyer
+            st.rerun()
 
 
 # 초기 세션 상태 설정 함수
 def initialize_session_state():
+    # 메시지가 없을 때만 초기화 (페이지 전환 시 대화 내용 유지)
     if "messages" not in st.session_state:
         st.session_state["messages"] = [{"role": "assistant", "content": INITIAL_MESSAGE}]
     
-    # 딕셔너리로 초기화를 간소화
+    # 페이지 상태가 없을 때만 초기화
+    if "page" not in st.session_state:
+        st.session_state["page"] = "home"
+    
+    # 변호사 선택 상태가 없을 때만 초기화
+    if "selected_lawyer" not in st.session_state:
+        st.session_state["selected_lawyer"] = None
+    
+    # 다른 상태 변수들을 초기화 (기존과 동일)
     initial_states = {
         "current_step": "initial",
         "legal_specification": "",
-        "additional_questions": "",  # 리스트 대신 문자열로 저장
+        "additional_questions": "",
         "additional_responses": "",
         "extra_information": "",
         "final_report": "",
-        # 카테고리 관련 상태 변수 추가
         "current_category": None,
         "category_selected": False,
         "current_question": 0,
@@ -53,12 +363,6 @@ def initialize_session_state():
         if key not in st.session_state:
             st.session_state[key] = value
 
-    # 변호사 매칭 세션 상태 초기화 : show_modal, comfirmed_lawyer
-    if 'show_modal' not in st.session_state:
-        st.session_state.show_modal = False
-          
-    if 'confirmed_lawyer' not in st.session_state:
-        st.session_state.confirmed_lawyer = None
 
 # 메시지 추가 함수
 def add_message(role, content):
@@ -297,14 +601,22 @@ def handle_extra_information_step(prompt):
         response_text = "법률 보고서가 생성되었습니다:\n\n" + final_report
         add_message("assistant", response_text)
         
-        # 마무리 메시지
-        completion_text = "보고서 생성이 완료되었습니다. 추가 질문이 있으시면 말씀해주세요."
+        # 마무리 메시지 (버튼에 대한 언급 추가)
+        completion_text = "보고서 생성이 완료되었습니다. 아래 '변호사 매칭하기' 버튼을 클릭하시면 변호사 매칭 페이지로 이동합니다. 추가 질문이 있으시면 말씀해주세요."
         add_message("assistant", completion_text)
         
         # 다음 단계로 이동
         st.session_state.current_step = "completed"
         
-
+        # 다운로드 버튼만 유지 (매칭 버튼은 main에서 표시)
+        st.download_button(
+            label="📄 보고서 다운로드 (TXT)",
+            data=st.session_state["final_report"],
+            file_name="AI법률_자문_보고서.txt",
+            mime="text/plain", 
+            use_container_width=True
+        )
+        
     except Exception as e:
         error_message = f"보고서 생성 중 오류가 발생했습니다: {str(e)}"
         st.error(error_message)
@@ -425,47 +737,6 @@ def get_progress_value(current_step):
     
     return progress_values.get(current_status, 0.0)
 
-# 모달 표시 함수
-def toggle_modal():
-    st.session_state.show_modal = not st.session_state.show_modal
-  
-def display_lawyer_modal():
-    if st.session_state.current_step == "completed":
-        col1, col2 , col3= st.columns([1, 1,1])  # 버튼을 1:1 비율로 정렬 
-        with col1:
-            st.download_button(
-                label="📄 보고서 다운로드 (TXT)",
-                data=st.session_state["final_report"],
-                file_name="AI법률_자문_보고서.txt",
-                mime="text/plain"
-            )
-          
-        with col2:
-            if st.button("변호사 매칭"):
-                toggle_modal()
-  
-    # 변호사 선택 모달 창 표시
-    if st.session_state.show_modal:
-        # select_lawyer 모듈의 함수 호출하여 모달 표시
-        show_lawyer_selection_modal()
-  
-    # 변호사 선택 결과 표시
-    if st.session_state.confirmed_lawyer:
-        close_modal()
-        lawyer = st.session_state.confirmed_lawyer
-  
-        st.markdown("<div class='selected-lawyer-info'>", unsafe_allow_html=True)
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.image(lawyer["image"], width=200)
-        with col2:
-            st.markdown(f"### {lawyer['name']} 변호사", unsafe_allow_html=True)
-            st.markdown(f"{lawyer['specialty']}", unsafe_allow_html=True)
-            st.markdown(f"{lawyer['description']}", unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
-  
-        st.success(f"{lawyer['name']} 변호사와 매칭되었습니다!")
-
 
 # 사이드바 상태 표시 함수
 def display_sidebar_status():
@@ -526,17 +797,23 @@ def display_sidebar_status():
 
 # 메인 애플리케이션 실행 함수
 def main():
-    # 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
-    if "last_page" not in st.session_state or st.session_state.last_page != current_page:
-        st.session_state.clear()  # 기존 상태 초기화
-        st.session_state.last_page = current_page  # 현재 페이지 저장
-
-    # 페이지 타이틀과 설명 설정
-    st.title("💬 AI 법률 자문 보고서 생성")
-    st.caption("👩🏻‍💼 법률 보고서 생성 후 변호사 매칭이 이루어집니다")
     
     # 세션 상태 초기화
     initialize_session_state()
+
+    load_css()
+
+    # if st.button("👩‍⚖️ 변호사 매칭하기", key="start_matching_main", use_container_width=True, type="primary"):
+    #         set_page_to_lawyer_list()
+    
+    # 페이지 라우팅 - 먼저 페이지 상태 확인
+    if st.session_state.page == "lawyer_list":
+        show_lawyer_list_page()
+        return  # 중요: 여기서 함수 종료
+    
+    # AI 법률 자문 페이지 (홈)
+    st.title("📝 AI 법률 자문 보고서 생성")
+    st.caption("법률 보고서 생성 후 변호사 매칭이 이루어집니다 👩🏻‍💼")
     
     # 메시지 히스토리 표시
     display_chat_history()
@@ -549,14 +826,17 @@ def main():
             show_question()
     else:
         # 사용자 입력 처리
-        if prompt := st.chat_input():
+        if prompt := st.chat_input("질문을 입력하세요..."):
             handle_user_input(prompt)
     
     # 사이드바에 현재 상태 표시
     display_sidebar_status()
-
-    # 변호사 선택 모달 
-    display_lawyer_modal()
+    
+    # 보고서가 생성된 후에는 변호사 매칭 버튼 표시 (별도로 항상 표시)
+    if st.session_state.current_step == "completed" and st.session_state.final_report:
+        # 버튼을 더 눈에 띄게 만들고 직접 페이지를 변경하는 함수 호출
+        if st.button("👩‍⚖️ 변호사 매칭하기", key="start_matching_main", use_container_width=True, type="primary"):
+            set_page_to_lawyer_list()
 
 
 # 애플리케이션 시작
