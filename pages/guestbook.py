@@ -65,21 +65,19 @@ def local_css():
             }
             /* ✅ 수정 폼 (초록색) */
             [id^="edit-box-"] {
-                background-color: #2a9d8f !important;
-                color: white !important;
+                background-color: #A8D5BA !important;
+                color: black !important;
                 border-radius: 8px;
                 padding: 15px;
-                text-align: center;
                 font-weight: bold;
             }
 
             /* ✅ 삭제 폼 (빨간색) */
             [id^="delete-box-"] {
-                background-color: #e63946 !important;
-                color: white !important;
+                background-color: #F4A3A8 !important;
+                color: black !important;
                 border-radius: 8px;
                 padding: 15px;
-                text-align: center;
                 font-weight: bold;
             }
         }
