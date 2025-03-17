@@ -59,22 +59,6 @@ def local_css():
         * {
             font-family: 'Noto Sans KR', sans-serif;
         }
-                
-        /* 라이트 모드 */
-        @media (prefers-color-scheme: light) {
-            .stApp {
-                background-color: #F8FAFC !important;
-                color: #1F2937 !important; /* 글자 색을 어두운 색으로 */
-            }
-            .service-card, .stForm {
-                background-color: white !important;
-                color: #1F2937 !important;
-            }
-            .profile-card {
-                background-color: white !important;
-                color: #374151 !important;
-            }
-        }
         
         /* 헤더 스타일 */
         .main-header {
@@ -87,6 +71,7 @@ def local_css():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: none; 
         }
+        
         /* .main-header 내부 글씨 색상 흰색으로 설정 */
         .main-header h1, .main-header p {
             color: white !important;
@@ -95,7 +80,6 @@ def local_css():
         .body-head {
             margin-top: 1rem;
             margin-bottom: 0.5rem;
-                
         }
         
         /* 카드 스타일 */
@@ -130,7 +114,7 @@ def local_css():
         }
         
         .card-description {
-            color: ##4e5968;
+            color: #4e5968;
             font-size: 0.9rem;
         }
         
@@ -175,7 +159,6 @@ def local_css():
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
                 
-            /* 프로필 카드 스타일 */
         /* 프로필 카드 스타일 - Flex 레이아웃 적용 */
         .profile-card {
             background-color: white;
@@ -244,46 +227,50 @@ def local_css():
             background: #a8a8a8;
         }
             
+        .stForm {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stForm:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 폼 내부 콘텐츠 컨테이너 */
+        .form-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 버튼 컨테이너 */
+        .button-container {
+            margin-top: 1rem;
+        }
+        
+        /* 모바일에서도 높이 유지 */
+        @media (max-width: 768px) {
             .stForm {
-                background-color: white;
-                border-radius: 10px;
-                padding: 2rem;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s;
-                cursor: pointer;
-                border: none;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+                height: 15rem;
+                margin-bottom: 1rem;
             }
+        }
 
-            .stForm:hover {
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            }
+        /* 구분선 스타일 */
+        .horizon-line {
+            border-top: 2px solid #e7e8e8;
+            margin: 20px 0;
+            margin-top: 3rem;
+        }
 
-            /* 폼 내부 콘텐츠 컨테이너 */
-            .form-content {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* 버튼 컨테이너 */
-            .button-container {
-                margin-top: 1rem;
-            }
-
-            /* 폼 제출 버튼 숨기기 (또는 작게 만들기) */
-
-            
-            /* 모바일에서도 높이 유지 */
-            @media (max-width: 768px) {
-                .stForm {
-                    height: 15rem;
-                    margin-bottom: 1rem;
-                }
-            }
-                
         /* 다크 모드 */
         @media (prefers-color-scheme: dark) {
             .stApp {
@@ -309,12 +296,9 @@ def local_css():
                 color: #FFFFFF !important;
             }
             
-                
-            .stForm:hover:hover {
+            .stForm:hover {
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(130, 130, 130, 0.15) !important;
             }
-                
-            
             
             /* 프로필 카드 스타일 */
             .profile-card {
@@ -341,15 +325,11 @@ def local_css():
                 transform: translateY(-5px);
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             }
-            
-                
 
             /* 구분선 색상 */
             .horizon-line {
                 border-top: 2px solid #3d3d3d !important;
             }
-            
-
             
             /* 확장기(expander) 스타일 */
             .streamlit-expanderHeader {
@@ -373,37 +353,15 @@ def local_css():
                 background-color: #3d6aff !important;
             }
             
-        
             .st-emotion-cache-f03grt {
-                display: inline-flex;
-                -webkit-box-align: center;
-                align-items: center;
-                -webkit-box-pack: center;
-                justify-content: center;
-                font-weight: 400;
-                padding: 0.25rem 0.75rem;
-                border-radius: 0.5rem;
-                border: none;
-                min-height: 2.5rem;
-                margin: 0px;
-                line-height: 1.6;
-                text-transform: none;
-                font-size: inherit;
-                font-family: inherit;
-                color: inherit;
-                width: 100%;
-                cursor: pointer;
-                user-select: none;
-                background-color: rgb(19, 23, 32);
+                border: 1px solid transparent;
+                background-color: #3d6aff;
             }
-            .st-emotion-cache-f03grt:hover {
-                border-color: rgb(255, 75, 75);
-                color: rgb(255, 75, 75);
-            }
-                
-        
+
+            .st-emotion-cache-f03grt:hover * {
+                color: rgb(255, 75, 75) !important;
+            }     
         }
-                
     </style>
     """, unsafe_allow_html=True)
 
