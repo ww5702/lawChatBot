@@ -1,11 +1,6 @@
 import streamlit as st
 import os
 
-st.set_page_config(
-    page_title="우리 서비스 소개",
-    page_icon=":저울:",
-    layout="wide"
-)
 
 def show_service_page():
     # 페이지 기본 설정
