@@ -246,6 +246,16 @@ def show_service_page():
             .contributor-names {
                 color: #FFF !important;
             }
+            .vision-box {
+                background-color: #000 !important;
+                color: #FFF !important;
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
+            }
+        
+            /* 기여자 이름 (contributor-names) - 흰 글씨 */
+            .vision-box p {
+                color: #FFF !important;
+            }
         }
 
             
