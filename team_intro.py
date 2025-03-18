@@ -198,7 +198,7 @@ def show_team_page():
             "intro": "빠르게 성장해서 성장 괴물로 불리고 있습니다.",
             "feature": "트러블 슈팅? 그게 뭔데",
             "mbti": "ISFP",
-            "role": "실시간 AI 법률 상담 기능, 방명록 기능 수정",
+            "role": "실시간 AI 법률 상담 기능 구현, 방명록 기능 보완, 팀 소개 페이지 구현",
             "image": "images/jin.png"
         }
     ]
