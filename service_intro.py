@@ -252,6 +252,9 @@ def show_service_page():
                 color: #FFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
             }
+            .vision-box:before {
+                display: none !important;
+            }
         
             /* 비전 박스 안의 텍스트 (p 태그) - 흰 글씨 */
             .vision-box p {
@@ -318,7 +321,7 @@ def show_service_page():
             </div>
             """, unsafe_allow_html=True)
         # 비전
-    st.markdown("""
+    st.markdown("""퍄
         <div class="vision-box">
             <h3>우리의 비전</h3>
             <p>우리는 이 서비스를 통해, 누구나 편리하게 사용할 수 있는 도구가 되길 바랍니다.</p>
