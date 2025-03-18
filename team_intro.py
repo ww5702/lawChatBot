@@ -162,7 +162,7 @@ def show_team_page():
             "intro": "귀여운 말투와 그렇지 못한 팩폭",
             "feature": "부모님 mbti 두분 다 ENTJ",
             "mbti": "ENFP",
-            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현",
+            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현, Github 관리 및 교육 ",
             "image": "images/min.png"
         },
         {
