@@ -2,7 +2,7 @@ import streamlit as st
 import os
 
 st.set_page_config(
-    page_title="AI 기반 법률 상담 서비스",
+    page_title="🚀 사고닷 🚀",
     page_icon=":저울:",
     layout="wide"
 )
