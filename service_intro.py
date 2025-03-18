@@ -214,12 +214,12 @@ def show_service_page():
         
             /* 문제 리스트 (problem-list) - 배경 투명, 글씨 흰색 */
             .problem-list {
+                background-color: #333333 !important;
                 color: #FFF !important;
             }
         
             /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
             .problem-list li {
-                background-color: #333333 !important;
                 color: #FFF !important;
             }
         
