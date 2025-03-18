@@ -15,9 +15,10 @@ faiss-cpu
 python-dotenv
 
 # streamlit
-streamlit
+streamlit==1.43.2
 
 # ✅ 최신 SQLite 사용을 위한 패키지 추가
 pysqlite3-binary 
+sqlite3==3.41.2
 # 오류 Tavily python package not found 발생
 tavily-python
