@@ -414,7 +414,7 @@ def display_reviews():
         # 좋아요 버튼
         like_button = col1.button(
             "👍 이미 좋아요" if already_liked else "👍 좋아요", 
-            key=f"like_{idx}",
+            key=f"like_{review_id}_{idx}",
             disabled=already_liked,
         )
         
@@ -579,8 +579,13 @@ def display_reviews():
         # 리뷰 사이에 구분선 추가
         st.markdown("<hr style='margin: 20px 0; opacity: 0.3;'>", unsafe_allow_html=True)
 
-def handle_like(review_id):
+def handle_like(review_id, already_liked=False):
     """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지 및 자신의 글 좋아요 방지)"""
+    # 이미 좋아요를 누른 상태면 함수 실행 중단
+    if already_liked:
+        st.warning("이미 좋아요를 누른 댓글입니다.")
+        return
+    
     session_id = st.session_state.session_id
     
     # 1. 먼저 리뷰 작성자의 세션 ID 확인
@@ -590,11 +595,11 @@ def handle_like(review_id):
     # 2. 자신의 글인지 확인 (세션 ID가 동일한지)
     if author_session and author_session[0] == session_id:
         st.warning("자신의 글에는 좋아요를 누를 수 없습니다.")
-        now.sleep(1)
+        now.sleep(1)  # now.sleep 대신 time.sleep 사용
         st.rerun()
         return
     
-    # 3. 이미 좋아요를 눌렀는지 확인
+    # 3. 이미 좋아요를 눌렀는지 확인 (버튼 상태와 별개로 DB 확인)
     cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
                   (review_id, session_id))
     
@@ -618,7 +623,7 @@ def handle_like(review_id):
         st.warning("이미 좋아요를 누른 댓글입니다.")
     
     # 1초 대기 후 페이지 새로고침
-    now.sleep(1)
+    now.sleep(1)  # now.sleep 대신 time.sleep 사용
     st.rerun()
 
 def delete_with_password(review_id, name, stored_password, input_password):
