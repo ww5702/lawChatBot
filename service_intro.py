@@ -216,7 +216,12 @@ def show_service_page():
             .problem-list {
                 color: #FFF !important;
             }
-        
+            
+            /* 제목 더 밝게 가능? */
+            .section-title {
+                color: #EEF2FF !important;
+            }
+            
             /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
             .problem-list li {
                 color: #FFF !important;
