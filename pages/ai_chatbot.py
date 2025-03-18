@@ -17,7 +17,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
-
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
     page_icon="💬",
@@ -172,9 +171,9 @@ def format_docs(docs):
     return "\n\n---\n\n".join(formatted_docs)
 
 # ✅ Tavily 검색 API 호출 (캐싱 적용)
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def web_search(query):
-    retriever = TavilySearchAPIRetriever(k=3, search_depth="advanced", include_domains=["news"], verbose = False)
+    retriever = TavilySearchAPIRetriever(k=3, search_depth="advanced", include_domains=["news"], verbose=False)
     return retriever.invoke(query)
 
 # ✅ Tavily 검색 설정
