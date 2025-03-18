@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import sys
+import sqlite3
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
