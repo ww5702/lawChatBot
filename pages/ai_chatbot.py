@@ -105,7 +105,7 @@ if "last_page" not in st.session_state or st.session_state.last_page != current_
 
 
 st.title("💬 실시간 AI 법률 상담")
-st.caption("💬 법률 관련 질문을 입력하고 AI 변호사와 상담해보세요.")
+st.caption("💬 법률 관련 질문을 입력하고 AI 변호사와 상담해 보세요.")
 ####################################################
 
 ############# 2. 챗봇 프롬프트, agent 정의 ############
@@ -119,7 +119,7 @@ if "chatbot" not in st.session_state:
     st.session_state["chatbot"] = Agent(system_prompt=system_prompt, api_key=openai_api_key)
 # ✅ 기존 대화 기록 관리
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요! 법률 상담이 필요하시면 질문해주세요."}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요! 법률 상담이 필요하시면 질문해 주세요."}]
 
 # ✅ 기존 대화 UI 출력
 for msg in st.session_state.messages:
