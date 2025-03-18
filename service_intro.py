@@ -321,7 +321,7 @@ def show_service_page():
             </div>
             """, unsafe_allow_html=True)
         # 비전
-    st.markdown("""퍄
+    st.markdown("""
         <div class="vision-box">
             <h3>우리의 비전</h3>
             <p>우리는 이 서비스를 통해, 누구나 편리하게 사용할 수 있는 도구가 되길 바랍니다.</p>
