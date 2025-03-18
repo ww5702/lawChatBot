@@ -254,7 +254,7 @@ def show_service_page():
             st.markdown("""
             <div class="feature-card">
                 <div class="icon">📋</div>
-                <div class="feature-title">AI 법률 보고서 + 변호사 매칭</div>
+                <div class="feature-title">AI 법률 보고서 </br> 변호사 매칭</div>
                 <p>AI 기술을 활용한 사건 보고서 생성과 변호사 매칭 기능까지 지원해 실질적인 법적 조치를 취할 수 있어요!</p>
             </div>
             """, unsafe_allow_html=True)
