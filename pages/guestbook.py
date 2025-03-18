@@ -395,13 +395,13 @@ def display_reviews():
         # 리뷰 박스 생성
         st.markdown(f"""
         <div class="review-box">
-            <h4>💙 {name}님의 리뷰</h4>
+            <h4>:blue_heart: {name}님의 리뷰</h4>
             <p><strong>후기 내용:</strong> {review}</p>
             <p>좋아요 수: {likes}</p>
         </div>
         """, unsafe_allow_html=True)
         
-        # 좋아요 버튼 상태 확인
+        # 현재 사용자가 이 리뷰에 좋아요 눌렀는지 확인
         cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
                       (review_id, st.session_state.session_id))
         already_liked = cursor.fetchone() is not None
@@ -409,18 +409,19 @@ def display_reviews():
         # 버튼 생성
         col1, col2, col3 = st.columns(3)
         
-        # 좋아요 버튼
+        # 좋아요 버튼 - 현재 사용자의 좋아요 상태에 따라 설정
+        like_status = ":+1: 이미 좋아요" if already_liked else ":+1: 좋아요"
         like_button = col1.button(
-            "👍 이미 좋아요" if already_liked else "👍 좋아요", 
-            key=f"like_{idx}",
+            like_status, 
+            key=f"like_{review_id}_{idx}",  # 고유한 키 사용
             disabled=already_liked,
         )
         
         # 수정 버튼
-        edit_button = col2.button("✏️ 수정", key=f"edit_{idx}")
+        edit_button = col2.button(":pencil2: 수정", key=f"edit_{idx}")
         
         # 삭제 버튼
-        delete_button = col3.button("🗑️ 삭제", key=f"delete_{idx}")
+        delete_button = col3.button(":wastebasket: 삭제", key=f"delete_{idx}")
 
         # 좋아요 버튼 처리
         if like_button:
@@ -445,7 +446,7 @@ def display_reviews():
         if st.session_state.get(f"show_edit_form_{review_id}", False):
             with st.container():
                 # 수정 폼 헤더
-                st.markdown("""
+                st.markdown(f"""
                 <div id = "edit-box-{review_id}" style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
                     <h5>리뷰 수정</h5>
                 </div>
@@ -468,8 +469,8 @@ def display_reviews():
                     
                     # 저장 및 취소 버튼
                     col1, col2 = st.columns(2)
-                    save_button = col1.button("💾 저장", key=f"save_{review_id}")
-                    cancel_button = col2.button("❌ 취소", key=f"cancel_{review_id}")
+                    save_button = col1.button(":floppy_disk: 저장", key=f"save_{review_id}")
+                    cancel_button = col2.button(":x: 취소", key=f"cancel_{review_id}")
                     
                     # 저장 버튼 처리
                     if save_button:
@@ -496,8 +497,8 @@ def display_reviews():
                 else:
                     # 비밀번호 확인 및 취소 버튼
                     verify_col1, verify_col2 = st.columns(2)
-                    verify_button = verify_col1.button("🔑 비밀번호 확인", key=f"verify_edit_{review_id}")
-                    cancel_edit_button = verify_col2.button("❌ 취소", key=f"cancel_edit_init_{review_id}")
+                    verify_button = verify_col1.button(":key: 비밀번호 확인", key=f"verify_edit_{review_id}")
+                    cancel_edit_button = verify_col2.button(":x: 취소", key=f"cancel_edit_init_{review_id}")
                     
                     # 비밀번호 확인 처리
                     if verify_button:
@@ -533,7 +534,7 @@ def display_reviews():
         if st.session_state.get(f"show_delete_form_{review_id}", False):
             with st.container():
                 # 삭제 폼 헤더
-                st.markdown("""
+                st.markdown(f"""
                 <div id = "delete-box-{review_id}" style="background-color: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
                     <h5>리뷰 삭제</h5>
                 </div>
@@ -549,7 +550,7 @@ def display_reviews():
                 # 확인 및 취소 버튼
                 del_col1, del_col2 = st.columns(2)
                 confirm_button = del_col1.button("✓ 확인", key=f"confirm_del_{review_id}")
-                cancel_button = del_col2.button("❌ 취소", key=f"cancel_del_{review_id}")
+                cancel_button = del_col2.button(":x: 취소", key=f"cancel_del_{review_id}")
                 
                 # 확인 버튼 처리
                 if confirm_button:
@@ -564,7 +565,6 @@ def display_reviews():
         
         # 리뷰 사이에 구분선 추가
         st.markdown("<hr style='margin: 20px 0; opacity: 0.3;'>", unsafe_allow_html=True)
-
 def handle_like(review_id):
     """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지)"""
     session_id = st.session_state.session_id
