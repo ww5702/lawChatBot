@@ -204,6 +204,20 @@ def show_service_page():
                 color: #0062CC;
                 margin-bottom: 1rem;
             }
+            /* ✅ 다크모드 스타일 */
+            @media (prefers-color-scheme: dark) {
+                .main {
+                    background-color: #121212 !important;
+                    color: #EAEAEA !important;
+                }
+                .problem-list, .feature-title {
+                    background-color: #000 !important;
+                    color: #FFF !important;
+                    padding: 1rem;
+                    border-radius: 8px;
+                }
+            }
+            
         </style>
         """, unsafe_allow_html=True)
         # 페이지 제목
