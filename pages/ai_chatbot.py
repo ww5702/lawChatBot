@@ -50,7 +50,9 @@ current_page = "ai_chatbot"
 ################ 1. openai-api key #################
 
 # OpenAI 클라이언트 연결
-openai_api_key, tavily_api_key = load_keys()
+# openai_api_key, tavily_api_key = load_keys()
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+tavily_api_key = st.secrets["TAVILY_API_KEY"]
 client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 
