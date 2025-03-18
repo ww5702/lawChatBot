@@ -683,9 +683,13 @@ def display_sidebar_status():
             )
         
         # 처음부터 다시 시작하는 버튼
-        st.markdown("---")
         if st.button("새 대화 시작"):
             reset_session_state()
+
+        st.markdown("---")
+        st.caption("고객센터: 02-1004-1004")
+        st.caption("이메일: happy6team@skala.com")
+        st.caption("운영시간: 연중무휴 24시간!")
 
 
 # 메인 애플리케이션 실행 함수
