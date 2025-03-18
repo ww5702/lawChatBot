@@ -257,7 +257,9 @@ with st.sidebar:
     
     # 하단 정보
     st.markdown("---")
-    st.caption("© 2025 사고닷 - 법률 상담 AI 챗봇")
+    st.caption("고객센터: 02-1004-1004")
+    st.caption("이메일: happy6team@skala.com")
+    st.caption("운영시간: 연중무휴 24시간!")
 
 if st.session_state["loading"]:
     with st.spinner("검색 중입니다... 잠시만 기다려 주세요.🙏"):
