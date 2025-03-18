@@ -203,6 +203,27 @@ def show_service_page():
                 color: #0062CC;
                 margin-bottom: 1rem;
             }
+             /* 버튼 스타일 */
+            .stButton>button {
+                background-color: white;
+                border-radius: 10px;
+                border: none;
+                font-weight: 500;
+                border-radius: 5px;
+                width: 100%;
+                margin-bottom: 3px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+                cursor: pointer;
+                padding: 0.8em;
+            }
+            
+            .stButton>button:hover {
+                background-color: #3d6aff;
+                color: white;
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
         </style>
         """, unsafe_allow_html=True)
         # 페이지 제목
