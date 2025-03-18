@@ -242,7 +242,7 @@ def show_service_page():
                 <div class="icon">🤖</div>
                 <div class="feature-title">실시간 AI 법률 상담</div>
                 <p>법에 대해 잘 몰라도, 누구나 쉽게 상담할 수 있어요! 복잡한 법률 용어는 잊고 일상적인 언어로 질문하세요. <br>
-                        AI 기술과 법전을 담은 데이터 베이스를 활용하여 믿을 수 있는 정보와 관련사례를 제공합니다.</p>
+                        AI 기술과 법전을 담은 데이터 베이스를 활용하여 믿을 수 있는 정보와 관련 사례를 제공합니다.</p>
             </div>
             """, unsafe_allow_html=True)
     with col2:
@@ -293,9 +293,3 @@ def show_service_page():
             </div>
             """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-        # 푸터
-    st.markdown("""
-        <div class="footer">
-            <p>© 2025 행복한 6조 (feat. 왕자님과 아이들) | 모든 권리 보유</p>
-        </div>
-        """, unsafe_allow_html=True)
