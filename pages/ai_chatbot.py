@@ -53,6 +53,9 @@ current_page = "ai_chatbot"
 # openai_api_key, tavily_api_key = load_keys()
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 tavily_api_key = st.secrets["TAVILY_API_KEY"]
+st.write("🔑 OPENAI_API_KEY:", st.secrets.get("OPENAI_API_KEY", "❌ 설정되지 않음"))
+st.write("🔍 TAVILY_API_KEY:", st.secrets.get("TAVILY_API_KEY", "❌ 설정되지 않음"))
+
 client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 
