@@ -20,9 +20,6 @@ conn = baseSource.init()
 conn = baseSource.connect()
 cursor = conn.cursor()
 
-cursor.execute("DELETE FROM boards")  # 방명록 데이터 삭제
-cursor.execute("DELETE FROM like_records")  # 좋아요 기록 삭제
-conn.commit()
 
 ### 스타일 
 
