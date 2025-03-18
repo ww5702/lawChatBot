@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY=st.secrets["OPENAI_API_KEY"]
 
-
 st.set_page_config(
     page_title="AI 법률 자문 보고서 생성",
     page_icon="📝",
@@ -54,9 +53,9 @@ def set_page_to_lawyer_list():
     st.session_state.page = "lawyer_list"
     st.rerun()  # 즉시 rerun 실행
 
+
 # 변호사 목록 페이지 표시 함수
 def show_lawyer_list_page():
-    # st.set_page_config(layout="wide")
 
     st.markdown("<div class='main-title'>변호사 매칭 서비스</div>", unsafe_allow_html=True)
     st.markdown("<div class='main-subtitle'>원하시는 변호사를 선택해 주세요!</div>", unsafe_allow_html=True)
@@ -91,7 +90,8 @@ def show_lawyer_list_page():
 
     else:
         lawyer = st.session_state.selected_lawyer
-        
+        st.balloons()
+
         st.markdown(f"""
         <div class="selected-lawyer">
             <div style="display: flex; align-items: center;">
@@ -117,6 +117,8 @@ def show_lawyer_list_page():
         if st.button("다른 변호사 선택하기"):
             st.session_state.selected_lawyer = None
             st.rerun()
+
+        st.balloons()
 
 
 @st.dialog("국내 Top 변호사를 소개합니다")

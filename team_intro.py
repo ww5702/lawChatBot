@@ -20,12 +20,6 @@ def get_image_base64(image_path):
 
     
 def show_team_page():
-    # 페이지 기본 설정
-    # st.set_page_config(
-    #     page_title="행복한 6조 - 팀 소개",
-    #     page_icon=":손인사:",
-    #     layout="wide"
-    # )
     # CSS 스타일 적용
     st.markdown("""
     <style>
@@ -147,50 +141,24 @@ def show_team_page():
 
     # 팀원 데이터
     team_members = [
-        {
-            "name": "김다은",
-            "nickname": "DB공듀",
-            "intro": "본 프로젝트를 통해 DB를 제대로 알아버렸습니다.",
-            "feature": "허풍이 심함",
-            "mbti": "ENFJ",
-            "role": "방명록 기능 구현 및 DB 구축, 서비스 및 팀 소개 페이지 구현",
-            "image": "images/da.png"
-        },
-        {
-            "name": "김민주",
-            "nickname": "기존쎄갑",
-            "intro": "귀여운 말투와 그렇지 못한 팩폭",
-            "feature": "없어서는 안될 6조의 숨은 조력자",
-            "mbti": "ENFP",
-            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현, Github 관리 및 교육 ",
-            "image": "images/min.png"
-        },
-        {
-            "name": "손지영",
-            "nickname": "이구역통제왕",
-            "intro": "좋게 말하면 리더. 사실은 독재자",
-            "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
-            "mbti": "ENTJ",
-            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현, 메인페이지 구현",
-            "image": "images/ji.png"
-        },
+
         {
             "name": "이재웅",
             "nickname": "코드학대범",
             "intro": "코드학대로 결과 도출을 담당하고 있습니다.",
             "feature": "코드 실행 횟수 194번은 기본",
             "mbti": "ESFJ",
-            "role": "⭐️ 프로젝트 리더, 실시간 AI 법률 상담 기능 구현, 기능 통합, Streamlit 배포 관리",
+            "role": "<br>⭐️ 프로젝트 리더<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 기능 및 CSS 통합 관리 <br>• Streamlit 배포 관리",
             "image": "images/ung.png"
         },
         {
-            "name": "이효정",
-            "nickname": "마조리카",
-            "intro": "친해지면 스킨십 많아짐 주의",
-            "feature": "조용한 제2의 코드 학대범",
-            "mbti": "INTJ",
-            "role": "방명록 기능 구현 및 DB 구축, 방문자 조회수 기능 구현",
-            "image": "images/hyo.png"
+            "name": "김다은",
+            "nickname": "DB공듀",
+            "intro": "본 프로젝트를 통해 DB를 제대로 알아버렸습니다.",
+            "feature": "허풍이 심함",
+            "mbti": "ENFJ",
+            "role": "<br>• 방명록 기능 구현 및 DB 구축<br>• 서비스 소개 페이지 구현<br>• 팀 소개 페이지 구현<br><br>",
+            "image": "images/da.png"
         },
         {
             "name": "진실",
@@ -198,9 +166,36 @@ def show_team_page():
             "intro": "빠르게 성장해서 성장 괴물로 불리고 있습니다.",
             "feature": "트러블 슈팅? 까짓 거",
             "mbti": "ISFP",
-            "role": "실시간 AI 법률 상담 기능 구현, 방명록 기능 보완, 팀 소개 페이지 구현",
+            "role": "<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 방명록 기능 보완<br>• 팀 소개 페이지 구현<br><br>",
             "image": "images/jin.png"
-        }
+        },
+        {
+            "name": "손지영",
+            "nickname": "이구역통제왕",
+            "intro": "좋게 말하면 리더. 사실은 독재자",
+            "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
+            "mbti": "ENTJ",
+            "role": "<br>• 메인페이지 CSS 디자인 및 기능 구현<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현",
+            "image": "images/ji.png"
+        },
+        {
+            "name": "김민주",
+            "nickname": "기존쎄갑",
+            "intro": "귀여운 말투와 그렇지 못한 팩폭",
+            "feature": "없어서는 안될 6조의 숨은 조력자",
+            "mbti": "ENFP",
+            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• Github 관리 및 교육 담당",
+            "image": "images/min.png"
+        },
+        {
+            "name": "이효정",
+            "nickname": "마조리카",
+            "intro": "친해지면 스킨십 많아짐 주의",
+            "feature": "조용한 제2의 코드 학대범",
+            "mbti": "INTJ",
+            "role": "<br>• 방명록 기능 구현 및 DB 구축<br>• 방문자 조회수 기능 구현",
+            "image": "images/hyo.png"
+        },
     ]
     # 팀원 카드 생성 - Streamlit 방식으로 수정
     cols = st.columns(3)
