@@ -186,7 +186,7 @@ def show_team_page():
         {
             "name": "이효정",
             "nickname": "마조리카",
-            "intro": "파워 J인데, 여행할 땐 P",
+            "intro": "친해지면 스킨십 많아짐 주의",
             "feature": "조용한 제2의 코드 학대범",
             "mbti": "INTJ",
             "role": "방명록 기능 구현 및 DB 구축, 방문자 조회수 기능 구현",
@@ -196,7 +196,7 @@ def show_team_page():
             "name": "진실",
             "nickname": "성장괴물",
             "intro": "빠르게 성장해서 성장 괴물로 불리고 있습니다.",
-            "feature": "트러블 슈팅? 그게 뭔데",
+            "feature": "트러블 슈팅? 까짓 거",
             "mbti": "ISFP",
             "role": "실시간 AI 법률 상담 기능 구현, 방명록 기능 보완, 팀 소개 페이지 구현",
             "image": "images/jin.png"
