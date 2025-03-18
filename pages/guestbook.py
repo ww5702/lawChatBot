@@ -561,8 +561,8 @@ def display_sidebar():
         
         # 연락처 정보
         st.caption("고객센터: 02-1004-1004")
-        st.caption("이메일: sagodot@example.com")
-        st.caption("© 2025 사고닷. All rights reserved.")
+        st.caption("이메일: happy6team@skala.com")
+        st.caption("운영시간: 연중무휴 24시간!")
 
 
 def main():
