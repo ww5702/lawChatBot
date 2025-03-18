@@ -2,12 +2,6 @@ import os
 import streamlit as st
 import sys
 
-# ✅ 기존 sqlite3를 pysqlite3로 강제 대체
-try:
-    import pysqlite3
-    sys.modules["sqlite3"] = sys.modules["pysqlite3"]
-except ImportError:
-    pass  # pysqlite3가 없으면 기본 sqlite3 사용
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
