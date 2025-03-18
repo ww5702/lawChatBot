@@ -541,7 +541,7 @@ def display_reviews():
     
             # 현재 폼 활성화
             st.session_state.active_form = f"delete_{review_id}"
-        st.session_state[f"show_delete_form_{review_id}"] = True
+            st.session_state[f"show_delete_form_{review_id}"] = True
 
         # 삭제 폼 표시
         if st.session_state.get(f"show_delete_form_{review_id}", False):
