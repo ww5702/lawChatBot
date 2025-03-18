@@ -2,7 +2,7 @@ import streamlit as st
 import os
 
 st.set_page_config(
-    page_title="🚀 사고닷 🚀",
+    page_title="우리 서비스 소개",
     page_icon=":저울:",
     layout="wide"
 )
@@ -214,7 +214,7 @@ def show_service_page():
         # 페이지 제목
     st.markdown("""
         <div class="title-container">
-            <h1>AI 기반 법률 상담 서비스</h1>
+            <h1>🚀 사고닷 🚀</h1>
             <p>복잡한 법률 문제를 쉽고 빠르게 해결해드립니다</p>
         </div>
         """, unsafe_allow_html=True)
