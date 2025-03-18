@@ -224,6 +224,9 @@ def show_service_page():
             .contributor-title {
                 color: #EEF2FF !important;
             }
+            .feature-title {
+                color: #EEF2FF !important;
+            }
             
             /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
             .problem-list li {
