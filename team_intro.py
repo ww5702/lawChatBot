@@ -175,16 +175,16 @@ def show_team_page():
             "intro": "좋게 말하면 리더. 사실은 독재자",
             "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
             "mbti": "ENTJ",
-            "role": "<br>• 메인페이지 CSS 디자인 및 기능 구현<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현",
+            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• 메인 페이지 CSS 디자인 및 기능 구현",
             "image": "images/ji.png"
         },
         {
             "name": "김민주",
             "nickname": "기존쎄갑",
             "intro": "귀여운 말투와 그렇지 못한 팩폭",
-            "feature": "없어서는 안될 6조의 숨은 조력자",
+            "feature": "없어서는 안 될 6조의 숨은 조력자",
             "mbti": "ENFP",
-            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• Github 관리 및 교육 담당",
+            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• GitHub 교육 및 관리",
             "image": "images/min.png"
         },
         {
