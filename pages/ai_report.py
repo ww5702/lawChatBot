@@ -241,7 +241,7 @@ def display_chat_history():
 
 # 법률 카테고리 선택 함수
 def show_category_selection():
-    st.write("상담 카테고리를 선택해주세요.")
+    st.write("상담 카테고리를 선택해 주세요.")
     cols = st.columns(2)
     
     categories_options = [
@@ -429,7 +429,7 @@ def handle_questionnaire_completion():
             st.session_state.additional_questions = improved_questions
         
         # 어시스턴트 응답 표시
-        response_text = f"입력하신 내용을 바탕으로 분석했습니다. 추가 정보를 위해 다음 질문에 답변해주세요:\n\n{improved_questions}\n\n답변 가능한 선에서 최대한 구체적으로 작성해주세요."
+        response_text = f"입력하신 내용을 바탕으로 분석했습니다. 추가 정보를 위해 다음 질문에 답변해 주세요:\n\n{improved_questions}\n\n답변 가능한 선에서 최대한 구체적으로 작성해주세요."
         
         add_message("assistant", response_text)
         
