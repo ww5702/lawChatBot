@@ -248,10 +248,13 @@ def show_service_page():
             }
             
             .vision-box {
-                background-color: #333333 !important;
+                background: none !important;  /* 기존 background 제거 */
+                background-color: #333333 !important;  /* 검정 배경 적용 */
                 color: #FFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
             }
+        
+            /* 기존 linear-gradient 제거 */
             .vision-box:before {
                 display: none !important;
             }
