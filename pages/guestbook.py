@@ -1,7 +1,5 @@
 import streamlit as st
 import time as now
-import uuid
-import json
 import os
 import sys
 
@@ -127,70 +125,6 @@ def info():
             </p>
         </div>
     """, unsafe_allow_html=True)
-    
-    # 디버깅용 (필요시 주석 해제)
-    # st.write(f"현재 세션 ID: {st.session_state.session_id}")
-
-
-
-# 지속적인 세션 ID 관리를 위한 파일 기반 접근법
-SESSION_FILE = "session_store.json"
-
-def get_or_create_session_id():
-    """파일에 저장된 세션 ID를 가져오거나 새로 생성"""
-    # 1. 세션 스토어 파일 존재 확인
-    if os.path.exists(SESSION_FILE):
-        try:
-            with open(SESSION_FILE, 'r') as f:
-                session_data = json.load(f)
-                
-            # 브라우저 시그니처 생성 (간단한 식별자)
-            browser_signature = get_browser_signature()
-            
-            # 저장된 세션 데이터에서 현재 브라우저 시그니처와 일치하는 세션 ID 찾기
-            if browser_signature in session_data:
-                return session_data[browser_signature]
-        except:
-            pass  # 파일 읽기 실패 시 새 세션 ID 생성
-    
-    # 2. 새 세션 ID 생성
-    session_id = str(uuid.uuid4())
-    
-    # 3. 세션 ID 저장
-    save_session_id(session_id)
-    
-    return session_id
-
-def save_session_id(session_id):
-    """세션 ID를 파일에 저장"""
-    # 브라우저 시그니처 생성
-    browser_signature = get_browser_signature()
-    
-    # 기존 세션 데이터 로드 또는 새로 생성
-    session_data = {}
-    if os.path.exists(SESSION_FILE):
-        try:
-            with open(SESSION_FILE, 'r') as f:
-                session_data = json.load(f)
-        except:
-            pass
-    
-    # 브라우저 시그니처와 세션 ID 매핑
-    session_data[browser_signature] = session_id
-    
-    # 파일에 저장
-    with open(SESSION_FILE, 'w') as f:
-        json.dump(session_data, f)
-
-def get_browser_signature():
-    """간단한 브라우저 시그니처 생성"""
-    # 실제 환경에서는 User-Agent 등을 사용하여 더 정확한 시그니처 생성 가능
-    # 여기서는 간단히 st.query_params를 사용
-    return str(hash(str(st.query_params)))
-
-# 세션 ID 초기화
-if "session_id" not in st.session_state:
-    st.session_state.session_id = get_or_create_session_id()
 
 # 초기 세션 상태 설정
 if "user_name" not in st.session_state:
@@ -312,11 +246,9 @@ def render_review_form():
     return user_name, user_password, user_review, submit_button
 
 def handle_review_submission(user_name, user_password, user_review):
-    session_id = st.session_state.session_id
-
     """후기 제출 시 DB 저장"""
     if user_name and user_password and user_review:
-        cursor.execute("INSERT INTO boards (board_name, password, comment, session_id) VALUES (?, ?, ?, ?)", (user_name, user_password, user_review, session_id))
+        cursor.execute("INSERT INTO boards (board_name, password, comment) VALUES (?, ?, ?)", (user_name, user_password, user_review))
         conn.commit()
         
         st.success("소중한 후기 감사합니다 😊")
@@ -403,20 +335,11 @@ def display_reviews():
         </div>
         """, unsafe_allow_html=True)
         
-        # 좋아요 버튼 상태 확인
-        cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
-                      (review_id, st.session_state.session_id))
-        already_liked = cursor.fetchone() is not None
-        
         # 버튼 생성
         col1, col2, col3 = st.columns(3)
         
         # 좋아요 버튼
-        like_button = col1.button(
-            "👍 이미 좋아요" if already_liked else "👍 좋아요", 
-            key=f"like_{review_id}_{idx}",
-            disabled=already_liked,
-        )
+        like_button = col1.button("👍 좋아요", key=f"like_{review_id}_{idx}")
         
         # 수정 버튼
         edit_button = col2.button("✏️ 수정", key=f"edit_{idx}")
@@ -579,49 +502,16 @@ def display_reviews():
         # 리뷰 사이에 구분선 추가
         st.markdown("<hr style='margin: 20px 0; opacity: 0.3;'>", unsafe_allow_html=True)
 
-def handle_like(review_id, already_liked=False):
-    """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지 및 자신의 글 좋아요 방지)"""
-    # 이미 좋아요를 누른 상태면 함수 실행 중단
-    if already_liked:
-        st.warning("이미 좋아요를 누른 댓글입니다.")
-        return
+def handle_like(review_id):
     
-    session_id = st.session_state.session_id
-    
-    # 1. 먼저 리뷰 작성자의 세션 ID 확인
-    cursor.execute("SELECT session_id FROM boards WHERE board_id = ?", (review_id,))
-    author_session = cursor.fetchone()
-    
-    # 2. 자신의 글인지 확인 (세션 ID가 동일한지)
-    if author_session and author_session[0] == session_id:
-        st.warning("자신의 글에는 좋아요를 누를 수 없습니다.")
-        now.sleep(1)  # now.sleep 대신 time.sleep 사용
-        st.rerun()
-        return
-    
-    # 3. 이미 좋아요를 눌렀는지 확인 (버튼 상태와 별개로 DB 확인)
-    cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
-                  (review_id, session_id))
-    
-    existing_like = cursor.fetchone()
-    
-    if existing_like is None:  # 아직 좋아요를 누르지 않았다면
-        try:
-            # 좋아요 수 증가
-            cursor.execute("UPDATE boards SET likes = likes + 1 WHERE board_id = ?", (review_id,))
+    try:
+        cursor.execute("UPDATE boards SET likes = likes + 1 WHERE board_id = ?", (review_id,))
             
-            # 좋아요 기록 추가
-            cursor.execute("INSERT INTO like_records (board_id, session_id) VALUES (?, ?)", 
-                          (review_id, session_id))
-            
-            conn.commit()
-            st.success("좋아요를 눌렀습니다!")
-        except sqlite3.Error as e:
-            st.error(f"데이터베이스 오류: {e}")
-            conn.rollback()
-    else:
-        st.warning("이미 좋아요를 누른 댓글입니다.")
-    
+        conn.commit()
+        st.success("좋아요를 눌렀습니다!")
+    except sqlite3.Error as e:
+        st.error(f"데이터베이스 오류: {e}")
+        conn.rollback()
     # 1초 대기 후 페이지 새로고침
     now.sleep(1)  # now.sleep 대신 time.sleep 사용
     st.rerun()
@@ -631,8 +521,6 @@ def delete_with_password(review_id, name, stored_password, input_password):
     if input_password == stored_password:
         # 비밀번호가 일치하면 삭제
         cursor.execute("DELETE FROM boards WHERE board_id = ?", (review_id,))
-        # 관련 좋아요 기록도 삭제
-        cursor.execute("DELETE FROM like_records WHERE board_id = ?", (review_id,))
         conn.commit()
         
         # 삭제 폼 상태 초기화
