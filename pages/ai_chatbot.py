@@ -16,8 +16,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
+import logging
 
 
+
+logging.getLogger("langchain").setLevel(logging.ERROR)
 
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
@@ -175,7 +178,7 @@ def format_docs(docs):
 # ✅ Tavily 검색 API 호출 (캐싱 적용)
 @st.cache_data
 def web_search(query):
-    retriever = TavilySearchAPIRetriever(k=3, search_depth="advanced", include_domains=["news"])
+    retriever = TavilySearchAPIRetriever(k=3, search_depth="advanced", include_domains=["news"], verbose = False)
     return retriever.invoke(query)
 
 # ✅ Tavily 검색 설정
@@ -228,9 +231,9 @@ with st.sidebar:
     # 기능 소개
     st.subheader("📋 기능 소개")
     st.markdown("""
-    - 💬 **법률 상담**: AI 변호사와 법률 상담하기
-    - 🔎 **관련사례 검색**: 유사 사례 및 예상 결과 확인
-    - 📚 **법률정보 검색**: 관련 법률 조항 및 정보 제공
+    💬 **법률 상담**: AI 변호사와 법률 상담하기 \n
+    🔎 **관련사례 검색**: 유사 사례 및 예상 결과 확인 \n 
+    📚 **법률정보 검색**: 관련 법률 조항 및 정보 제공
     """)
     
     st.markdown("---")
@@ -257,7 +260,7 @@ with st.sidebar:
     st.caption("© 2025 사고닷 - 법률 상담 AI 챗봇")
 
 if st.session_state["loading"]:
-    with st.spinner("🔄 검색 중입니다... 잠시만 기다려 주세요.🙏"):
+    with st.spinner("검색 중입니다... 잠시만 기다려 주세요.🙏"):
         summary = st.session_state["chatbot"].summarize_conversation()
 
         if summary.strip() == "질문 내용이 없습니다." or summary.strip() == "사용자가 질문을 입력하지 않았습니다.":   # Summary가 비어있는 경우 예외 처리
