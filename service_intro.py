@@ -238,7 +238,7 @@ def show_service_page():
     with col1:
             st.markdown("""
             <div class="feature-card">
-                <div class="icon">:로봇_얼굴:</div>
+                <div class="icon">🤖</div>
                 <div class="feature-title">실시간 AI 법률 상담</div>
                 <p>법에 대해 잘 몰라도, 누구나 쉽게 상담할 수 있어요! 복잡한 법률 용어는 잊고 일상적인 언어로 질문하세요. <br>
                         AI 기술과 법전을 담은 데이터 베이스를 활용하여 믿을 수 있는 정보와 관련사례를 제공합니다.</p>
@@ -247,7 +247,7 @@ def show_service_page():
     with col2:
             st.markdown("""
             <div class="feature-card">
-                <div class="icon">:클립보드:</div>
+                <div class="icon">📋</div>
                 <div class="feature-title">AI 법률 보고서 + 변호사 매칭</div>
                 <p>AI 기술을 활용한 사건 보고서 생성과 변호사 매칭 기능까지 지원해 실질적인 법적 조치를 취할 수 있어요!</p>
             </div>
@@ -255,7 +255,7 @@ def show_service_page():
     with col3:
             st.markdown("""
             <div class="feature-card">
-                <div class="icon">:메모:</div>
+                <div class="icon">📝</div>
                 <div class="feature-title">방명록</div>
                 <p>사고닷을 사용한 후 의견이나 궁금한 점, 방문 후기를 자유롭게 남겨주세요! 여러분의 피드백이 서비스를 개선하는 데 큰 도움이 됩니다.</p>
             </div>
