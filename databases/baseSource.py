@@ -33,6 +33,7 @@ def init():
             password VARCHAR(255) NOT NULL,
             comment TEXT NOT NULL,
             likes INTEGER NOT NULL DEFAULT 0,
+            session_id TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
