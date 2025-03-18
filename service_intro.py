@@ -221,6 +221,9 @@ def show_service_page():
             .section-title {
                 color: #EEF2FF !important;
             }
+            .contributor-title {
+                color: #EEF2FF !important;
+            }
             
             /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
             .problem-list li {
@@ -267,6 +270,9 @@ def show_service_page():
             /* 비전 박스 안의 텍스트 (p 태그) - 흰 글씨 */
             .vision-box p {
                 color: #FFF !important;
+            }
+            .vision-box h3 {
+                color: #EEF2FF !important;
             }
         }
 
