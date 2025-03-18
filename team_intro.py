@@ -153,7 +153,7 @@ def show_team_page():
             "intro": "본 프로젝트를 통해 DB를 제대로 알아버렸습니다.",
             "feature": "허풍이 심함",
             "mbti": "ENFJ",
-            "role": "방명록 기능 구현 및 DB 구축",
+            "role": "방명록 기능 구현 및 DB 구축, 팀 소개 페이지 구현",
             "image": "images/da.png"
         },
         {
@@ -162,7 +162,7 @@ def show_team_page():
             "intro": "귀여운 말투와 그렇지 못한 팩폭",
             "feature": "부모님 mbti 두분 다 ENTJ",
             "mbti": "ENFP",
-            "role": "팀 내 분위기 메이커",
+            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현",
             "image": "images/min.png"
         },
         {
@@ -171,7 +171,7 @@ def show_team_page():
             "intro": "좋게 말하면 리더. 사실은 독재자",
             "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
             "mbti": "ENTJ",
-            "role": "프로젝트 리더",
+            "role": "AI 법률 자문 보고서 생성 및 변호사 매칭 기능 구현, 메인페이지 구현",
             "image": "images/ji.png"
         },
         {
@@ -180,7 +180,7 @@ def show_team_page():
             "intro": "코드학대로 결과 도출을 담당하고 있습니다.",
             "feature": "코드 실행 횟수 194번은 기본",
             "mbti": "ESFJ",
-            "role": "실시간 AI 법률 상담 기능, 기능 통합",
+            "role": "실시간 AI 법률 상담 기능 구현, 기능 통합, 배포 관리",
             "image": "images/ung.png"
         },
         {
@@ -189,7 +189,7 @@ def show_team_page():
             "intro": "파워 J인데, 여행할 땐 P",
             "feature": "조용한 제2의 코드 학대범",
             "mbti": "INTJ",
-            "role": "방명록 기능 구현 및 DB 구축",
+            "role": "방명록 기능 구현 및 DB 구축, 방문자 조회수 기능 구현",
             "image": "images/hyo.png"
         },
         {
