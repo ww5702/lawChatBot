@@ -206,41 +206,48 @@ def show_service_page():
             }
             /* ✅ 다크모드 스타일 */
             @media (prefers-color-scheme: dark) {
-                .main {
-                    background-color: #121212 !important;
-                    color: #EAEAEA !important;
-                }
-                .problem-list, .feature-title {
-                    background-color: #000 !important;
-                    color: #FFF !important;
-                    padding: 1rem;
-                    border-radius: 8px;
-                }
-                /* 문제 리스트 (problem-list) - 배경 투명, 글씨 흰색 */
-                .problem-list {
-                    color: #FFF !important;
-                }
-            
-                /* 서비스 카드 (feature-card) - 검정 배경, 흰 글씨 */
-                .feature-card {
-                    background-color: #000 !important;
-                    color: #FFF !important;
-                    border-top: 5px solid #3D6AFF !important;
-                    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
-                }
-            
-                /* 기여자 카드 (contributor-card) - 검정 배경 */
-                .contributor-card {
-                    background-color: #000 !important;
-                    color: #FFF !important;
-                    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
-                }
-            
-                /* 기여자 이름 (contributor-names) - 흰 글씨 */
-                .contributor-names {
-                    color: #FFF !important;
-                }
+            /* 페이지 전체 배경 및 텍스트 색상 조정 */
+            .main {
+                background-color: #121212 !important;
+                color: #EAEAEA !important;
             }
+        
+            /* 문제 리스트 (problem-list) - 배경 투명, 글씨 흰색 */
+            .problem-list {
+                color: #FFF !important;
+            }
+        
+            /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
+            .problem-list li {
+                color: #FFF !important;
+            }
+        
+            /* 서비스 카드 (feature-card) - 검정 배경, 흰 글씨 */
+            .feature-card {
+                background-color: #000 !important;
+                color: #FFF !important;
+                border-top: 5px solid #3D6AFF !important;
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
+            }
+        
+            /* 서비스 카드 안의 텍스트 (p 태그) - 글씨 흰색 */
+            .feature-card p {
+                color: #FFF !important;
+            }
+        
+            /* 기여자 카드 (contributor-card) - 검정 배경 */
+            .contributor-card {
+                background-color: #000 !important;
+                color: #FFF !important;
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
+            }
+        
+            /* 기여자 이름 (contributor-names) - 흰 글씨 */
+            .contributor-names {
+                color: #FFF !important;
+            }
+        }
+
             
         </style>
         """, unsafe_allow_html=True)
