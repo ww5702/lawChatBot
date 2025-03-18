@@ -20,6 +20,9 @@ conn = baseSource.init()
 conn = baseSource.connect()
 cursor = conn.cursor()
 
+cursor.execute("DROP TABLE IF EXISTS boards")  # 기존 테이블 삭제
+cursor.execute("DROP TABLE IF EXISTS like_records")  # 좋아요 기록 테이블 삭제
+
 ### 스타일 
 
 def local_css():
