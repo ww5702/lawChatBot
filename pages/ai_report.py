@@ -14,7 +14,7 @@ from legal_categories import categories
 import os
 from dotenv import load_dotenv
 load_dotenv()
-API_KEY = os.getenv("OPENAI_KEY")
+API_KEY=st.secrets["OPENAI_API_KEY"]
 
 
 st.set_page_config(
