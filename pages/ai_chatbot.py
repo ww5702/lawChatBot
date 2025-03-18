@@ -16,11 +16,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
-import logging
 
-
-
-logging.getLogger("langchain").setLevel(logging.ERROR)
 
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
