@@ -25,6 +25,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+print("🙏🙏🙏🙏🙏🙏🙏",sqlite3.sqlite_version)
+
 # 현재 파일(ai_chatbot.py)의 위치를 기반으로 lawChatBot 경로 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
 sys.path.append(BASE_DIR)  # Python import 경로에 추가
