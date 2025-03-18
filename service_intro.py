@@ -179,18 +179,24 @@ def show_service_page():
             }
             /* 버튼 스타일 */
             .stButton>button {
-                background: linear-gradient(135deg, #0062CC, #104E8B);
-                color: white;
+                background-color: white;
+                border-radius: 10px;
                 border: none;
-                padding: 0.75rem 2rem;
-                font-size: 1.1rem;
-                border-radius: 8px;
                 font-weight: 500;
-                transition: all 0.3s ease;
+                border-radius: 5px;
+                width: 100%;
+                margin-bottom: 3px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+                cursor: pointer;
+                padding: 0.8em;
             }
+            
             .stButton>button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                background-color: #3d6aff;
+                color: white;
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             }
             /* 컨테이너 패딩 */
             .main .block-container {
