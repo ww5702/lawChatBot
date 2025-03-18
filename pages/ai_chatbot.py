@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import sys
 import sqlite3
+import pysqlite3
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
@@ -19,6 +20,9 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
+# 최신 SQLite 강제 적용
+sys.modules["sqlite3"] = pysqlite3
+
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
     page_icon="💬",
@@ -26,7 +30,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-print("🙏🙏🙏🙏🙏🙏🙏",sqlite3.sqlite_version)
 
 # 현재 파일(ai_chatbot.py)의 위치를 기반으로 lawChatBot 경로 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
