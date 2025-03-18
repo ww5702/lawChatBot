@@ -224,7 +224,7 @@ def show_service_page():
         
             /* 서비스 카드 (feature-card) - 검정 배경, 흰 글씨 */
             .feature-card {
-                background-color: #000 !important;
+                background-color: #333333 !important;
                 color: #FFF !important;
                 border-top: 5px solid #3D6AFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
@@ -237,7 +237,7 @@ def show_service_page():
         
             /* 기여자 카드 (contributor-card) - 검정 배경 */
             .contributor-card {
-                background-color: #000 !important;
+                background-color: #333333 !important;
                 color: #FFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
             }
@@ -246,13 +246,14 @@ def show_service_page():
             .contributor-names {
                 color: #FFF !important;
             }
+            
             .vision-box {
                 background-color: #000 !important;
                 color: #FFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
             }
         
-            /* 기여자 이름 (contributor-names) - 흰 글씨 */
+            /* 비전 박스 안의 텍스트 (p 태그) - 흰 글씨 */
             .vision-box p {
                 color: #FFF !important;
             }
