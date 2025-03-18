@@ -312,9 +312,11 @@ def render_review_form():
     return user_name, user_password, user_review, submit_button
 
 def handle_review_submission(user_name, user_password, user_review):
+    session_id = st.session_state.session_id
+
     """후기 제출 시 DB 저장"""
     if user_name and user_password and user_review:
-        cursor.execute("INSERT INTO boards (board_name, password, comment) VALUES (?, ?, ?)", (user_name, user_password, user_review))
+        cursor.execute("INSERT INTO boards (board_name, password, comment, session_id) VALUES (?, ?, ?, ?)", (user_name, user_password, user_review, session_id))
         conn.commit()
         
         st.success("소중한 후기 감사합니다 😊")
@@ -430,13 +432,19 @@ def display_reviews():
         if edit_button:
             # 모든 다른 폼 닫기
             for r_id in [r[0] for r in all_reviews]:
-                if f"show_delete_form_{r_id}" in st.session_state:
-                    del st.session_state[f"show_delete_form_{r_id}"]
-                if r_id != review_id and f"show_edit_form_{r_id}" in st.session_state:
-                    del st.session_state[f"show_edit_form_{r_id}"]
-                    if f"edit_verified_{r_id}" in st.session_state:
-                        del st.session_state[f"edit_verified_{r_id}"]
-            
+            # 다른 리뷰의 삭제 폼 닫기
+                st.session_state[f"show_delete_form_{r_id}"] = False
+        
+                # 자신을 제외한 다른 리뷰의 편집 폼 닫기
+                if r_id != review_id:
+                    st.session_state[f"show_edit_form_{r_id}"] = False
+        
+                # 모든 편집 확인 상태 초기화
+                st.session_state[f"edit_verified_{r_id}"] = False
+    
+            # 현재 리뷰의 삭제 폼 닫기
+            st.session_state[f"show_delete_form_{review_id}"] = False
+    
             # 현재 폼 활성화
             st.session_state.active_form = f"edit_{review_id}"
             st.session_state[f"show_edit_form_{review_id}"] = True
@@ -516,19 +524,25 @@ def display_reviews():
 
         # 삭제 버튼 처리
         if delete_button:
-            # 모든 다른 폼 닫기
+            # 다른 모든 폼 닫기
             for r_id in [r[0] for r in all_reviews]:
-                if f"show_edit_form_{r_id}" in st.session_state:
-                    del st.session_state[f"show_edit_form_{r_id}"]
-                    if f"edit_verified_{r_id}" in st.session_state:
-                        del st.session_state[f"edit_verified_{r_id}"]
-                if r_id != review_id and f"show_delete_form_{r_id}" in st.session_state:
-                    del st.session_state[f"show_delete_form_{r_id}"]
-            
+                # 다른 리뷰의 삭제 폼 닫기
+                st.session_state[f"show_delete_form_{r_id}"] = False
+        
+                # 자신을 제외한 다른 리뷰의 편집 폼 닫기
+                if r_id != review_id:
+                    st.session_state[f"show_edit_form_{r_id}"] = False
+        
+                # 모든 편집 확인 상태 초기화
+                st.session_state[f"edit_verified_{r_id}"] = False
+    
+            # 현재 리뷰의 편집 폼 닫기
+            st.session_state[f"show_edit_form_{review_id}"] = False
+    
             # 현재 폼 활성화
             st.session_state.active_form = f"delete_{review_id}"
-            st.session_state[f"show_delete_form_{review_id}"] = True
-            
+        st.session_state[f"show_delete_form_{review_id}"] = True
+
         # 삭제 폼 표시
         if st.session_state.get(f"show_delete_form_{review_id}", False):
             with st.container():
@@ -566,10 +580,21 @@ def display_reviews():
         st.markdown("<hr style='margin: 20px 0; opacity: 0.3;'>", unsafe_allow_html=True)
 
 def handle_like(review_id):
-    """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지)"""
+    """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지 및 자신의 글 좋아요 방지)"""
     session_id = st.session_state.session_id
     
-    # 이미 좋아요를 눌렀는지 확인
+    # 1. 먼저 리뷰 작성자의 세션 ID 확인
+    cursor.execute("SELECT session_id FROM boards WHERE board_id = ?", (review_id,))
+    author_session = cursor.fetchone()
+    
+    # 2. 자신의 글인지 확인 (세션 ID가 동일한지)
+    if author_session and author_session[0] == session_id:
+        st.warning("자신의 글에는 좋아요를 누를 수 없습니다.")
+        now.sleep(1)
+        st.rerun()
+        return
+    
+    # 3. 이미 좋아요를 눌렀는지 확인
     cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
                   (review_id, session_id))
     
