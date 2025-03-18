@@ -248,7 +248,7 @@ def show_service_page():
             }
             
             .vision-box {
-                background-color: #000 !important;
+                background-color: #333333 !important;
                 color: #FFF !important;
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1) !important;
             }
