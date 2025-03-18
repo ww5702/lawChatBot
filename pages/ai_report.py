@@ -218,6 +218,20 @@ def load_css():
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+        /* ✅ 다크모드 스타일 추가 */
+        @media (prefers-color-scheme: dark) {
+            .lawyer-info {
+                background-color: #1E1E1E !important; /* 검은 배경 */
+                color: #FFFFFF !important; /* 흰 글씨 */
+                border: 1px solid #555 !important;
+            }
+            
+            .selected-lawyer {
+                background-color: #121212 !important; /* 어두운 배경 */
+                color: #FFFFFF !important; /* 흰 글씨 */
+                border: 1px solid #555 !important;
+            }
+        }
     </style>
     """, unsafe_allow_html=True)
 
@@ -227,7 +241,7 @@ if "last_page" not in st.session_state or st.session_state.last_page != current_
     st.session_state.clear()  # 기존 상태 초기화
     st.session_state.last_page = current_page  # 현재 페이지를 저장하여 비교
 
-    
+
 def get_image_as_base64(file_path):
     try:
         with open(file_path, "rb") as img_file:
