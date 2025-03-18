@@ -550,12 +550,12 @@ def display_sidebar():
         # 총 후기 갯수 
         cursor.execute("SELECT COUNT(*) FROM boards")
         total_reviews = cursor.fetchone()[0]
-        st.metric(label="총 후기 갯수", value=f"{total_reviews}개")
+        st.metric(label="총 후기 개수", value=f"{total_reviews}개")
         
         # 총 좋아요 갯수
         cursor.execute("SELECT SUM(likes) FROM boards")
         total_likes = cursor.fetchone()[0] or 0  # 이 함수는 별도로 구현해야 함
-        st.metric(label="총 좋아요 갯수", value=f"{total_likes}개")
+        st.metric(label="총 좋아요 개수", value=f"{total_likes}개")
         
         st.divider()
         
