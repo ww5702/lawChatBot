@@ -5,7 +5,10 @@ langchain-openai
 langchain-community
 beautifulsoup4
 langchain_chroma
-chromadb==0.5.3
+# ✅ 특정 버전(예: 0.3.26)으로 다운그레이드
+chromadb==0.3.26
+#chromadb==0.5.3
+
 pymupdf
 sentence-transformers
 faiss-cpu
@@ -17,4 +20,4 @@ python-dotenv
 streamlit
 
 # ✅ 최신 SQLite 사용을 위한 패키지 추가
-pysqlite3-binary
+pysqlite3-binary 
