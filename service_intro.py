@@ -219,6 +219,7 @@ def show_service_page():
         
             /* 문제 리스트의 개별 항목 (li) - 글씨 흰색 */
             .problem-list li {
+                background-color: #333333 !important;
                 color: #FFF !important;
             }
         
