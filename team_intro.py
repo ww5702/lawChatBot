@@ -140,7 +140,7 @@ def show_team_page():
     st.markdown("""
     <div class="title-container">
         <h1>행복한 6조 <span style="font-size: 1.5rem">(feat. 왕자님과 아이들)</span></h1>
-        <p>저희 조는 웃음이 끊기지 않는 행복한 6조랍니다 ^^</p>
+        <p>저희 조는 웃음이 끊기지 않는 행복한 6조랍니다 🌸</p>
     </div>
     """, unsafe_allow_html=True)
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
