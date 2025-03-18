@@ -180,7 +180,7 @@ def show_team_page():
             "intro": "코드학대로 결과 도출을 담당하고 있습니다.",
             "feature": "코드 실행 횟수 194번은 기본",
             "mbti": "ESFJ",
-            "role": "실시간 AI 법률 상담 기능 구현, 기능 통합, 배포 관리",
+            "role": "프로젝트 리더, 실시간 AI 법률 상담 기능 구현, 기능 통합, Streamlit 배포 관리",
             "image": "images/ung.png"
         },
         {
