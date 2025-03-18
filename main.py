@@ -469,7 +469,7 @@ if st.session_state.current_page == "홈":
                     <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">방명록</div>
                     <div style="color: #4e5968; font-size: 0.9rem;">
                         서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>
-                        방명록을 작성하거나 좋아요를 눌러보세요!
+                        방명록을 작성하거나 '좋아요'를 눌러보세요!
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
