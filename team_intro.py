@@ -153,7 +153,7 @@ def show_team_page():
             "intro": "본 프로젝트를 통해 DB를 제대로 알아버렸습니다.",
             "feature": "허풍이 심함",
             "mbti": "ENFJ",
-            "role": "방명록 기능 구현 및 DB 구축, 팀 소개 페이지 구현",
+            "role": "방명록 기능 구현 및 DB 구축, 서비스 및 팀 소개 페이지 구현",
             "image": "images/da.png"
         },
         {
