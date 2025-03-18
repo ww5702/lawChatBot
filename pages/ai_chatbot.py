@@ -1,6 +1,14 @@
 import os
 import streamlit as st
 import sys
+
+# ✅ 기존 sqlite3를 pysqlite3로 강제 대체
+try:
+    import pysqlite3
+    sys.modules["sqlite3"] = sys.modules["pysqlite3"]
+except ImportError:
+    pass  # pysqlite3가 없으면 기본 sqlite3 사용
+
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
@@ -55,6 +63,8 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 tavily_api_key = st.secrets["TAVILY_API_KEY"]
 st.write("🔑 OPENAI_API_KEY:", st.secrets.get("OPENAI_API_KEY", "❌ 설정되지 않음"))
 st.write("🔍 TAVILY_API_KEY:", st.secrets.get("TAVILY_API_KEY", "❌ 설정되지 않음"))
+
+
 
 client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
