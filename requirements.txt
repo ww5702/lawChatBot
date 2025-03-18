@@ -5,9 +5,7 @@ langchain-openai
 langchain-community
 beautifulsoup4
 langchain_chroma
-# ✅ 특정 버전(예: 0.3.26)으로 다운그레이드
-chromadb==0.3.26
-#chromadb==0.5.3
+chromadb==0.5.3
 
 pymupdf
 sentence-transformers
