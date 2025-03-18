@@ -193,7 +193,7 @@ def show_team_page():
             "intro": "친해지면 스킨십 많아짐 주의",
             "feature": "조용한 제2의 코드 학대범",
             "mbti": "INTJ",
-            "role": "<br>• 방명록 기능 구현 및 DB 구축<br>• 시스템 DB 구축 및 관리<br>• 서비스 통계 시스템 구현",
+            "role": "<br>• 방명록 기능 구현<br>• 시스템 DB 구축 및 관리<br>• 서비스 통계 시스템 구현",
             "image": "images/hyo.png"
         },
     ]
