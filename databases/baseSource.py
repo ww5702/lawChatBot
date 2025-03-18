@@ -33,7 +33,6 @@ def init():
             password VARCHAR(255) NOT NULL,
             comment TEXT NOT NULL,
             likes INTEGER NOT NULL DEFAULT 0,
-            session_id TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -44,8 +43,7 @@ def init():
         CREATE TABLE IF NOT EXISTS like_records (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             board_id INTEGER NOT NULL,
-            session_id TEXT NOT NULL,
-            UNIQUE(board_id, session_id)
+            UNIQUE(board_id)
         )
     ''')
 
