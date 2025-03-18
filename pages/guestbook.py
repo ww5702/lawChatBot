@@ -390,9 +390,6 @@ def display_reviews():
     cursor.execute("SELECT * FROM boards ORDER BY board_id DESC")
     all_reviews = cursor.fetchall()
 
-    # 현재 사용자 세션 ID 가져오기
-    session_id = st.session_state.session_id
-
     # 각 리뷰 표시
     for idx, row in enumerate(all_reviews):
         review_id, name, password, review, likes = row[:5]
@@ -411,9 +408,6 @@ def display_reviews():
                       (review_id, st.session_state.session_id))
         already_liked = cursor.fetchone() is not None
         
-        # 본인이 작성한 글인지 확인
-        is_name = (st.session_state.get("user_name") == name)
-
         # 버튼 생성
         col1, col2, col3 = st.columns(3)
         
@@ -421,7 +415,7 @@ def display_reviews():
         like_button = col1.button(
             "👍 이미 좋아요" if already_liked else "👍 좋아요", 
             key=f"like_{review_id}_{idx}",
-            disabled=already_liked or is_name,
+            disabled=already_liked,
         )
         
         # 수정 버튼
@@ -585,45 +579,12 @@ def display_reviews():
         # 리뷰 사이에 구분선 추가
         st.markdown("<hr style='margin: 20px 0; opacity: 0.3;'>", unsafe_allow_html=True)
 
-def handle_like(review_id):
-    """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지)"""
-    session_id = st.session_state.session_id
-
-    # 본인이 작성한 글인지 다시 확인
-    cursor.execute("SELECT board_name FROM boards WHERE board_id = ?", (review_id,))
-    author = cursor.fetchone()[0]
-
-    if st.session_state.get("user_name") == author:
-        st.warning("본인이 작성한 글에는 좋아요를 누를 수 없습니다!")
-        return
-
-    # 이미 좋아요를 눌렀는지 확인
-    cursor.execute("SELECT * FROM like_records WHERE board_id = ? AND session_id = ?", 
-                  (review_id, session_id))
-
-    existing_like = cursor.fetchone()
-
-    if existing_like is None:  # 아직 좋아요를 누르지 않았다면
-        try:
-            # 좋아요 수 증가
-            cursor.execute("UPDATE boards SET likes = likes + 1 WHERE board_id = ?", (review_id,))
-
-            # 좋아요 기록 추가 (session_id를 저장하여 중복 방지)
-            cursor.execute("INSERT INTO like_records (board_id, session_id) VALUES (?, ?)", 
-                          (review_id, session_id))
-
-            conn.commit()
-            st.success("좋아요를 눌렀습니다!")
-        except sqlite3.Error as e:
-            st.error(f"데이터베이스 오류: {e}")
-            conn.rollback()
-    else:
+def handle_like(review_id, already_liked=False):
+    """좋아요 버튼 클릭 시 좋아요 수 증가 (중복 방지 및 자신의 글 좋아요 방지)"""
+    # 이미 좋아요를 누른 상태면 함수 실행 중단
+    if already_liked:
         st.warning("이미 좋아요를 누른 댓글입니다.")
-
-    # 1초 대기 후 페이지 새로고침
-    now.sleep(1)
-    st.rerun()
-
+        return
     
     session_id = st.session_state.session_id
     
