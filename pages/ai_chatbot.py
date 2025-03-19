@@ -133,6 +133,8 @@ if user_input := st.chat_input("질문을 입력하세요..."):
         st.info("🔑 OpenAI API Key를 입력해주세요.")
         st.stop()
 
+    time.sleep(1) # 호출 전 1초 대기
+
     client = OpenAI(api_key=openai_api_key)
 
     # 사용자 입력 저장
