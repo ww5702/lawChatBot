@@ -9,7 +9,6 @@ def display_sidebar():
         st.markdown('사고닷 서비스를 이용해 주셔서 감사합니다. 여러분의 소중한 의견을 남겨주세요.', unsafe_allow_html=True)
         st.divider()
         # 카운터 표시 (총 후기 갯수와 총 좋아요 갯수)
-        st.subheader(":막대_차트: 한눈에 보기")
         # # 총 후기 갯수
         # cursor.execute("SELECT COUNT(*) FROM boards")
         # total_reviews = cursor.fetchone()[0]
@@ -62,7 +61,7 @@ def main():
     # 오류 내용 표시
     st.markdown("""
     <div class="error-container">
-        <div class="error-icon">:경고:</div>
+        <div class="error-icon">⚠️</div>
         <div class="error-title">서비스 이용에 불편을 드려 죄송합니다</div>
         <div class="error-message">
             많은 사용량으로 인해 해당 서비스를 중단하게 되었습니다.<br>
