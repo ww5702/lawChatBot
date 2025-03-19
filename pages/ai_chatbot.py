@@ -81,7 +81,6 @@ db = load_chroma_db()
 retriever = db.as_retriever()
 
 llm = ChatOpenAI(
-    time.sleep(1), 
     model_name="gpt-4o-mini",
     temperature=0.1,
     openai_api_key=openai_api_key
