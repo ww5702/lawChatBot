@@ -3,6 +3,7 @@ import streamlit as st
 import sys
 import sqlite3
 import pysqlite3
+import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
