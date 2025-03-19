@@ -142,6 +142,7 @@ if user_input := st.chat_input("질문을 입력하세요..."):
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
 
+    time.sleep(1) # 1초 대기
     # 챗봇 응답 생성
     chatbot_response = st.session_state["chatbot"](user_input)
     st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
@@ -204,6 +205,7 @@ def web_rag_chain(query):
     # ✅ LLM이 올바르게 처리할 수 있도록 web_prompt_template.format() 사용
     final_prompt = web_prompt_template.format(context=formatted_results, question=query)
 
+    time.sleep(1) # 1초 대기
     return llm.invoke(final_prompt)  # ✅ str 타입으로 변환된 프롬프트 전달
 
 ####################################################
@@ -281,9 +283,11 @@ if st.session_state["loading"]:
         else:
             print(summary)
             if st.session_state["loading"] == "case":
+                time.sleep(1) # 1초 대기
                 st.session_state["case_result"] = web_rag_chain(f"{summary} 관련된 형량이나 벌금 정보")
 
             if st.session_state["loading"] == "law":
+                time.sleep(1) # 1초 대기
                 st.session_state["law_result"] = pdf_rag_chain.invoke(f"{summary} 관련된 법률 정보")
 
             st.session_state["loading"] = False  # 로딩 완료 후 상태 초기화
