@@ -70,8 +70,8 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     # 돌아가기 버튼
-    if st.button("메인 페이지로 돌아가기"):
-        st.success("메인 페이지로 이동합니다...")
+    # if st.button("메인 페이지로 돌아가기"):
+    #     st.success("메인 페이지로 이동합니다...")
         # 실제 구현 시에는 여기에 메인 페이지로 리디렉션하는 코드 추가
     # 오류 세부 정보 (접어두기 기능)
 #     with st.expander("오류 세부 정보"):
