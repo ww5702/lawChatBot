@@ -74,13 +74,13 @@ def main():
         st.success("메인 페이지로 이동합니다...")
         # 실제 구현 시에는 여기에 메인 페이지로 리디렉션하는 코드 추가
     # 오류 세부 정보 (접어두기 기능)
-    with st.expander("오류 세부 정보"):
-        st.code("""
-Error: 500 Internal Server Error
-Time: 2025-03-19 14:30:45
-Path: /dashboard/analytics
-Request ID: 7a8b9c0d1e2f
-        """)
+#     with st.expander("오류 세부 정보"):
+#         st.code("""
+# Error: 500 Internal Server Error
+# Time: 2025-03-19 14:30:45
+# Path: /dashboard/analytics
+# Request ID: 7a8b9c0d1e2f
+#         """)
          # 사이드바 추가
     display_sidebar()
 if __name__ == "__main__":
