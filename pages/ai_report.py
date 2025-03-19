@@ -27,7 +27,7 @@ def main():
     # 페이지 기본 설정
     st.set_page_config(
         page_title="오류 안내",
-        page_icon=":경고:",
+        page_icon="⚠️",
         layout="centered"
     )
     # CSS 스타일 적용
