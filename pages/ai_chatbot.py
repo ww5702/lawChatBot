@@ -83,7 +83,8 @@ retriever = db.as_retriever()
 llm = ChatOpenAI(
     model_name="gpt-4o-mini",
     temperature=0.1,
-    openai_api_key=openai_api_key
+    openai_api_key=openai_api_key,
+    max_tokens=256 # 최대 토근 256
 )
 
 # 프롬프트 로드 함수 추가
