@@ -4,7 +4,7 @@ def display_sidebar():
     """사이드바를 표시하는 함수"""
     with st.sidebar:
         # 로고 및 타이틀
-        st.markdown("<h1 style='font-size:120px;'>:저울:</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='font-size:120px;'>⚖️</h1>", unsafe_allow_html=True)
         st.title("사고닷 방명록")
         st.markdown('사고닷 서비스를 이용해 주셔서 감사합니다. 여러분의 소중한 의견을 남겨주세요.', unsafe_allow_html=True)
         st.divider()
