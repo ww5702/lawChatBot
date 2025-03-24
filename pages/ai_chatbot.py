@@ -3,7 +3,6 @@ import os
 import streamlit as st
 import sys
 import sqlite3
-import pysqlite3
 import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
@@ -22,8 +21,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
-# 최신 SQLite 강제 적용
-sys.modules["sqlite3"] = pysqlite3
 
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
