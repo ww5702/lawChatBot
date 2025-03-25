@@ -15,7 +15,7 @@ faiss-cpu
 python-dotenv
 
 # streamlit
-streamlit
+streamlit==1.43.2
 
 # ✅ 최신 SQLite 사용을 위한 패키지 추가
 pysqlite3-binary 

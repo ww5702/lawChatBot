@@ -20,12 +20,6 @@ def get_image_base64(image_path):
 
     
 def show_team_page():
-    # 페이지 기본 설정
-    # st.set_page_config(
-    #     page_title="행복한 6조 - 팀 소개",
-    #     page_icon=":손인사:",
-    #     layout="wide"
-    # )
     # CSS 스타일 적용
     st.markdown("""
     <style>
@@ -140,30 +134,40 @@ def show_team_page():
     st.markdown("""
     <div class="title-container">
         <h1>행복한 6조 <span style="font-size: 1.5rem">(feat. 왕자님과 아이들)</span></h1>
-        <p>저희 조는 웃음이 끊기지 않는 행복한 6조랍니다 ^^</p>
+        <p>저희 조는 웃음이 끊기지 않는 행복한 6조랍니다 🌸</p>
     </div>
     """, unsafe_allow_html=True)
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
     # 팀원 데이터
     team_members = [
+
+        {
+            "name": "이재웅",
+            "nickname": "코드학대범",
+            "intro": "코드학대로 결과 도출을 담당하고 있습니다.",
+            "feature": "코드 실행 횟수 194번은 기본",
+            "mbti": "ESFJ",
+            "role": "<br>⭐️ 프로젝트 리더<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 기능 및 CSS 통합 관리 <br>• Streamlit 배포 관리",
+            "image": "images/ung.png"
+        },
         {
             "name": "김다은",
             "nickname": "DB공듀",
             "intro": "본 프로젝트를 통해 DB를 제대로 알아버렸습니다.",
             "feature": "허풍이 심함",
             "mbti": "ENFJ",
-            "role": "방명록 기능 구현 및 DB 구축",
+            "role": "<br>• 방명록 기능 구현 및 DB 구축<br>• 서비스 소개 페이지 구현<br>• 팀 소개 페이지 구현<br><br>",
             "image": "images/da.png"
         },
         {
-            "name": "김민주",
-            "nickname": "기존쎄갑",
-            "intro": "귀여운 말투와 그렇지 못한 팩폭",
-            "feature": "부모님 mbti 두분 다 ENTJ",
-            "mbti": "ENFP",
-            "role": "팀 내 분위기 메이커",
-            "image": "images/min.png"
+            "name": "진실",
+            "nickname": "성장괴물",
+            "intro": "빠르게 성장해서 성장 괴물로 불리고 있습니다.",
+            "feature": "트러블 슈팅? 까짓 거",
+            "mbti": "ISFP",
+            "role": "<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 방명록 기능 보완<br>• 팀 소개 페이지 구현<br><br>",
+            "image": "images/jin.png"
         },
         {
             "name": "손지영",
@@ -171,36 +175,27 @@ def show_team_page():
             "intro": "좋게 말하면 리더. 사실은 독재자",
             "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
             "mbti": "ENTJ",
-            "role": "프로젝트 리더",
+            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• 메인 페이지 CSS 디자인 및 기능 구현",
             "image": "images/ji.png"
         },
         {
-            "name": "이재웅",
-            "nickname": "코드학대범",
-            "intro": "코드학대로 결과 도출을 담당하고 있습니다.",
-            "feature": "코드 실행 횟수 194번은 기본",
-            "mbti": "ESFJ",
-            "role": "실시간 AI 법률 상담 기능, 기능 통합",
-            "image": "images/ung.png"
+            "name": "김민주",
+            "nickname": "기존쎄갑",
+            "intro": "귀여운 말투와 그렇지 못한 팩폭",
+            "feature": "없어서는 안 될 6조의 숨은 조력자",
+            "mbti": "ENFP",
+            "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• GitHub 교육 및 관리",
+            "image": "images/min.png"
         },
         {
             "name": "이효정",
             "nickname": "마조리카",
-            "intro": "파워 J인데, 여행할 땐 P",
+            "intro": "친해지면 스킨십 많아짐 주의",
             "feature": "조용한 제2의 코드 학대범",
             "mbti": "INTJ",
-            "role": "방명록 기능 구현 및 DB 구축",
+            "role": "<br>• 방명록 기능 구현<br>• 시스템 DB 구축 및 관리<br>• 서비스 통계 시스템 구현",
             "image": "images/hyo.png"
         },
-        {
-            "name": "진실",
-            "nickname": "성장괴물",
-            "intro": "빠르게 성장해서 성장 괴물로 불리고 있습니다.",
-            "feature": "트러블 슈팅? 그게 뭔데",
-            "mbti": "ISFP",
-            "role": "실시간 AI 법률 상담 기능, 방명록 기능 수정",
-            "image": "images/jin.png"
-        }
     ]
     # 팀원 카드 생성 - Streamlit 방식으로 수정
     cols = st.columns(3)

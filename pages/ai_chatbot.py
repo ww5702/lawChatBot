@@ -1,6 +1,10 @@
+
 import os
 import streamlit as st
 import sys
+import sqlite3
+import pysqlite3
+import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
@@ -18,12 +22,16 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
+# 최신 SQLite 강제 적용
+sys.modules["sqlite3"] = pysqlite3
+
 st.set_page_config(
     page_title="실시간 AI 법률 상담",
     page_icon="💬",
     layout="centered",  # "wide"에서 "centered"로 변경
     initial_sidebar_state="expanded"
 )
+
 
 # 현재 파일(ai_chatbot.py)의 위치를 기반으로 lawChatBot 경로 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
@@ -51,9 +59,9 @@ current_page = "ai_chatbot"
 ################ 1. openai-api key #################
 
 # OpenAI 클라이언트 연결
-# openai_api_key, tavily_api_key = load_keys()
-openai_api_key = st.secrets["OPENAI_API_KEY"]
-tavily_api_key = st.secrets["TAVILY_API_KEY"]
+openai_api_key, tavily_api_key = load_keys()
+# openai_api_key = st.secrets["OPENAI_API_KEY"]
+# tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 
 client = OpenAI(api_key=openai_api_key)
@@ -77,7 +85,8 @@ retriever = db.as_retriever()
 llm = ChatOpenAI(
     model_name="gpt-4o-mini",
     temperature=0.1,
-    openai_api_key=openai_api_key
+    openai_api_key=openai_api_key,
+    max_tokens=256 # 최대 토근 256
 )
 
 # 프롬프트 로드 함수 추가
@@ -99,7 +108,7 @@ if "last_page" not in st.session_state or st.session_state.last_page != current_
 
 
 st.title("💬 실시간 AI 법률 상담")
-st.caption("💬 법률 관련 질문을 입력하고 AI 변호사와 상담해보세요.")
+st.caption("💬 법률 관련 질문을 입력하고 AI 변호사와 상담해 보세요.")
 ####################################################
 
 ############# 2. 챗봇 프롬프트, agent 정의 ############
@@ -113,7 +122,7 @@ if "chatbot" not in st.session_state:
     st.session_state["chatbot"] = Agent(system_prompt=system_prompt, api_key=openai_api_key)
 # ✅ 기존 대화 기록 관리
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요! 법률 상담이 필요하시면 질문해주세요."}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요! 법률 상담이 필요하시면 질문해 주세요."}]
 
 # ✅ 기존 대화 UI 출력
 for msg in st.session_state.messages:
@@ -126,12 +135,15 @@ if user_input := st.chat_input("질문을 입력하세요..."):
         st.info("🔑 OpenAI API Key를 입력해주세요.")
         st.stop()
 
+    time.sleep(1) # 호출 전 1초 대기
+
     client = OpenAI(api_key=openai_api_key)
 
     # 사용자 입력 저장
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
 
+    time.sleep(1) # 1초 대기
     # 챗봇 응답 생성
     chatbot_response = st.session_state["chatbot"](user_input)
     st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
@@ -194,6 +206,7 @@ def web_rag_chain(query):
     # ✅ LLM이 올바르게 처리할 수 있도록 web_prompt_template.format() 사용
     final_prompt = web_prompt_template.format(context=formatted_results, question=query)
 
+    time.sleep(1) # 1초 대기
     return llm.invoke(final_prompt)  # ✅ str 타입으로 변환된 프롬프트 전달
 
 ####################################################
@@ -257,7 +270,9 @@ with st.sidebar:
     
     # 하단 정보
     st.markdown("---")
-    st.caption("© 2025 사고닷 - 법률 상담 AI 챗봇")
+    st.caption("고객센터: 02-1004-1004")
+    st.caption("이메일: happy6team@skala.com")
+    st.caption("운영시간: 연중무휴 24시간!")
 
 if st.session_state["loading"]:
     with st.spinner("검색 중입니다... 잠시만 기다려 주세요.🙏"):
@@ -269,9 +284,11 @@ if st.session_state["loading"]:
         else:
             print(summary)
             if st.session_state["loading"] == "case":
+                time.sleep(1) # 1초 대기
                 st.session_state["case_result"] = web_rag_chain(f"{summary} 관련된 형량이나 벌금 정보")
 
             if st.session_state["loading"] == "law":
+                time.sleep(1) # 1초 대기
                 st.session_state["law_result"] = pdf_rag_chain.invoke(f"{summary} 관련된 법률 정보")
 
             st.session_state["loading"] = False  # 로딩 완료 후 상태 초기화

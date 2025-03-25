@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 import team_intro 
+import service_intro
 
 # 페이지 설정
 st.set_page_config(
@@ -469,7 +470,7 @@ if st.session_state.current_page == "홈":
                     <div style="font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; color: #3d6aff;">방명록</div>
                     <div style="color: #4e5968; font-size: 0.9rem;">
                         서비스에 대해 자유롭게 의견을 남길 수 있는 공간입니다.<br>
-                        방명록을 작성하거나 좋아요를 눌러보세요!
+                        방명록을 작성하거나 '좋아요'를 눌러보세요!
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -619,25 +620,8 @@ elif st.session_state.current_page == "우리 팀 소개":
 
 # 우리 서비스 소개 페이지
 elif st.session_state.current_page == "우리 서비스 소개":
-    st.title("서비스 이용 안내")
-    
-    st.markdown("### 서비스 이용 방법")
-    st.write("1. 회원가입 및 로그인을 합니다.")
-    st.write("2. 원하는 서비스를 선택합니다.")
-    st.write("3. 질문이나 필요한 정보를 입력합니다.")
-    st.write("4. AI가 답변을 생성하는 동안 잠시 기다립니다.")
-    st.write("5. 결과를 확인하고 필요한 경우 추가 질문을 할 수 있습니다.")
-    
-    st.markdown("### 자주 묻는 질문")
-    
-    expander1 = st.expander("Q: 서비스 이용료는 얼마인가요?")
-    expander1.write("A: 기본 서비스는 무료로 제공되며, 고급 기능은 월 구독료가 발생합니다. 자세한 내용은 요금제 페이지를 참고해 주세요.")
-    
-    expander2 = st.expander("Q: AI 상담의 정확도는 어느 정도인가요?")
-    expander2.write("A: 저희 AI는 최신 법률 데이터베이스를 기반으로 약 95% 이상의 정확도를 보여줍니다. 다만, 최종적인 법률 결정은 전문 변호사와의 상담을 권장합니다.")
-    
-    expander3 = st.expander("Q: 개인정보는 안전하게 보호되나요?")
-    expander3.write("A: 네, 모든 데이터는 암호화되어 저장되며, 개인정보보호법을 준수합니다. 자세한 내용은 개인정보처리방침을 참고해 주세요.")
+    service_intro.show_service_page()
+
 
 # 모든 페이지에 공통으로 표시되는 푸터
 st.markdown("<div class='footer'>© 2025 AI 법률 서비스 '사고닷' by Happy6Team🙂</div>", unsafe_allow_html=True)

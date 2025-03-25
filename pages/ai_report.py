@@ -9,13 +9,14 @@ from prompts import question_generation_prompt, re_write_prompt, report_prompt
 
 # 법률 카테고리 데이터 가져오기
 from legal_categories import categories
+from select_lawyer import get_lawyers
+from css_report import load_css
 
 # 환경변수
 import os
 from dotenv import load_dotenv
 load_dotenv()
-API_KEY=st.secrets["OPENAI_API_KEY"]
-
+API_KEY = os.environ.get('OPENAI_KEY')
 
 st.set_page_config(
     page_title="AI 법률 자문 보고서 생성",
@@ -31,209 +32,6 @@ current_page = "ai_report"
 INITIAL_MESSAGE = "법률 사건의 정확한 이해를 돕기 위해 상담을 진행합니다."
 MODEL = "gpt-4o-mini"  
 TEMPERATURE = 0.2
-
-
-def get_lawyers():
-    return [
-        {
-            "id": 1,
-            "name": "손지영", 
-            "specialty": '"백전 백승, 무패의 전설 !!! 상대가 누구든 다 뿌셔드립니다."', 
-            "personality": "ENTJ<br>의뢰인에게도<br>화낼 수 있음 주의",  # 추가
-            "personality2": "ENTJ (의뢰인에게도 화낼 수 있음 주의)",  # 추가
-            "description": '• 대원한국어고등학교 졸업 (2005)<br>  • 한국대학교 물리학과 학사 (2010)<br>  • 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>  • 김앤손 법률 사무소 (2008 ~ 2015)<br>  • 사고닷 법률 사무소 (2015 ~ 현재)',
-            "image_url" : "images/손지영.png"
-        },
-        {
-            "id": 2,
-            "name": "이재웅", 
-            "specialty": '"자신이 없습니다. 질 자신이.<br>  가장 확실한 해결책, 포기 없는 변호."', 
-            "personality": "INFJ<br>근데 사실 T임<br><br>",  # 추가
-            "personality2" : "INFJ (근데 사실 T임)", 
-            "description": '• 한국대학교 법학전문대학학원 (법학스칼라전문박사, 박사 졸업, 2018)<br>  • 너뭐대학교 (한국사, 문학과, 수석 졸업, 2015)<br>  • 사고닷 법률 사무소 (2016 - 현재)',
-            "image_url" : "images/이재웅.png"
-        },
-        {
-            "id": 3,
-            "name": "김다은", 
-            "specialty": '"시켜줘 그럼, SKALA 명예 변호사"', 
-            "personality": "ESTJ<br>인성은 글쎄?<br>근데 이기면 되잖아",
-            "personality2" : "ESTJ (인성은 글쎄? 근데 이기면 되잖아)",
-            "description": '• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교 (법학스칼라전문박사, 박사 졸업, 2016)<br>  • 하버드 법학대학원 (법학 박사, 2005)<br>  • 국제 법률 자문관 (2015 - 2025)<br>  • 사고닷 법률 사무소 변호사 (2016 - 현재)<br>  • SKALA 명예 변호사로 활동 (2018 - 현재)',
-            "image_url" : "images/김다은.png"
-        },
-
-        {
-            "id": 4,
-            "name": "진실", 
-            "specialty": '"믿음, 소망, 사랑, 그중에 제일은 사랑이라.<br>  이혼 전문 맡겨만 주세요."', 
-            "personality": "ISFP<br>공감 잘함<br>의뢰인과 울음 대결 가능",  # 추가
-            "personality2" : "ISFP (공감 잘함. 의뢰인과 울음 대결 가능)", 
-            "description": '• 제9회 변호사시험 합격 (2020)<br>  • 한국대학교 법학전문대학원 (법학스칼라전문석사, 수석졸업, 2020)<br>  • 두번 다시 사랑모대학교 (문학사, 서양사학, 수석졸업, 2017)<br>  • 사고닷 법률사무소 (2020-현재)',
-            "image_url" : "images/진실.png"
-        },
-        {
-            "id": 5,
-            "name": "김민주", 
-            "specialty": '"법과 정의, 그리고 사람. <br>  혼자가 아닌 서비스를 제공하기 위해 최선을 다하겠습니다."', 
-            "personality": "ENFP<br>긍정적 사고 전문<br><br>",  # 추가
-            "personality2" : "ENFP (긍정적 사고 전문)", 
-            "description": '• 제 7회 변호사시험 합격 (2007)<br>  • 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>  • 비빔대학교 (법학/문학, 무사 졸업, 2005)<br>  • 사고닷 법률사무소 (2020 - 현재)',
-            "image_url" : "images/김민주.png"
-        },
-        {
-            "id": 6,
-            "name": "이효정", 
-            "specialty": '"오직 노동자만을 위한<br>  노동자의, 노동자에 의한, 노동자를 위한 법률 서비스"', 
-            "personality": "INTJ<br>노동자에게만 F<br><br>",  # 추
-            "personality2" : "INTJ (노동자에게만 F)", 
-            "description": '• 한국대학교(법학, 2020)<br>  • 한국대학교 법학전문대학원(법학전문석사, 2023)<br>  • 한국노동교육원 법률 자문(2023 - 현재)<br>  • 사고닷 법률 사무소(2024 - 현재)', 
-            "image_url" : "images/이효정.png"
-        }
-    ]
-
-
-def load_css():
-    st.markdown("""
-    <style>
-        .main-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
-            color: #3d6aff;
-        }
-        
-        .main-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #4B5563;
-        }
-        
-        .center-button {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0;
-        }
-        
-        
-        .lawyer-info {
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .st-emotion-cache-iyz50i {
-            transition: transform 0.3s all ease;
-        }       
-                
-        .st-emotion-cache-iyz50i:hover {
-            border-color: rgb(255, 75, 75);
-            color: rgb(255, 75, 75);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-                
-                
-        .emoji-large {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        
-        .lawyer-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .lawyer-specialty {
-            font-size: 18px;
-            color: #3d6aff;
-            margin-bottom: 8px;
-        }
-        
-        .lawyer-personality {
-            font-size: 16px;
-            color: #4B5563;
-            margin-bottom: 15px;
-        }
-        
-        .lawyer-description {
-            white-space: pre-line;
-            font-size: 14px;
-        }
-        
-        .selected-lawyer {
-            background-color: #F1F5F9;
-            padding: 3rem;
-            padding-bottom: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-
-        }
-        
-        .home-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 70vh;
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .home-image {
-            font-size: 100px;
-            margin-bottom: 2rem;
-        }
-        
-        .home-title {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #3d6aff;
-        }
-        
-        .home-subtitle {
-            font-size: 1.5rem;
-            color: #4B5563;
-            margin-bottom: 3rem;
-        }
-        
-        .big-button {
-            padding: 0.75rem 2rem;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            background-color: #E53935;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .big-button:hover {
-            background-color: #C62828;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        /* ✅ 다크모드 스타일 추가 */
-        @media (prefers-color-scheme: dark) {
-            .lawyer-info {
-                background-color: #1E1E1E !important; /* 검은 배경 */
-                color: #FFFFFF !important; /* 흰 글씨 */
-                border: 1px solid #555 !important;
-            }
-            
-            .selected-lawyer {
-                background-color: #121212 !important; /* 어두운 배경 */
-                color: #FFFFFF !important; /* 흰 글씨 */
-                border: 1px solid #555 !important;
-            }
-        }
-    </style>
-    """, unsafe_allow_html=True)
 
 
 # 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
@@ -255,9 +53,9 @@ def set_page_to_lawyer_list():
     st.session_state.page = "lawyer_list"
     st.rerun()  # 즉시 rerun 실행
 
+
 # 변호사 목록 페이지 표시 함수
 def show_lawyer_list_page():
-    # st.set_page_config(layout="wide")
 
     st.markdown("<div class='main-title'>변호사 매칭 서비스</div>", unsafe_allow_html=True)
     st.markdown("<div class='main-subtitle'>원하시는 변호사를 선택해 주세요!</div>", unsafe_allow_html=True)
@@ -292,7 +90,8 @@ def show_lawyer_list_page():
 
     else:
         lawyer = st.session_state.selected_lawyer
-        
+        st.balloons()
+
         st.markdown(f"""
         <div class="selected-lawyer">
             <div style="display: flex; align-items: center;">
@@ -318,6 +117,8 @@ def show_lawyer_list_page():
         if st.button("다른 변호사 선택하기"):
             st.session_state.selected_lawyer = None
             st.rerun()
+
+        st.balloons()
 
 
 @st.dialog("국내 Top 변호사를 소개합니다")
@@ -362,6 +163,9 @@ def initialize_session_state():
     # 변호사 선택 상태가 없을 때만 초기화
     if "selected_lawyer" not in st.session_state:
         st.session_state["selected_lawyer"] = None
+
+    if "button_disabled" not in st.session_state:
+        st.session_state.button_disabled = False
     
     # 다른 상태 변수들을 초기화 (기존과 동일)
     initial_states = {
@@ -439,7 +243,7 @@ def display_chat_history():
 
 # 법률 카테고리 선택 함수
 def show_category_selection():
-    st.write("상담 카테고리를 선택해주세요.")
+    st.write("상담 카테고리를 선택해 주세요.")
     cols = st.columns(2)
     
     categories_options = [
@@ -461,6 +265,10 @@ def show_category_selection():
 
 
 
+def disable_button():
+    """마지막 질문에서만 버튼을 비활성화"""
+    if st.session_state.current_question + 1 >= len(categories[st.session_state.current_category]):
+        st.session_state.button_disabled = True
 
 # 질문 표시 및 응답 수집 함수
 def show_question():
@@ -471,11 +279,14 @@ def show_question():
         # 질문 내용 표시
         st.write(f"{current_q['question']} ({st.session_state.current_question + 1}/{total_questions})")
 
+        # 현재 질문이 마지막 질문인지 확인
+        is_last_question = st.session_state.current_question + 1 >= total_questions
+
         # 라디오 버튼 (단일 선택)
         if current_q['type'] == 'radio':
             selected_option = st.radio("선택하세요:", current_q['options'], key=f"radio_{st.session_state.current_question}")
-            
-            if st.button("다음", key=f"next_{st.session_state.current_question}"):
+
+            if st.button("다음", key=f"next_{st.session_state.current_question}", disabled=st.session_state.button_disabled, on_click=disable_button if is_last_question else None):
                 # 응답 저장
                 st.session_state.user_answers[current_q['question']] = selected_option
                 
@@ -500,7 +311,7 @@ def show_question():
                 if st.checkbox(option, key=f"checkbox_{st.session_state.current_question}_{option}"):
                     selected_options.append(option)
             
-            if st.button("다음", key=f"next_{st.session_state.current_question}"):
+            if st.button("다음", key=f"next_{st.session_state.current_question}", disabled=st.session_state.button_disabled, on_click=disable_button if is_last_question else None):
                 if selected_options:
                     # 응답 저장
                     st.session_state.user_answers[current_q['question']] = selected_options
@@ -520,6 +331,70 @@ def show_question():
                     st.rerun()
                 else:
                     st.warning("최소 하나 이상의 옵션을 선택해주세요.")
+
+
+# # 질문 표시 및 응답 수집 함수
+# def show_question():
+#     if st.session_state.current_category and st.session_state.current_question < len(categories[st.session_state.current_category]):
+#         current_q = categories[st.session_state.current_category][st.session_state.current_question]
+#         total_questions = len(categories[st.session_state.current_category])
+
+#         # 질문 내용 표시
+#         st.write(f"{current_q['question']} ({st.session_state.current_question + 1}/{total_questions})")
+
+#         # 라디오 버튼 (단일 선택)
+#         if current_q['type'] == 'radio':
+#             selected_option = st.radio("선택하세요:", current_q['options'], key=f"radio_{st.session_state.current_question}")
+
+#             # 현재 질문이 마지막 질문인지 확인
+#             is_last_question = st.session_state.current_question + 1 >= total_questions
+
+#             if st.button("다음", key=f"next_{st.session_state.current_question}", disabled=st.session_state.button_disabled, on_click=disable_button if is_last_question else None):
+#                 # 응답 저장
+#                 st.session_state.user_answers[current_q['question']] = selected_option
+                
+#                 # 다음 질문으로 이동
+#                 st.session_state.current_question += 1
+                
+#                 # 모든 질문이 끝났을 때 다음 단계로 진행
+#                 if st.session_state.current_question >= len(categories[st.session_state.current_category]):
+#                     # 설문지 완료 표시
+#                     st.session_state.questionnaire_completed = True
+#                     # 법률 명세서 생성
+#                     st.session_state.legal_specification = generate_legal_specification()
+#                     # 추가 정보 요청 단계로 전환
+#                     handle_questionnaire_completion()
+                
+#                 st.rerun()
+                
+#         # 체크박스 (다중 선택)
+#         elif current_q['type'] == 'checkbox':
+#             selected_options = []
+#             for option in current_q['options']:
+#                 if st.checkbox(option, key=f"checkbox_{st.session_state.current_question}_{option}"):
+#                     selected_options.append(option)
+            
+#             if st.button("다음", key=f"next_{st.session_state.current_question}"):
+
+#                 if selected_options:
+#                     # 응답 저장
+#                     st.session_state.user_answers[current_q['question']] = selected_options
+                    
+#                     # 다음 질문으로 이동
+#                     st.session_state.current_question += 1
+                    
+#                     # 모든 질문이 끝났을 때 다음 단계로 진행
+#                     if st.session_state.current_question >= len(categories[st.session_state.current_category]):
+#                         # 설문지 완료 표시
+#                         st.session_state.questionnaire_completed = True
+#                         # 법률 명세서 생성
+#                         st.session_state.legal_specification = generate_legal_specification()
+#                         # 추가 정보 요청 단계로 전환
+#                         handle_questionnaire_completion()
+                    
+#                     st.rerun()
+#                 else:
+#                     st.warning("최소 하나 이상의 옵션을 선택해주세요.")
 
 
 # 설문지 완료 후 처리 함수
@@ -556,7 +431,7 @@ def handle_questionnaire_completion():
             st.session_state.additional_questions = improved_questions
         
         # 어시스턴트 응답 표시
-        response_text = f"입력하신 내용을 바탕으로 분석했습니다. 추가 정보를 위해 다음 질문에 답변해주세요:\n\n{improved_questions}\n\n답변 가능한 선에서 최대한 구체적으로 작성해주세요."
+        response_text = f"입력하신 내용을 바탕으로 분석했습니다. 추가 정보를 위해 다음 질문에 답변해 주세요:\n\n{improved_questions}\n\n답변 가능한 선에서 최대한 구체적으로 작성해주세요."
         
         add_message("assistant", response_text)
         
@@ -616,7 +491,7 @@ def handle_extra_information_step(prompt):
             
             # 최종 보고서 저장
             st.session_state.final_report = final_report
-        
+
         # 어시스턴트 응답 표시
         response_text = "법률 보고서가 생성되었습니다:\n\n" + final_report
         add_message("assistant", response_text)
@@ -627,7 +502,7 @@ def handle_extra_information_step(prompt):
         
         # 다음 단계로 이동
         st.session_state.current_step = "completed"
-        
+
         # 다운로드 버튼만 유지 (매칭 버튼은 main에서 표시)
         st.download_button(
             label="📄 보고서 다운로드 (TXT)",
@@ -810,9 +685,13 @@ def display_sidebar_status():
             )
         
         # 처음부터 다시 시작하는 버튼
-        st.markdown("---")
         if st.button("새 대화 시작"):
             reset_session_state()
+
+        st.markdown("---")
+        st.caption("고객센터: 02-1004-1004")
+        st.caption("이메일: happy6team@skala.com")
+        st.caption("운영시간: 연중무휴 24시간!")
 
 
 # 메인 애플리케이션 실행 함수
@@ -862,4 +741,4 @@ def main():
 # 애플리케이션 시작
 if __name__ == "__main__":
     main()
-
+    
