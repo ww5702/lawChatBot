@@ -38,15 +38,6 @@ def init():
         )
     ''')
 
-    # 좋아요 기록 테이블 생성 (사용자가 어떤 댓글에 좋아요를 눌렀는지 기록)
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS like_records (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            board_id INTEGER NOT NULL,
-            UNIQUE(board_id)
-        )
-    ''')
-
     # 전체 조회수 기록 테이블
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS view_records (
