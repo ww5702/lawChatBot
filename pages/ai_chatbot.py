@@ -62,7 +62,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 
-client = OpenAI(api_key=openai_api_key)
+# client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
