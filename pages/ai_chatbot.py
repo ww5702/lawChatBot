@@ -74,10 +74,19 @@ os.environ['USER_AGENT']='MyCustomAgent'
 # ChromaDB 미리 로드하여 검색 속도 최적화
 @st.cache_resource
 def load_chroma_db():
+    from chromadb import PersistentClient  # ✅ 0.4.24에서 직접 client 불러오기
+
+    chroma_client = PersistentClient(
+        path=os.path.join(os.path.dirname(__file__), "chroma_Web")
+    )
+
     return Chroma(
-        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),
-        persist_directory=os.path.join(os.path.dirname(__file__), "chroma_Web"),
-        collection_name="law_data"  # 추가해도 안전함 (선택 사항)
+        client=chroma_client,
+        collection_name="law_data",
+        embedding_function=OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            openai_api_key=openai_api_key
+        )
     )
 
 db = load_chroma_db()
