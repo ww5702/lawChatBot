@@ -75,8 +75,9 @@ os.environ['USER_AGENT']='MyCustomAgent'
 @st.cache_resource
 def load_chroma_db():
     return Chroma(
+        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),
         persist_directory=os.path.join(os.path.dirname(__file__), "chroma_Web"),
-        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key)
+        collection_name="law_data"  # 추가해도 안전함 (선택 사항)
     )
 
 db = load_chroma_db()
