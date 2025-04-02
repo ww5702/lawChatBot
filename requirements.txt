@@ -11,7 +11,7 @@ beautifulsoup4
 requests
 
 # 벡터 DB 및 Embedding
-chromadb==0.5.3
+chromadb==0.4.24
 duckdb>=0.9.2              # chromadb 내부 엔진 사용 시 필요
 sentence-transformers
 faiss-cpu
