@@ -1,24 +1,35 @@
+# 기본 라이브러리
 jsonlines
 openai
-langchain
+langchain==0.1.16         # 안정적인 버전 명시
 langchain-openai
 langchain-community
-beautifulsoup4
-langchain_chroma
-chromadb==0.5.3
-duckdb>=0.9.2
+langchain-chroma          # 공식 패키지명: langchain_chroma → langchain-chroma (PyPI)
 
-pymupdf
+# 크롤링 및 웹
+beautifulsoup4
+requests
+
+# 벡터 DB 및 Embedding
+chromadb==0.5.3
+duckdb>=0.9.2              # chromadb 내부 엔진 사용 시 필요
 sentence-transformers
 faiss-cpu
 
-# .env 설정
+# PDF 처리
+pymupdf
+
+# 텍스트 분할기 (분리됨)
+langchain-text-splitters
+
+# 환경변수
 python-dotenv
 
-# streamlit
+# 스트림릿
 streamlit==1.43.2
 
-# ✅ 최신 SQLite 사용을 위한 패키지 추가
-pysqlite3-binary 
-# 오류 Tavily python package not found 발생
+# 최신 SQLite 강제 설정
+pysqlite3-binary
+
+# Tavily 검색 API
 tavily-python
