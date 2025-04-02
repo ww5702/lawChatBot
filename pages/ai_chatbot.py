@@ -8,7 +8,8 @@ import time
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
+from chromadb.config import Settings
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.schema.output_parser import StrOutputParser
 from openai import OpenAI
@@ -73,7 +74,8 @@ os.environ['USER_AGENT']='MyCustomAgent'
 def load_chroma_db():
     return Chroma(
         persist_directory=os.path.join(os.path.dirname(__file__), "chroma_Web"),
-        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key)
+        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),
+        client_settings=Settings(chroma_db_impl="duckdb+parquet")
     )
 
 db = load_chroma_db()
