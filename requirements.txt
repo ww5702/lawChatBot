@@ -1,35 +1,35 @@
-# 기본 라이브러리
+# 기본
 jsonlines
 openai
-langchain==0.1.16         # 안정적인 버전 명시
+langchain==0.1.16
 langchain-openai
 langchain-community
-langchain-chroma          # 공식 패키지명: langchain_chroma → langchain-chroma (PyPI)
+langchain-chroma         # langchain-chroma는 Chroma 공식 플러그인
 
-# 크롤링 및 웹
+# 웹 크롤링 등
 beautifulsoup4
 requests
 
-# 벡터 DB 및 Embedding
-chromadb==0.4.24
-duckdb>=0.9.2              # chromadb 내부 엔진 사용 시 필요
+# ChromaDB 및 Embedding
+chromadb>=0.5.2
+duckdb>=0.9.2
 sentence-transformers
 faiss-cpu
 
 # PDF 처리
 pymupdf
 
-# 텍스트 분할기 (분리됨)
+# 텍스트 분할기
 langchain-text-splitters
 
-# 환경변수
+# .env 등 환경변수
 python-dotenv
 
-# 스트림릿
+# Streamlit
 streamlit==1.43.2
 
-# 최신 SQLite 강제 설정
+# 최신 SQLite 사용
 pysqlite3-binary
 
-# Tavily 검색 API
+# Tavily 웹 검색
 tavily-python
