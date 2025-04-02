@@ -2,28 +2,23 @@
 import os
 import streamlit as st
 import sys
-# ✅ 강제로 pysqlite3를 sqlite3로 등록
-os.environ["SQLITE_LIBRARY_PATH"] = "/usr/lib/sqlite3"  # 이 줄은 무시 가능 (서버 따라 다름)
+# ✅ 필수: pysqlite3를 강제로 sqlite3로 등록 (배포 환경용)
 import pysqlite3
 sys.modules["sqlite3"] = pysqlite3
 
-import sqlite3
 import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
 from langchain_community.vectorstores import Chroma
-from chromadb.config import Settings
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.schema.output_parser import StrOutputParser
-from openai import OpenAI
 from langchain_openai import ChatOpenAI
 import requests
 from bs4 import BeautifulSoup
 import fitz  # PyMuPDF
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
@@ -80,7 +75,7 @@ def load_chroma_db():
     return Chroma(
         persist_directory=os.path.join(os.path.dirname(__file__), "chroma_Web"),
         embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),
-        client_settings=Settings(chroma_db_impl="duckdb+parquet")
+        collection_name="law_data"
     )
 
 db = load_chroma_db()
