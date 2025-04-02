@@ -3,9 +3,6 @@ import os
 import streamlit as st
 import sys
 import sqlite3
-import pysqlite3
-# sqlite3 관련 오류 해결
-sys.modules["sqlite3"] = pysqlite3
 import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
@@ -20,7 +17,7 @@ import requests
 from bs4 import BeautifulSoup
 import fitz  # PyMuPDF
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
@@ -31,6 +28,7 @@ st.set_page_config(
     layout="centered",  # "wide"에서 "centered"로 변경
     initial_sidebar_state="expanded"
 )
+
 
 # 현재 파일(ai_chatbot.py)의 위치를 기반으로 lawChatBot 경로 추가
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # lawChatBot 디렉토리 경로
@@ -58,9 +56,9 @@ current_page = "ai_chatbot"
 ################ 1. openai-api key #################
 
 # OpenAI 클라이언트 연결
-openai_api_key, tavily_api_key = load_keys()
-# openai_api_key = st.secrets["OPENAI_API_KEY"]
-# tavily_api_key = st.secrets["TAVILY_API_KEY"]
+# openai_api_key, tavily_api_key = load_keys()
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 
 client = OpenAI(api_key=openai_api_key)
