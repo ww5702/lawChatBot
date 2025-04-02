@@ -6,6 +6,7 @@ import sys
 sys.modules["sqlite3"] = pysqlite3
 # import sqlite3
 import time
+import chromadb
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
 from langchain.prompts import ChatPromptTemplate
@@ -74,19 +75,13 @@ os.environ['USER_AGENT']='MyCustomAgent'
 # ChromaDB 미리 로드하여 검색 속도 최적화
 @st.cache_resource
 def load_chroma_db():
-    from chromadb import PersistentClient  # ✅ 0.4.24에서 직접 client 불러오기
-
-    chroma_client = PersistentClient(
-        path=os.path.join(os.path.dirname(__file__), "chroma_Web")
-    )
+    # Chroma Client 인스턴스 생성 (0.5.2 이상에서는 명시적으로 client 생성 필요)
+    chroma_client = chromadb.Client()
 
     return Chroma(
         client=chroma_client,
-        collection_name="law_data",
-        embedding_function=OpenAIEmbeddings(
-            model="text-embedding-3-small",
-            openai_api_key=openai_api_key
-        )
+        collection_name="law_data",  # 반드시 명시
+        embedding_function=OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),
     )
 
 db = load_chroma_db()
