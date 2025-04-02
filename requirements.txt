@@ -32,4 +32,4 @@ streamlit==1.43.2
 pysqlite3-binary
 
 # Tavily 웹 검색
-tavily-python
+tavily-python>=0.3.0
