@@ -62,7 +62,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 
-client = OpenAI(api_key=openai_api_key)
+# client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
@@ -136,7 +136,7 @@ if user_input := st.chat_input("질문을 입력하세요..."):
 
     time.sleep(1) # 호출 전 1초 대기
 
-    client = OpenAI(api_key=openai_api_key)
+    # client = OpenAI(api_key=openai_api_key)
 
     # 사용자 입력 저장
     st.session_state.messages.append({"role": "user", "content": user_input})
