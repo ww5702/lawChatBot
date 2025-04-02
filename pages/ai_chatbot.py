@@ -2,7 +2,7 @@
 import os
 import streamlit as st
 import sys
-import sqlite3
+# import sqlite3
 import time
 
 from langchain_community.retrievers import TavilySearchAPIRetriever
@@ -15,10 +15,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.output_parser import StrOutputParser
 from openai import OpenAI
 from langchain_openai import ChatOpenAI
-import requests
-from bs4 import BeautifulSoup
+# import requests
+# from bs4 import BeautifulSoup
 import fitz  # PyMuPDF
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
