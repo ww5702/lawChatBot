@@ -1,23 +1,26 @@
-jsonlines
+# 기본 패키지
 openai
+streamlit==1.43.2
+python-dotenv
+beautifulsoup4
+jsonlines
+
+# LangChain 관련
 langchain
 langchain-openai
 langchain-community
-beautifulsoup4
-langchain_chroma
+langchain-chroma
+
+# 벡터스토어
 chromadb==0.5.3
-
-pymupdf
-sentence-transformers
 faiss-cpu
+sentence-transformers
 
-# .env 설정
-python-dotenv
+# PDF 처리
+pymupdf  # or fitz
 
-# streamlit
-streamlit==1.43.2
+# 최신 SQLite 호환 (Chroma 사용 시 필수)
+pysqlite3-binary>=0.5.2
 
-# ✅ 최신 SQLite 사용을 위한 패키지 추가
-pysqlite3-binary 
-# 오류 Tavily python package not found 발생
+# 기타
 tavily-python
