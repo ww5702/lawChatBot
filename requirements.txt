@@ -6,6 +6,7 @@ langchain-community
 beautifulsoup4
 langchain_chroma
 chromadb==0.5.3
+duckdb>=0.9.2
 
 pymupdf
 sentence-transformers
