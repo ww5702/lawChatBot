@@ -2,6 +2,11 @@
 import os
 import streamlit as st
 import sys
+# ✅ 강제로 pysqlite3를 sqlite3로 등록
+os.environ["SQLITE_LIBRARY_PATH"] = "/usr/lib/sqlite3"  # 이 줄은 무시 가능 (서버 따라 다름)
+import pysqlite3
+sys.modules["sqlite3"] = pysqlite3
+
 import sqlite3
 import time
 
