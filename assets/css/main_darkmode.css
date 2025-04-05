@@ -1,0 +1,91 @@
+/* 다크 모드 */
+@media (prefers-color-scheme: dark) {
+    .stApp {
+        background-color: #1E1E1E !important;
+        color: #EAEAEA !important; /* 글자 색을 밝게 */
+    }
+        
+    .service-card {
+        background-color: #2A2A2A !important;
+        color: #EAEAEA !important;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(100, 100, 100, 0.12) !important;
+    }
+        
+    /* 폼 내부 텍스트 색상 변경 */
+    .stForm {
+        background-color: #2A2A2A !important;
+        color: #FFFFFF !important;
+        border: none !important;
+    }
+    
+    .stForm div, .stForm .form-content {
+        color: #FFFFFF !important;
+    }
+    
+    .stForm:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(130, 130, 130, 0.15) !important;
+    }
+    
+    /* 프로필 카드 스타일 */
+    .profile-card {
+        background-color: #2A2A2A !important;
+        color: #EAEAEA !important;
+        border: none;
+    }
+    
+    /* 텍스트 색상 조정 */
+    .profile-name, .profile-desc, .card-title, .card-description {
+        color: #FFFFFF !important;
+    }
+    
+    /* 버튼 스타일 */
+    .stButton>button {
+        background-color: #3d6aff !important;
+        color: white !important;
+        border: none !important;
+    }
+    
+    .stButton>button:hover {
+        background-color: #2a4cb8 !important;
+        color: white !important;
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 구분선 색상 */
+    .horizon-line {
+        border-top: 2px solid #3d3d3d !important;
+    }
+    
+    /* 확장기(expander) 스타일 */
+    .streamlit-expanderHeader {
+        background-color: #2A2A2A !important;
+        color: #FFFFFF !important;
+    }
+    
+    .streamlit-expanderContent {
+        background-color: #1E1E1E !important;
+        color: #EAEAEA !important;
+    }
+    
+    /* 사이드바 스타일 */
+    [data-testid="stSidebar"] {
+        background-color: #262626 !important;
+        border-right: 1px solid #3d3d3d !important;
+    }
+    
+    /* 헤더 스타일 유지 */
+    .main-header {
+        background-color: #3d6aff !important;
+    }
+    
+    .st-emotion-cache-f03grt {
+        border: 1px solid transparent;
+        background-color: #3d6aff;
+    }
+
+    .st-emotion-cache-f03grt:hover * {
+        color: rgb(255, 75, 75) !important;
+    }     
+}
