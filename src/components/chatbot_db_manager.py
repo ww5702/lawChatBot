@@ -10,7 +10,9 @@ openai_api_key, tavily_api_key = initialize_environment()
 
 @st.cache_resource
 def load_chroma_db():
+
     # Chroma 0.5.2 이상에서는 Settings를 통해 임베디드 로컬 모드 명시 필요
+    from chromadb.config import Settings
     settings = chromadb.config.Settings(
         chroma_db_impl="duckdb+parquet",  # 로컬 DB 엔진
         persist_directory="./chroma",     # 데이터 저장 경로 (원하는 경로로 변경 가능)
@@ -18,7 +20,9 @@ def load_chroma_db():
     
     """Load and cache ChromaDB for better performance"""
     # Create Chroma client instance
-    chroma_client = chromadb.Client()
+    # chroma_client = chromadb.Client()
+    # setting 넘겨주기
+    chroma_client = chromadb.Client(settings)
     
     return Chroma(
         client=chroma_client,
