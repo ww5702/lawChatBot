@@ -16,7 +16,7 @@ openai_api_key, tavily_api_key = initialize_environment()
 @st.cache_resource
 def load_chroma_db():
    # Settings 명시 (로컬 모드 + 영속성 디렉토리)
-    settings = chromadb.config.Settings(
+    settings = Settings(
         chroma_db_impl="duckdb+parquet",  # 로컬 DB 엔진
         persist_directory="./chroma",     # 데이터 저장 경로 (원하는 경로로 변경 가능)
     )
