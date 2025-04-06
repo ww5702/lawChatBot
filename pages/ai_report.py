@@ -5,11 +5,11 @@ from langchain.schema.output_parser import StrOutputParser
 import base64
 
 # 프롬프트 템플릿 가져오기
-from prompts import question_generation_prompt, re_write_prompt, report_prompt
+from prompts.ai_report_prompts import question_generation_prompt, re_write_prompt, report_prompt
 
 # 법률 카테고리 데이터 가져오기
-from legal_categories import categories
-from select_lawyer import get_lawyers
+from src.data.legal_categories import categories
+from src.data.select_lawyer import get_lawyers
 from css_report import load_css
 
 # 환경변수
