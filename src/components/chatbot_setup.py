@@ -1,7 +1,9 @@
 import os
 import sys
 import streamlit as st
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI  # ✅ 최신 경고 해결
+
 
 # Import base directory for consistent imports
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,8 +16,8 @@ openai_api_key, tavily_api_key = initialize_environment()
 def initialize_llm(openai_api_key=None):
     """Initialize the Language Model"""
     if not openai_api_key:
-        # openai_api_key = st.secrets.get("OPENAI_API_KEY", os.environ.get("OPENAI_API_KEY"))
-        openai_api_key = openai_api_key
+        openai_api_key = st.secrets.get("OPENAI_API_KEY", os.environ.get("OPENAI_API_KEY"))
+        # openai_api_key = openai_api_key
         
     return ChatOpenAI(
         model_name="gpt-4o-mini",
