@@ -1,5 +1,5 @@
 import streamlit as st
-from src.config.config import PAGE_CONFIG, INITIAL_MESSAGE
+from src.data.ai_report_data import PAGE_CONFIG, INITIAL_MESSAGE
 from src.data.legal_categories import categories
 from src.data.select_lawyer import get_lawyers
 from src.components.ai_report.lawyer_card import display_lawyer_card, display_selected_lawyer

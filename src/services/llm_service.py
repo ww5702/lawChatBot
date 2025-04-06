@@ -1,7 +1,7 @@
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
 from openai import OpenAI
-from src.config.config import API_KEY, MODEL, TEMPERATURE
+from src.data.ai_report_data import API_KEY, MODEL, TEMPERATURE
 from prompts.ai_report_prompts import question_generation_prompt, re_write_prompt, report_prompt
 
 def create_llm():

@@ -32,7 +32,7 @@ def get_progress_value(current_step, current_category, current_question, categor
     Returns:
         float: 0.0 ~ 1.0 사이의 진행률
     """
-    from src.config.config import PROGRESS_VALUES
+    from src.data.ai_report_data import PROGRESS_VALUES
     
     # 현재 상태를 평가하기 위한 현재 단계 결정
     if current_step == "initial" and current_category:

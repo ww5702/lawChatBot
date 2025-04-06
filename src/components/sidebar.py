@@ -1,5 +1,5 @@
 import streamlit as st
-from src.data.ai_report_data import STEPS
+from data.ai_report_data import STEPS
 from src.services.report_service import get_progress_value, steps_completed
 
 def display_sidebar_status(categories):
@@ -68,7 +68,7 @@ def display_sidebar_status(categories):
 
 def reset_session_state():
     """세션 상태를 초기화합니다."""
-    from src.data.ai_report_data import INITIAL_MESSAGE
+    from data.ai_report_data import INITIAL_MESSAGE
     
     # 초기화할 키 목록
     keys_to_reset = [

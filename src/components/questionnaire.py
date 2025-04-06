@@ -1,5 +1,5 @@
 import streamlit as st
-from src.data.ai_report_data import CATEGORIES_OPTIONS
+from data.ai_report_data import CATEGORIES_OPTIONS
 from src.data.legal_categories import categories
 from src.services.report_service import generate_legal_specification
 from src.services.llm_service import create_llm, generate_questions, improve_questions
