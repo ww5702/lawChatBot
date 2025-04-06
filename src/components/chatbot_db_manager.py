@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import chromadb
+from chromadb.config import Settings
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 
@@ -10,24 +11,17 @@ openai_api_key, tavily_api_key = initialize_environment()
 
 @st.cache_resource
 def load_chroma_db():
-    
-
-    # Chroma 0.5.2 이상에서는 Settings를 통해 임베디드 로컬 모드 명시 필요
-    from chromadb.config import Settings
+   # Settings 명시 (로컬 모드 + 영속성 디렉토리)
     settings = chromadb.config.Settings(
         chroma_db_impl="duckdb+parquet",  # 로컬 DB 엔진
         persist_directory="./chroma",     # 데이터 저장 경로 (원하는 경로로 변경 가능)
     )
-    # ✅ 기존 인스턴스 충돌 방지
-    import chromadb.api.shared_system_client as shared
-    shared.SharedSystemClient._system_registry.clear()
-
     
     """Load and cache ChromaDB for better performance"""
     # Create Chroma client instance
     # chroma_client = chromadb.Client()
     # setting 넘겨주기
-    chroma_client = chromadb.Client(settings)
+    chroma_client = chromadb.Client(settings=settings)
     
     return Chroma(
         client=chroma_client,
