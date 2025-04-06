@@ -1,7 +1,9 @@
-import os
-import streamlit as st
+import pysqlite3  
 import sys
 sys.modules["sqlite3"] = pysqlite3
+
+import os
+import streamlit as st
 import chromadb
 from chromadb.config import Settings
 from langchain_community.vectorstores import Chroma
