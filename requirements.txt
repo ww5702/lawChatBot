@@ -3,7 +3,8 @@ jsonlines
 openai
 langchain==0.1.16
 langchain-openai
-langchain-community
+# langchain-community
+langchain-community>=0.0.36 # 최신으로 업그레이드
 langchain-chroma         # langchain-chroma는 Chroma 공식 플러그인
 
 # 웹 크롤링 등
