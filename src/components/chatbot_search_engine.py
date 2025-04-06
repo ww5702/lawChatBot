@@ -1,6 +1,7 @@
 import time
 import streamlit as st
-from langchain_community.retrievers import TavilySearchAPIRetriever
+# from langchain_community.retrievers import TavilySearchAPIRetriever
+from .custom_tavily_retriever import CustomTavilyRetriever
 from langchain.prompts import ChatPromptTemplate, PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
@@ -11,13 +12,15 @@ from .chatbot_db_manager import load_chroma_db, format_docs
 @st.cache_data(show_spinner=False)
 def web_search(query):
     """Perform web search using Tavily API"""
-    retriever = TavilySearchAPIRetriever(
-        k=3, 
-        search_depth="advanced", 
-        include_domains=["news"], 
-        verbose=False
-    )
-    return retriever.invoke(query)
+    # retriever = TavilySearchAPIRetriever(
+    #     k=3, 
+    #     search_depth="advanced", 
+    #     include_domains=["news"], 
+    #     verbose=False
+    # )
+    # return retriever.invoke(query)
+    retriever = CustomTavilyRetriever(k=3)
+    return retriever.get_relevant_documents(query)
 
 def web_rag_chain(query, llm):
     """Create RAG chain for web search results"""
