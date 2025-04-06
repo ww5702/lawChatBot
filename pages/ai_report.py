@@ -2,9 +2,9 @@ import streamlit as st
 from src.config.config import PAGE_CONFIG, INITIAL_MESSAGE
 from src.data.legal_categories import categories
 from src.data.select_lawyer import get_lawyers
-from src.components.lawyer_card import display_lawyer_card, display_selected_lawyer
-from src.components.sidebar import display_sidebar_status
-from src.components.questionnaire import show_category_selection, show_question
+from src.components.ai_report.lawyer_card import display_lawyer_card, display_selected_lawyer
+from src.components.ai_report.sidebar import display_sidebar_status
+from src.components.ai_report.questionnaire import show_category_selection, show_question
 from src.services.llm_service import create_llm, generate_legal_report, generate_chat_response
 from css_report import load_css
 
@@ -88,7 +88,7 @@ def display_chat_history():
 
 def handle_user_input(prompt):
     """사용자 입력을 처리합니다."""
-    from src.components.questionnaire import add_message
+    from components.ai_report.questionnaire import add_message
     
     # 사용자 메시지 표시
     add_message("user", prompt)
@@ -103,7 +103,7 @@ def handle_user_input(prompt):
 
 def handle_answering_questions_step(prompt):
     """추가 질문 답변 단계를 처리합니다."""
-    from src.components.questionnaire import add_message
+    from components.ai_report.questionnaire import add_message
     
     # 추가 질문에 대한 답변 처리
     st.session_state.additional_responses = prompt
@@ -117,7 +117,7 @@ def handle_answering_questions_step(prompt):
 
 def handle_extra_information_step(prompt):
     """추가 정보 입력 단계를 처리합니다."""
-    from src.components.questionnaire import add_message
+    from components.ai_report.questionnaire import add_message
     
     # 추가 정보 처리
     st.session_state.extra_information = prompt if prompt.lower() != "없음" else ""
@@ -165,7 +165,7 @@ def handle_extra_information_step(prompt):
 
 def handle_completed_step(prompt):
     """완료 단계를 처리합니다."""
-    from src.components.questionnaire import add_message
+    from components.ai_report.questionnaire import add_message
     
     try:
         # 로딩 스피너 표시
