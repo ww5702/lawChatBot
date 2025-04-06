@@ -8,6 +8,9 @@ import chromadb
 from chromadb.config import Settings
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
+# 수정
+from chromadb import PersistentClient 
+
 
 # key 값
 from config import initialize_environment
@@ -25,7 +28,8 @@ def load_chroma_db():
     # Create Chroma client instance
     # chroma_client = chromadb.Client()
     # setting 넘겨주기
-    chroma_client = chromadb.Client(settings=settings)
+    # chroma_client = chromadb.Client(settings=settings)
+   chroma_client = PersistentClient(path="./chroma")
     
     return Chroma(
         client=chroma_client,
