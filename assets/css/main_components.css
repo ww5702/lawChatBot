@@ -1,0 +1,95 @@
+/* 카드 스타일 */
+.service-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    padding-left: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: transform 0.3s;
+    cursor: pointer;
+    height: 15rem;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #3d6aff;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #3d6aff;
+}
+
+.card-description {
+    color: #4e5968;
+    font-size: 0.9rem;
+}
+
+/* 버튼 스타일 */
+.stButton>button {
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    cursor: pointer;
+    padding: 0.8em;
+}
+
+.stButton>button:hover {
+    background-color: #3d6aff;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 폼 스타일 */
+.stForm {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stForm:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 폼 내부 콘텐츠 컨테이너 */
+.form-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+    margin-top: 1rem;
+}
+
+/* 모바일에서도 높이 유지 */
+@media (max-width: 768px) {
+    .stForm {
+        height: 15rem;
+        margin-bottom: 1rem;
+    }
+}

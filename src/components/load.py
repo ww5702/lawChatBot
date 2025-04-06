@@ -1,7 +1,8 @@
+from typing import List
 import streamlit as st
 import os
 
-# CSS 파일 불러와 적용
+# 단일 CSS 파일 불러와 적용
 def load_css(base_dir, file_name: str):
     css_path = os.path.join(base_dir, "assets", "css", file_name)
     with open(css_path, "r", encoding="utf-8") as f:
@@ -28,3 +29,4 @@ def load_review(base_dir, name : str, review : str, likes : str):
             st.markdown(html, unsafe_allow_html=True)
     else:
         st.error(f"지정된 HTML 파일을 찾을 수 없습니다.")
+

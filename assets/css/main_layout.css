@@ -1,0 +1,32 @@
+/* 헤더 스타일 */
+.main-header {
+    background-color: #3d6aff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none; 
+}
+
+/* .main-header 내부 글씨 색상 흰색으로 설정 */
+.main-header h1, .main-header p {
+    color: white !important;
+}
+
+/* 푸터 스타일 */
+.footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #6B7280;
+    margin-top: 2rem;
+}
+
+/* 구분선 스타일 */
+.horizon-line {
+    border-top: 2px solid #e7e8e8;
+    margin: 20px 0;
+    margin-top: 3rem;
+}
