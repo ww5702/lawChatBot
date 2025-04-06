@@ -25,7 +25,6 @@ tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 # client = OpenAI(api_key=openai_api_key)
 os.environ["TAVILY_API_KEY"] = tavily_api_key
-
 os.environ["OPENAI_API_KEY"] = openai_api_key
 os.environ['USER_AGENT']='MyCustomAgent'
 
@@ -44,7 +43,7 @@ def main():
     current_page = "ai_chatbot"
     
     # Initialize environment variables and API keys
-    openai_api_key, tavily_api_key = initialize_environment()
+    # openai_api_key, tavily_api_key = initialize_environment()
     
     # Initialize LLM
     llm = initialize_llm(openai_api_key)
