@@ -16,8 +16,10 @@ def initialize_environment():
     #         st.error("API keys not found. Please check your configuration.")
     #         st.stop()
     """API 키 로드"""
-    openai_api_key = "YOUR_KEY"
-    tavily_api_key = "YOUR_KEY"
+    openai_api_key = st.secrets["OPENAI_API_KEY"]
+    tavily_api_key = st.secrets["TAVILY_API_KEY"]
+    #openai_api_key = "YOUR_KEY"
+    #tavily_api_key = "YOUR_KEY"
     # Set environment variables
     os.environ["TAVILY_API_KEY"] = tavily_api_key
     os.environ["OPENAI_API_KEY"] = openai_api_key
