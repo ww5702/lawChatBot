@@ -5,7 +5,7 @@ from src.data.select_lawyer import get_lawyers
 from src.components.ai_report.lawyer_card import display_lawyer_card, display_selected_lawyer
 from src.components.ai_report.sidebar import display_sidebar_status
 from src.components.ai_report.questionnaire import show_category_selection, show_question
-from src.services.llm_service import create_llm, generate_legal_report, generate_chat_response
+from src.services.llm_report_service import create_llm, generate_legal_report, generate_chat_response
 from css_report import load_css
 
 # 페이지 설정

@@ -2,7 +2,7 @@ import streamlit as st
 from src.data.ai_report_data import CATEGORIES_OPTIONS
 from src.data.legal_categories import categories
 from src.services.report_service import generate_legal_specification
-from src.services.llm_service import create_llm, generate_questions, improve_questions
+from services.llm_report_service import create_llm, generate_questions, improve_questions
 
 def show_category_selection():
     """법률 카테고리 선택 화면을 표시합니다."""
