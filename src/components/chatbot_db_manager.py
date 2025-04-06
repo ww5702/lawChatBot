@@ -29,7 +29,7 @@ def load_chroma_db():
     # chroma_client = chromadb.Client()
     # setting 넘겨주기
     # chroma_client = chromadb.Client(settings=settings)
-   chroma_client = PersistentClient(path="./chroma")
+    chroma_client = PersistentClient(path="./chroma")
     
     return Chroma(
         client=chroma_client,
