@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.schema import StrOutputParser
 from langchain.prompts import ChatPromptTemplate
 from src.data.ai_report_data import API_KEY, MODEL, TEMPERATURE
