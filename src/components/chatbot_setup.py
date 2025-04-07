@@ -30,6 +30,8 @@ def load_prompt(filename: str) -> str:
     # 현재 파일 기준으로 상위 폴더 ../prompts/filename 위치로 경로 설정
     base_dir = os.path.dirname(__file__)  # = src/components
     prompt_path = os.path.join(base_dir, "..", "..", "prompts", filename)
+    # src/prompts로 변경할 시 가져올 코드 
+    # prompt_path = os.path.join(base_dir, "..", "prompts", filename) 
     prompt_path = os.path.abspath(prompt_path)  # 절대 경로로 변환
 
     with open(prompt_path, "r", encoding="utf-8") as file:
