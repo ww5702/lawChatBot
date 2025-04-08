@@ -4,7 +4,7 @@ from src.components.main_service_renderer import render_service_cards
 from src.components.main_profile_renderer import render_lawyer_profiles
 from src.data.main_lawyers_data import get_lawyers_data
 from src.data.main_statistics import render_statistics
-from src.utils.main_image_utils import get_image_as_base64
+from src.utils.image_utils import get_image_as_base64
 
 def render_home_page(base_dir, conn, cursor):
     """홈 페이지를 렌더링합니다."""

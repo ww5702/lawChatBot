@@ -1,9 +1,9 @@
 import streamlit as st
 from src.utils.image_utils import get_image_as_base64
 
-def display_lawyer_card(lawyer, show_selection_button=True):
+def display_lawyer_card(lawyer):
     """
-    변호사 카드를 표시합니다.
+    변호사 카드를 표시합니다. (원형 이미지 스타일 적용)
     
     Args:
         lawyer (dict): 변호사 정보
@@ -21,9 +21,8 @@ def display_lawyer_card(lawyer, show_selection_button=True):
     </div>
     """, unsafe_allow_html=True)
     
-    if show_selection_button:
-        if st.button(f"{lawyer['name']} 변호사 선택하기", key=f"select_{lawyer['id']}", use_container_width=True):
-            show_lawyer_selection_dialog(lawyer)
+    if st.button(f"{lawyer['name']} 변호사 선택하기", key=f"select_{lawyer['id']}", use_container_width=True):
+        show_lawyer_selection_dialog(lawyer)
 
 def display_selected_lawyer(lawyer):
     """
@@ -70,6 +69,7 @@ def show_lawyer_selection_dialog(lawyer):
     Args:
         lawyer (dict): 변호사 정보
     """
+    # 원형 이미지 컨테이너 스타일 적용
     st.markdown(f'''
     <div style="text-align: center; margin-bottom: 20px;">
         <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto;">

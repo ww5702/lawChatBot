@@ -1,5 +1,5 @@
 import streamlit as st
-from data.ai_report_data import STEPS
+from src.data.ai_report_data import STEPS
 from src.services.report_service import get_progress_value, steps_completed
 
 def display_sidebar_status(categories):
@@ -17,6 +17,8 @@ def display_sidebar_status(categories):
         # 진행 상태 바
         progress_value = get_progress_value(
             current_step,
+            st.session_state.category_selected,
+            st.session_state.questionnaire_completed,
             st.session_state.current_category,
             st.session_state.current_question,
             categories
@@ -37,6 +39,7 @@ def display_sidebar_status(categories):
             ):
                 # 완료된 단계 - 체크 표시와 함께 녹색으로 표시
                 st.markdown(f"✅  **{step['name']}**")
+                
             elif (current_step == "initial" and step["key"] == "category_selection" and st.session_state.category_selected) or \
                  (current_step == "initial" and step["key"] == "questionnaire" and not st.session_state.questionnaire_completed and st.session_state.category_selected) or \
                  (current_step == step["key"]):
@@ -65,10 +68,10 @@ def display_sidebar_status(categories):
         st.caption("고객센터: 02-1004-1004")
         st.caption("이메일: happy6team@skala.com")
         st.caption("운영시간: 연중무휴 24시간!")
-
+        
 def reset_session_state():
     """세션 상태를 초기화합니다."""
-    from data.ai_report_data import INITIAL_MESSAGE
+    from src.data.ai_report_data import INITIAL_MESSAGE
     
     # 초기화할 키 목록
     keys_to_reset = [
