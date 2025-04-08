@@ -2,7 +2,7 @@ import streamlit as st
 from src.data.ai_report_data import CATEGORIES_OPTIONS
 from src.data.legal_categories import categories
 from src.services.report_service import generate_legal_specification
-from services.llm_report_service import create_llm, generate_questions, improve_questions
+from src.services.llm_report_service import create_llm, generate_questions, improve_questions
 
 def show_category_selection():
     """법률 카테고리 선택 화면을 표시합니다."""
@@ -23,7 +23,7 @@ def disable_button():
     if st.session_state.current_question + 1 >= len(categories[st.session_state.current_category]):
         st.session_state.button_disabled = True
 
-def show_question(categories):
+def show_question():
     """
     현재 질문을 표시하고 응답을 수집합니다.
     
@@ -77,6 +77,11 @@ def handle_question_response(current_q, selected_option, categories):
     
     # 모든 질문이 끝났을 때 다음 단계로 진행
     if st.session_state.current_question >= len(categories[st.session_state.current_category]):
+        # 설문지 완료 표시
+        st.session_state.questionnaire_completed = True
+        # 법률 명세서 생성
+        st.session_state.legal_specification = generate_legal_specification(st.session_state.user_answers, st.session_state.current_category)
+        # 추가 정보 요청 단계로 전환
         handle_questionnaire_completion()
     
     st.rerun()
@@ -85,7 +90,7 @@ def handle_questionnaire_completion():
     """설문지 완료 후 처리를 수행합니다."""
     try:
         # 먼저 사용자에게 법률 명세서 요약 표시
-        legal_spec = generate_legal_specification(st.session_state.user_answers, st.session_state.current_category)
+        legal_spec = st.session_state.legal_specification
         summary_message = f"작성하신 {st.session_state.current_category} 사건 명세서의 내용은 다음과 같습니다:\n\n"
         
         # 응답을 정리해서 표시
@@ -102,13 +107,13 @@ def handle_questionnaire_completion():
         with st.spinner('법률 명세서를 분석하고 추가 질문을 생성 중입니다...'):
             # LLM 인스턴스 생성
             llm = create_llm()
-            
+            print(1)
             # 추가 질문 생성
             generated_questions = generate_questions(llm, legal_spec)
-            
+            print(2)
             # 생성된 질문 개선
             improved_questions = improve_questions(llm, generated_questions)
-            
+            print(3)
             # 개선된 질문 저장 (문자열 형태)
             st.session_state.additional_questions = improved_questions
         

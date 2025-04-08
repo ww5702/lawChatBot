@@ -17,6 +17,8 @@ def display_sidebar_status(categories):
         # 진행 상태 바
         progress_value = get_progress_value(
             current_step,
+            st.session_state.category_selected,
+            st.session_state.questionnaire_completed,
             st.session_state.current_category,
             st.session_state.current_question,
             categories
@@ -69,7 +71,7 @@ def display_sidebar_status(categories):
         
 def reset_session_state():
     """세션 상태를 초기화합니다."""
-    from data.ai_report_data import INITIAL_MESSAGE
+    from src.data.ai_report_data import INITIAL_MESSAGE
     
     # 초기화할 키 목록
     keys_to_reset = [

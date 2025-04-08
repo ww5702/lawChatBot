@@ -39,14 +39,14 @@ def handle_extra_information_step(prompt):
         response_text = "법률 보고서가 생성되었습니다:\n\n" + final_report
         add_message("assistant", response_text)
         
-        # 마무리 메시지
+        # 마무리 메시지 (버튼에 대한 언급 추가)
         completion_text = "보고서 생성이 완료되었습니다. 아래 '변호사 매칭하기' 버튼을 클릭하시면 변호사 매칭 페이지로 이동합니다. 추가 질문이 있으시면 말씀해주세요."
         add_message("assistant", completion_text)
         
         # 다음 단계로 이동
         st.session_state.current_step = "completed"
 
-        # 다운로드 버튼
+        # 다운로드 버튼만 유지(매칭 버튼은 main에서 표시)
         st.download_button(
             label="📄 보고서 다운로드 (TXT)",
             data=st.session_state["final_report"],
@@ -62,6 +62,7 @@ def handle_extra_information_step(prompt):
 
 def handle_completed_step(prompt):
     """완료 단계를 처리합니다."""
+    # 일반 대화 처리
     try:
         # 로딩 스피너 표시
         with st.spinner('답변을 생성 중입니다...'):

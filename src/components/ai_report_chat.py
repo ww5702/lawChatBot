@@ -1,3 +1,4 @@
+from src.components.ai_report_handlers import handle_answering_questions_step, handle_completed_step, handle_extra_information_step
 import streamlit as st
 from src.components.questionnaire import add_message
 

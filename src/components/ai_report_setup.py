@@ -39,7 +39,6 @@ def initialize_session_state():
             st.session_state[key] = value
 
 def setup_page_state(current_page):
-    """페이지 상태를 설정합니다."""
     # 이전 페이지를 기억하는 상태가 없거나, 변경된 경우 초기화
     if "last_page" not in st.session_state or st.session_state.last_page != current_page:
         st.session_state.clear()  # 기존 상태 초기화

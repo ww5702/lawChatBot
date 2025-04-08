@@ -4,7 +4,6 @@ from src.data.legal_categories import categories
 from src.components.ai_report_setup import initialize_session_state, setup_page_state
 from src.components.ai_report_lawyer_list import show_lawyer_list_page, set_page_to_lawyer_list
 from src.components.ai_report_chat import display_chat_history, handle_user_input
-from src.components.ai_report_handlers import handle_answering_questions_step, handle_extra_information_step, handle_completed_step
 from src.components.ai_report_sidebar import display_sidebar_status
 from src.components.questionnaire import show_category_selection, show_question
 from css_report import load_css
@@ -43,7 +42,7 @@ def main():
         if not st.session_state.category_selected:
             show_category_selection()
         else:
-            show_question(categories)
+            show_question()
     else:
         # 사용자 입력 처리
         if prompt := st.chat_input("질문을 입력하세요..."):
@@ -54,8 +53,9 @@ def main():
     
     # 보고서가 생성된 후에는 변호사 매칭 버튼 표시
     if st.session_state.current_step == "completed" and st.session_state.final_report:
+        # 버튼을 더 눈에 띄게 만들고 직접 페이지를 변경하는 함수 호출
         if st.button("👩‍⚖️ 변호사 매칭하기", key="start_matching_main", use_container_width=True, type="primary"):
             set_page_to_lawyer_list()
 
 if __name__ == "__main__":
-    main() 
+    main()

@@ -4,8 +4,8 @@ from src.components.lawyer_card import display_lawyer_card, display_selected_law
 
 def set_page_to_lawyer_list():
     """변호사 목록 페이지로 이동합니다."""
-    st.session_state.page = "lawyer_list"
-    st.rerun()
+    st.session_state.page = "lawyer_list"  # 명시적으로 페이지 상태를 변경
+    st.rerun()   # 즉시 rerun 실행
 
 def show_lawyer_list_page():
     """변호사 목록 페이지를 표시합니다."""
