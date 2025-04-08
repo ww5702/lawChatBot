@@ -1,4 +1,4 @@
-def generate_legal_specification(user_answers, current_category):
+def generate_legal_specification(user_answers, category):
     """
     사용자 응답을 바탕으로 법률 명세서를 생성합니다.
     
@@ -9,7 +9,7 @@ def generate_legal_specification(user_answers, current_category):
     Returns:
         str: 생성된 법률 명세서
     """
-    specification = f"법률 카테고리: {current_category}\n\n"
+    specification = f"법률 카테고리: {category}\n\n"
     
     for question, answers in user_answers.items():
         if isinstance(answers, list):
@@ -19,7 +19,7 @@ def generate_legal_specification(user_answers, current_category):
     
     return specification
 
-def get_progress_value(current_step, current_category, current_question, categories):
+def get_progress_value(current_step, category_selected, questionnaire_completed, current_category,current_question, categories):
     """
     현재 진행 상태의 진행률을 계산합니다.
     
@@ -35,8 +35,10 @@ def get_progress_value(current_step, current_category, current_question, categor
     from src.data.ai_report_data import PROGRESS_VALUES
     
     # 현재 상태를 평가하기 위한 현재 단계 결정
-    if current_step == "initial" and current_category:
+    if current_step == "initial" and category_selected:
         current_status = "category_selection"
+    elif current_step == "initial" and questionnaire_completed:
+        current_status = "questionnaire"
     else:
         current_status = current_step
     
