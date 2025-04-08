@@ -24,6 +24,8 @@ def main():
 
     # CSS 로드
     load_css()
+
+    print("testing")
     
     # 페이지 라우팅 - 먼저 페이지 상태 확인
     if st.session_state.page == "lawyer_list":
