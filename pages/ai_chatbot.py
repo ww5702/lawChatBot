@@ -18,9 +18,9 @@ from config import initialize_environment
 ################ 1. openai-api key #################
 
 # OpenAI 클라이언트 연결
-# openai_api_key, tavily_api_key = initialize_environment()
-openai_api_key = st.secrets["OPENAI_API_KEY"]
-tavily_api_key = st.secrets["TAVILY_API_KEY"]
+openai_api_key, tavily_api_key = initialize_environment()
+# openai_api_key = st.secrets["OPENAI_API_KEY"]
+# tavily_api_key = st.secrets["TAVILY_API_KEY"]
 
 
 # client = OpenAI(api_key=openai_api_key)
