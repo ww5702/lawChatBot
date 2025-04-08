@@ -25,7 +25,8 @@ def main():
     # CSS 로드
     load_css()
 
-    print("testing")
+    print("testing", flush=True)
+    st.write("화면에는 이게 보이고, 로그에는 print()가 찍힙니다.")
     
     # 페이지 라우팅 - 먼저 페이지 상태 확인
     if st.session_state.page == "lawyer_list":
