@@ -1,13 +1,12 @@
-import os
-from dotenv import load_dotenv
+# key 값
+from config import initialize_environment
+openai_api_key, tavily_api_key = initialize_environment()
 
-# 환경변수 로드
-load_dotenv()
-
-# API 설정
-API_KEY = os.environ.get('OPENAI_KEY')
+# 초기 메시지
+INITIAL_MESSAGE = "법률 사건의 정확한 이해를 돕기 위해 상담을 진행합니다."
 
 # 모델 설정
+OPENAI_API_KEY=openai_api_key
 MODEL = "gpt-4o-mini"
 TEMPERATURE = 0.2
 
@@ -15,12 +14,9 @@ TEMPERATURE = 0.2
 PAGE_CONFIG = {
     "page_title": "AI 법률 자문 보고서 생성",
     "page_icon": "📝",
-    "layout": "centered",
+    "layout": "centered",  # "wide"에서 "centered"로 변경
     "initial_sidebar_state": "expanded"
 }
-
-# 초기 메시지
-INITIAL_MESSAGE = "법률 사건의 정확한 이해를 돕기 위해 상담을 진행합니다."
 
 # 법률 카테고리 옵션
 CATEGORIES_OPTIONS = [
@@ -30,7 +26,7 @@ CATEGORIES_OPTIONS = [
     {"name": "이혼", "col": 1}
 ]
 
-# 진행 단계 설정
+# 단계 정의
 STEPS = [
     {"key": "category_selection", "name": "법률 카테고리 선택"},
     {"key": "questionnaire", "name": "사건 명세서 작성"},
