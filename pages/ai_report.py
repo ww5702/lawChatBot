@@ -24,8 +24,6 @@ def main():
 
     # CSS 로드
     load_css()
-
-    print("testing1", flush=True)
     
     # 페이지 라우팅 - 먼저 페이지 상태 확인
     if st.session_state.page == "lawyer_list":
@@ -38,8 +36,6 @@ def main():
     
     # 메시지 히스토리 표시
     display_chat_history()
-
-    print("testing2", flush=True)
     
     # 현재 단계에 따른 인터페이스 표시
     if st.session_state.show_questions:
@@ -51,8 +47,6 @@ def main():
         # 사용자 입력 처리
         if prompt := st.chat_input("질문을 입력하세요..."):
             handle_user_input(prompt)
-
-    print("testing3", flush=True)
     
     # 사이드바에 현재 상태 표시
     display_sidebar_status(categories)
@@ -62,7 +56,6 @@ def main():
         # 버튼을 더 눈에 띄게 만들고 직접 페이지를 변경하는 함수 호출
         if st.button("👩‍⚖️ 변호사 매칭하기", key="start_matching_main", use_container_width=True, type="primary"):
             set_page_to_lawyer_list()
-    print("testing4", flush=True)
-
+            
 if __name__ == "__main__":
     main()
