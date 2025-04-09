@@ -31,7 +31,7 @@ def improve_questions(llm, questions_text):
     ])
     
     question_rewriter = re_write_prompt | llm | StrOutputParser()
-    return question_rewriter.invoke({"questions": questions_text})
+    return question_rewriter.invoke({"question": questions_text})
 
 def generate_legal_report(llm, legal_specification, additional_responses, extra_information):
     """법률 보고서를 생성합니다."""
