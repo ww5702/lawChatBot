@@ -6,7 +6,8 @@ from src.components.ai_report_lawyer_list import show_lawyer_list_page, set_page
 from src.components.ai_report_chat import display_chat_history, handle_user_input
 from src.components.ai_report_sidebar import display_sidebar_status
 from src.components.questionnaire import show_category_selection, show_question
-from css_report import load_css
+from src.utils.main_css_loader import load_css
+import os
 
 # 페이지 설정
 st.set_page_config(**PAGE_CONFIG)
@@ -23,7 +24,8 @@ def main():
     initialize_session_state()
 
     # CSS 로드
-    load_css()
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    load_css(base_dir, "ai_report.css")
     
     # 페이지 라우팅 - 먼저 페이지 상태 확인
     if st.session_state.page == "lawyer_list":
