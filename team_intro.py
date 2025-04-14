@@ -149,7 +149,7 @@ def show_team_page():
             "feature": "코드 실행 횟수 194번은 기본",
             "mbti": "ESFJ",
             "role": "<br>⭐️ 프로젝트 리더<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 기능 및 CSS 통합 관리 <br>• Streamlit 배포 관리",
-            "image": "images/ung.png"
+            "image": "assets/images/ung.png"
         },
         {
             "name": "김다은",
@@ -158,7 +158,7 @@ def show_team_page():
             "feature": "허풍이 심함",
             "mbti": "ENFJ",
             "role": "<br>• 방명록 기능 구현 및 DB 구축<br>• 서비스 소개 페이지 구현<br>• 팀 소개 페이지 구현<br><br>",
-            "image": "images/da.png"
+            "image": "assets/images/da.png"
         },
         {
             "name": "진실",
@@ -167,7 +167,7 @@ def show_team_page():
             "feature": "트러블 슈팅? 까짓 거",
             "mbti": "ISFP",
             "role": "<br>• 실시간 AI 법률 상담 챗봇 기능 구현<br>• 방명록 기능 보완<br>• 팀 소개 페이지 구현<br><br>",
-            "image": "images/jin.png"
+            "image": "assets/images/jin.png"
         },
         {
             "name": "손지영",
@@ -176,7 +176,7 @@ def show_team_page():
             "feature": "출근, 퇴근, 이젠 하다하다 연애까지 통제",
             "mbti": "ENTJ",
             "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• 메인 페이지 CSS 디자인 및 기능 구현",
-            "image": "images/ji.png"
+            "image": "assets/images/ji.png"
         },
         {
             "name": "김민주",
@@ -185,7 +185,7 @@ def show_team_page():
             "feature": "없어서는 안 될 6조의 숨은 조력자",
             "mbti": "ENFP",
             "role": "<br>• AI 법률 자문 보고서 생성 및 챗봇 구현<br>• 변호사 매칭 페이지 구현<br>• GitHub 교육 및 관리",
-            "image": "images/min.png"
+            "image": "assets/images/min.png"
         },
         {
             "name": "이효정",
@@ -194,7 +194,7 @@ def show_team_page():
             "feature": "조용한 제2의 코드 학대범",
             "mbti": "INTJ",
             "role": "<br>• 방명록 기능 구현<br>• 시스템 DB 구축 및 관리<br>• 서비스 통계 시스템 구현",
-            "image": "images/hyo.png"
+            "image": "assets/images/hyo.png"
         },
     ]
     # 팀원 카드 생성 - Streamlit 방식으로 수정

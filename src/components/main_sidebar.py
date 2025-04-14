@@ -2,7 +2,7 @@ import streamlit as st
 
 def render_sidebar():
     with st.sidebar:
-        st.image("images/저울.webp", width=100)
+        st.image("assets/images/저울.webp", width=100)
         st.title("AI 법률 서비스 사고닷")
         st.markdown('<p>AI와 법률 전문가가 함께하는 스마트 법률 서비스.<br>승리를 만드는 길, 사고닷과 함께 준비하세요.</p>', unsafe_allow_html=True)
         
