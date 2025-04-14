@@ -8,7 +8,7 @@ def get_lawyers():
             "personality": "ENTJ<br>의뢰인에게도<br>화낼 수 있음 주의",  # 추가
             "personality2": "ENTJ (의뢰인에게도 화낼 수 있음 주의)",  # 추가
             "description": '• 대원한국어고등학교 졸업 (2005)<br>  • 한국대학교 물리학과 학사 (2010)<br>  • 한국대학교 법학전문대학교 법학전문 석사 (2013)<br>  • 김앤손 법률 사무소 (2008 ~ 2015)<br>  • 사고닷 법률 사무소 (2015 ~ 현재)',
-            "image_url" : "images/손지영.png"
+            "image_url" : "assets/images/손지영.png"
         },
         {
             "id": 2,
@@ -17,7 +17,7 @@ def get_lawyers():
             "personality": "INFJ<br>근데 사실 T임<br><br>",  # 추가
             "personality2" : "INFJ (근데 사실 T임)", 
             "description": '• 한국대학교 법학전문대학학원 (법학스칼라전문박사, 박사 졸업, 2018)<br>  • 너뭐대학교 (한국사, 문학과, 수석 졸업, 2015)<br>  • 사고닷 법률 사무소 (2016 - 현재)',
-            "image_url" : "images/이재웅.png"
+            "image_url" : "assets/images/이재웅.png"
         },
         {
             "id": 3,
@@ -26,7 +26,7 @@ def get_lawyers():
             "personality": "ESTJ<br>인성은 글쎄?<br>근데 이기면 되잖아",
             "personality2" : "ESTJ (인성은 글쎄? 근데 이기면 되잖아)",
             "description": '• 내 머리는 너무나 나빠서 너 하나밖에 난 모른대학교 (법학스칼라전문박사, 박사 졸업, 2016)<br>  • 하버드 법학대학원 (법학 박사, 2005)<br>  • 국제 법률 자문관 (2015 - 2025)<br>  • 사고닷 법률 사무소 변호사 (2016 - 현재)<br>  • SKALA 명예 변호사로 활동 (2018 - 현재)',
-            "image_url" : "images/김다은.png"
+            "image_url" : "assets/images/김다은.png"
         },
 
         {
@@ -36,7 +36,7 @@ def get_lawyers():
             "personality": "ISFP<br>공감 잘함<br>의뢰인과 울음 대결 가능",  # 추가
             "personality2" : "ISFP (공감 잘함. 의뢰인과 울음 대결 가능)", 
             "description": '• 제9회 변호사시험 합격 (2020)<br>  • 한국대학교 법학전문대학원 (법학스칼라전문석사, 수석졸업, 2020)<br>  • 두번 다시 사랑모대학교 (문학사, 서양사학, 수석졸업, 2017)<br>  • 사고닷 법률사무소 (2020-현재)',
-            "image_url" : "images/진실.png"
+            "image_url" : "assets/images/진실.png"
         },
         {
             "id": 5,
@@ -45,7 +45,7 @@ def get_lawyers():
             "personality": "ENFP<br>긍정적 사고 전문<br><br>",  # 추가
             "personality2" : "ENFP (긍정적 사고 전문)", 
             "description": '• 제 7회 변호사시험 합격 (2007)<br>  • 비빔대학교 법학전문대학원 (법학전문석사, 수석 졸업, 2007)<br>  • 비빔대학교 (법학/문학, 무사 졸업, 2005)<br>  • 사고닷 법률사무소 (2020 - 현재)',
-            "image_url" : "images/김민주.png"
+            "image_url" : "assets/images/김민주.png"
         },
         {
             "id": 6,
@@ -54,6 +54,6 @@ def get_lawyers():
             "personality": "INTJ<br>노동자에게만 F<br><br>",  # 추
             "personality2" : "INTJ (노동자에게만 F)", 
             "description": '• 한국대학교(법학, 2020)<br>  • 한국대학교 법학전문대학원(법학전문석사, 2023)<br>  • 한국노동교육원 법률 자문(2023 - 현재)<br>  • 사고닷 법률 사무소(2024 - 현재)', 
-            "image_url" : "images/이효정.png"
+            "image_url" : "assets/images/이효정.png"
         }
     ]
