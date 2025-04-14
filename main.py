@@ -11,7 +11,7 @@ from databases import baseSource
 
 
 import sys
-st.write(f"현재 Python 버전: {sys.version}")
+print("📌 Python 버전:", sys.version)
 
 
 # 페이지 설정
