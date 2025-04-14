@@ -10,10 +10,6 @@ from src.routing.main_page_router import handle_redirects, update_current_page
 from databases import baseSource
 
 
-import sys
-print("📌 Python 버전:", sys.version)
-
-
 # 페이지 설정
 st.set_page_config(
     page_title="AI 법률 서비스 사고닷",
