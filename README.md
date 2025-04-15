@@ -21,13 +21,6 @@
     - LLM(대규모 언어 모델)을 활용한 **지능형 서비스 구현**
     - API 서버와 Streamlit 기반 프론트엔드 간의 연동
     - 데이터베이스를 활용한 **방명록 기능 구현**
-
-<br/>
-
-## System Architecture
-<img src="https://github.com/happy6team/lawChatBot/blob/main/assets/images/SystemArchitecture.png">
-
-
 <br/>
 
 ## 팀원 구성
@@ -41,6 +34,13 @@
 
 </div>
 
+<br/>
+
+## System Architecture
+<img src="https://github.com/happy6team/lawChatBot/blob/main/assets/images/SystemArchitecture.png">
+
+
+<br/>
 
 
 
