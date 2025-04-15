@@ -35,7 +35,7 @@
 
 | **김다은** | **김민주** | **손지영** | **이재웅** | **이효정** | **진실** |
 | :--------: | :--------: | :--------: | :--------: | :--------: | :------: |
-| <img src="https://avatars.githubusercontent.com/u/98153670?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/74577811?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/122194456?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/60501045?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/79013520?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/97718539?v=4" width="150" height="150"> |
+| <img src="https://avatars.githubusercontent.com/u/98153670?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/74577811?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/122194456?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/60501045?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/79013520?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/97718539?v=4" width="100" height="100"> |
 | [@ilikewhale](https://github.com/ilikewhale) | [@alswnsp411](https://github.com/alswnsp411) | [@zi0-hand](https://github.com/zi0-hand) | [@ww5702](https://github.com/ww5702) | [@world-dv](https://github.com/world-dv) | [@zinsile](https://github.com/zinsile) |
 | 방명록 | AI 법률 보고서 | AI 법률 보고서 | 실시간 AI 법률 상담 | 방명록 | 실시간 AI 법률 상담 |
 
@@ -76,13 +76,13 @@
 
 
 <p align="center">
-  <img src="assets/demo/main.gif" width="600"/>
+  <img src="assets/demo/main.gif" width="70%"/>
 </p>
 
 
 ### 실시간 AI 법률 상담
 <p align="center">
-  <img src="assets/demo/ai_chatbot.gif" width="600"/>
+  <img src="assets/demo/ai_chatbot.gif" width="70%"/>
 </p>
 
 
@@ -94,7 +94,7 @@
 
 ### AI 법률 보고서 + 변호사 매칭 
 <p align="center">
-  <img src="assets/demo/ai_report.gif" width="600"/>
+  <img src="assets/demo/ai_report.gif" width="70%"/>
 </p>
 
 - **사건 정보 수집**: 사용자가 선택한 법률 카테고리에 따라 단계별 질문을 제공하고, 사건 정보를 구체화합니다.
@@ -106,9 +106,15 @@
 
 ### 방명록
 <p align="center">
-  <img src="assets/demo/guestbook1.gif" width="45%" style="margin-right:10px;"/>
-  <img src="assets/demo/guestbook2.gif" width="45%"/>
+  <img src="assets/demo/guestbook1.gif" width="70%"/>
 </p>
+
+<p align="center">
+  <img src="assets/demo/guestbook2.gif" width="70%"/>
+</p>
+
+  
+
 
 - **방명록 작성**: 사용자가 자유롭게 메시지를 남길 수 있는 방명록 작성 기능을 제공합니다.
 - **방명록 좋아요**: 사용자가 게시된 방명록 글에 ‘좋아요’를 눌러 공감과 응원의 뜻을 표현할 수 있습니다.
