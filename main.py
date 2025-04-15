@@ -9,8 +9,6 @@ from src.components.main_home_page import render_home_page
 from src.routing.main_page_router import handle_redirects, update_current_page
 from databases import baseSource
 
-print("testing code")
-
 # 페이지 설정
 st.set_page_config(
     page_title="AI 법률 서비스 사고닷",
