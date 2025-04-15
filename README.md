@@ -79,6 +79,10 @@
   <img src="assets/demo/main.gif" width="70%"/>
 </p>
 
+<p align="center">
+  <img src="assets/images/darkmode.png" width="70%"/>
+</p>
+
 
 ### 실시간 AI 법률 상담
 <p align="center">
