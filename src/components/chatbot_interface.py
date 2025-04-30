@@ -4,7 +4,7 @@ import streamlit as st
 from openai import OpenAI
 
 from .chatbot_setup import load_prompt
-from agent import Agent
+from models.agent import Agent
 
 # key 값
 from config import initialize_environment
