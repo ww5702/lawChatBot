@@ -1,0 +1,18 @@
+/* 다크 모드 감지 및 스타일 적용 */
+[data-testid="stAppViewContainer"] [data-testid="stHeader"] {
+    background-color: #0E1117;
+}
+
+@media (prefers-color-scheme: dark) {
+    .member-details {
+        background-color: #333333;
+        color: white;
+    }
+}
+
+/* 다크 모드 추가 감지 방법 */
+[data-testid="stAppViewContainer"][style*="background-color: rgb(14, 17, 23)"] .member-details,
+.dark-theme .member-details {
+    background-color: #333333;
+    color: white;
+}
