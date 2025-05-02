@@ -156,9 +156,8 @@
 ### Installation
 
 ```
-npm install streamlit
-npm install sqlite3
-npm install
+pip install streamlit
+pip install sqlite3
 ```
 
 ### Run
