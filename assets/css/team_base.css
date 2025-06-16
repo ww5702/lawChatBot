@@ -1,0 +1,98 @@
+.main {
+    background-color: #F5F7FA;
+}
+
+.title-container {
+    background-color: #3D6AFF;
+    padding: 2rem;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.team-intro {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.member-card {
+    background-color: black;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+}
+
+.member-image {
+    width: 350px;
+    height: 350px;
+    background-color: #B8D0FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.member-info {
+    padding: 1.5rem;
+}
+
+.member-name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #3D6AFF;
+}
+
+.member-nickname {
+    font-size: 1rem;
+    color: #3D6AFF;
+    background-color: #EEF2FF;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.member-details {
+    background-color: #F8F9FB;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.member-links a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #3D6AFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
